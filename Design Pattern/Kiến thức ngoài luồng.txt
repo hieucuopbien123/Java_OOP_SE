@@ -1,0 +1,12 @@
+-> DesignPattern trong java:
+Design Pattern trong Java là những kiểu thiết kế tối ưu khi triển khai ứng dụng phầm mềm. Design pattern là giải pháp cho các vấn đề thường xảy ra, nó kp đoạn code đã hoàn thành mà là 1 khuôn mẫu giúp giải quyết vấn đề tái sử dụng code trong lập trình.
+VD: Khi ta muốn tạo 1 instance global cho 1 class để dùng, đương nhiên là ta sẽ nghĩ đến vc tạo 1 class với 1 static instance. Nhưng thực tế có rất nhiều cách tạo global instance của class và ta tự hỏi cách nào là tốt nhất, liệu tạo 1 static instance bth như ta đã biết đã thực sự tối ưu cho vc thiết kế system chưa, ta phải code như thế nào sẽ tốt cho vc mở rộng trong tương lai. Để trả lời câu hỏi đó, người ta dùng design pattern. Các dev nhiều năm làm vc, họ gặp các vấn đề như này rất nhiều, đặc biệt là hướng đối tượng. Do đó khi họ giải quyết và đặt ra nhiều cách giải quyết khác nhau, mỗi cái có điểm ưu và nhược riêng, họ tổng hợp lại thành 1 pattern. Ở VD của ta có thể dùng singleton pattern để giải quyết. Mỗi pattern có nhiều nhánh nhỏ, nhiều cách giải quyết và ta cần tìm ra cách giải quyết phù hợp bằng ngôn ngữ đang dùng tùy theo vấn đề gặp phải là gì
+Có những vấn đề rất nhỏ nhưng để tính toán tối ưu mọi TH đến mức độ tốt nhất thì vấn đề trở nên rất khó, design pattern sẽ cho ta hướng đi đúng nhất. Tuy nhiên phải vận dụng linh hoạt và hiểu rõ từng cách implement có lợi gì chứ k được áp dụng mọi tính năng mà chả cần thiết
+
+Mỗi pattern trong design pattern cần phải hiểu nó giải quyết vấn đề gì và ưu nhược điểm là gì, có phù hợp với ngôn ngữ hiện tại hay k.
+
+Marker Interface pattern là 1 design pattern của khoa học máy tính dùng để cung cấp thông tin object khi run-time. Trong java thì Marker interface được thể hiện qua vc dùng 1 interface trống k có phương thức nào. Trong java có 1 vd là interface Serializable vì cái interface này k có bất kỳ method nào. Khi 1 object implements Serializable thì JVM sẽ hiểu object này có thể chuyển thành byte để chuyển vào đâu đó như ghi ra file or gửi lên server và 1 chương trình khác sẽ chuyển lại từ byte ra chính object mà ta đã gửi => Yếu điểm của Maker Interface là 1 class dùng Marker Interface sẽ phải implements 1 interface và k có cách nào hủy được điều đó
+
+
+
+

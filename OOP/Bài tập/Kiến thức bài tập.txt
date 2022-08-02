@@ -1,0 +1,91 @@
+Ex2: 1 số điểm thú vị
+- Đề bài chí ít là trong usecase này nó kbh khai báo quân k có đạn mà chỉ dùng Hop, Sword, Spear nên có thể cho loại quân đó là abstract. Tất cả mọi class mà k định dùng tạo instance trong thực tế thì để là abstract class
+- Ta sẵn sàng tạo ra hàng loạt các abstract class và interface để gom chung các type class vào với nhau, nhờ v biểu đồ class diagram nhìn vào là biết quan hệ như nào. VD: Hop, Sword và Spear cùng kế thừa từ abstract class NonMunition. Sword và Spear cùng có trong Flank nhưng đề bài bảo dùng 1 mảng all thì k thể có 2 type nên ta phải tự gom nó lại thành 1 class, nhưng 2 class đó k thể kế thừa abstract class TroopInFlank được nữa vì java k có đa kế thừa nên ta phải cho TroopInFlank là interface. Nên nhớ interface cũng là 1 kiểu datatype đại diện cho các class implements nó được và ta hoàn toàn dùng instanceof để check được
+NonMunition là class còn TroopInFlank là interface rất hợp lý vì quan hệ là chuẩn và TroopInFlank chứa những hàm mà chỉ thao tác với Flank sẽ chuẩn hơn. Nếu cần dùng đến gì có thể cast được.
+- Nhớ phải đảm bảo đầy đủ về quan hệ về số lượng. Chú ý nếu 1 biến k đổi reference thì nên để composition, ngược lại thì aggregation. Nếu biến đó tồn tại dạng list thì thường dùng composition vì ta chỉ thường thêm bớt vào list đó thôi chứ đổi hẳn reference list đó sang 1 list khác rất ít xảy ra. 
+
+Ý c) là 1 cái bẫy rất lớn, ngay từ đề bài nó đã k nói rõ mà chỉ nói là sắp xếp các phần tử từ mảng group vào 2 cái vector nhưng thực tế nó rearrange lại cái array all tất cả tức trước đó nếu mảng có phần tử Sword và Spear rồi thì ta cũng phải sắp xếp hết. Đề bài nói cố né tránh vc này làm ta k nhìn ra ngay được:
+Cơ chế: lấy hết troop còn lại và troop cần sắp vào 2 mảng rồi xếp dần dần thôi. Ta chia khoảng mảng có bao nhiêu phần tử thì mảng 2 xếp vào slot thứ bnh: 0 là 0, 1-20 là 1, 21-hết là 2 
+public void arrange(TroopInFlank[] group){
+    Vector<Sword> sw = new Vector<Sword>();
+    Vector<Spear> sp = new Vector<Spear>();
+    int indexSW = 0;
+    int indexSP = 0;
+    for(int i = 0; i < group.size(); i++){
+        if(group[i] instanceof Sword){
+            sw[indexSW++] = group[i];
+        }else
+            sp[indexSP++] = group[i];
+    }
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 20; j++){
+            if(all[j][i] instanceof Sword) sw[indexSW++] = all[j][i];
+            if(all[j][i] instanceof Spear) sp[indexSP++] = all[j][i];
+        }
+    }
+    for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 20; j++){
+            if(indexSW == 0) break;
+            all[j][i] = sw[--indexSW];
+        }
+	if(indexSW == 0) break;
+    }
+    int position = 0;
+    if(sw.size() == 0)
+	position = 0;
+    else
+        position = sw.size()/20 + 1;
+    for(int i = position; i < 3; i++){
+        for(int j = 0; j < 20; j++){
+            if(indexSP == 0) break;
+            all[j][i] = sp[--indexSP];
+        }
+    }
+}
+=> Chỗ kia mảng bth làm gì có hàm size() nên có thể dùng foreach
+
+- Với các bài ở trên trường ta vẽ đơn giản cái gì k rõ thì association ra, biến cứ để default và viết default package vì k qtr phần đó.
+Câu sau đáp án k ảnh hưởng câu trước
+Nhớ viết extends khi viết class => Trap nặng
+Nhớ có tham số truyền vào hàm => Trap nhẹ
+
+
+Những vấn đề của bài 1
+Bài 1: 
+bảo xây dựng 2 phương thức khởi tạo cho lớp NotNhac nhưng chả nói rõ 2 phương thức khác nhau cái gì
+Đề bài k nói rõ về lớp abstract KyHieu nên là 1 class riêng hay k nhưng ta cứ tự xây
+Ta tự bịa lớp ký hiệu thì print trong nó phải đặt là abstract và 2 class kia phải implements hàm đó
+Thực chất các câu sau có ảnh hưởng các câu trước khi về sau nó mới nói quan hệ là private hay k hay vẽ các hàm gì
+Khi làm bài ta cứ để là mặc định, nhưng nếu cần private thì sửa lại thành private. Nên để private tránh sai. Đề bài k nói tức điều đó k qtr
+Class KhuongNhac k hề có hàm gán giá trị cho các biến, thực chất phải gán đầy đủ cho nó chứ đề bài k nói về vc viết hàm khởi tạo nên chưa cần
+Chú ý vẽ class diagram toàn quên visibility cho hàm và abstract quên k gạch chân hàm => Trap nặng
+Khi các biến dạng list, ta nên khởi tạo nó ngay lập tức để viết được trong hàm khác luôn
+
+Điều đặc biệt là ONhip có 1 list KyHieu thì nó k truy xuất được vào caoDo của NotNhac trực tiếp mà phải cast sang nếu cần dùng thì cũng bất tiện. Nhưng nếu để nó chứa 2 list thì k làm rõ được quan hệ 1..16 => nếu k có quan hệ này thì ở bài này làm TH 2 list khá ok vì đề bài k nói rõ cần type biến list như nào hay có mấy list.
+
+
+Phân tích:
+class P{
+    static void printS1()
+    { System.out.print("P.PrintS1"); }
+    void printS2()
+    { System.out.print("P.PrintS2"); }
+    void printS1S2()
+    { printS1(); printS2(); }
+}
+class Q extends P{
+    static void printS1()
+    { System.out.println("Q.PrintS1"); }
+    void printS2()
+    { System.out.print("Q.PrintS2"); }
+    public static void main(String[] args){ 
+        Q q = new Q();
+        q.printS1();
+        P p = (P)q;
+        p.printS1();
+        q.printS1S2();
+    }
+}
+=> Chú ý đa hình k được với hàm static vì static gắn chặt với global class mà k gắn với instance cụ thể nào. Ở đây ta được quyền khai báo hàm static cùng signature ở subclass nhưng kp là override. Quy tắc là hàm static nào được gọi tùy thuộc vào class instance ta dùng. 
+Ở đây sẽ in ra: Q.PrintS1 -> P.PrintS1 -> P.PrintS1Q.PrintS2 => vì nó tùy vào instance khi ta gọi từ q sẽ in ra Q.PrintS1, gọi từ p sẽ in ra P.PrintS1 -> khi gọi với printS1S2 thì hàm này nằm trong class P nên gọi hàm static của class P là đúng r nên là P.PrintS1 xong đúng tính chất của đa hình ưu tiên gọi của con hơn cha nên sẽ ra tiếp Q.PrintS2
+

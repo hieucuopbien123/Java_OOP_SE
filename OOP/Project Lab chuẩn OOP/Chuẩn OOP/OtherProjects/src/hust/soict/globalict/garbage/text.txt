@@ -1,0 +1,276 @@
+Object-Oriented Language and Theory
+Lecturer: NGUYEN Thi Thu Trang, trangntt@soict.hust.edu.vn
+Teaching Assistant: DO Minh Hieu, hieudominh@hotmail.com
+Lab 05: Memory Management and Class Organization
+* Objectives:
+In this lab, you will practice with: 
+• Creating packages to manage classes in Eclipse
+• Using some common packages/classes of Java API, e.g. Wrapper classes, Math, System
+• Practicing memory management with String and StringBuffer and other cases
+You need to use the project that you did with the previous labs including both AimsProject and other 
+projects.
+1. Import/export a project
+- Open Eclipse
+- You can import/export a project from/to an archive file. For example, if you want to 
+import from a zip file, you can follow the following steps:
++ Open File -> Import. 
++ Type zip to find Archive File if you have exported as a zip file before. You may choose 
+Existing Projects into Workspace if you want to open an existing project in your computer.
+Ignore this step if the AimsProject is already opened in the workspace.
+- Click Next and Browse to a zip file or a project to open
+2
+2. Re-organize your projects
+- Rename project, use packages and re-organize all hands-on labs and exercises from the 
+Lab01 up to now. 
++ For renaming or moving an item (i.e. a project, a class, a variable…), right click to the 
+item, choose Refactor -> Rename/Move and follow the steps.
+Figure 1-Refactoring
++ For creating a package, right click to the project (or go to menu File) and choose New -> 
+Package. Type the full path of package including parent packages, separated by a dot.
+- Your structure of your labs should be at least as below. You can create sub-packages 
+for more efficently organizing your classes in both projects and all listing packages. All 
+hands-on labs and excercises of lab01 and lab02 should be put in the corresponding 
+package in the OtherProjects project.
+For Global ICT
++ AimsProject
+hust.soict.globalict.aims.disc.DigitalVideoDisc
+hust.soict.globalict.aims.order.Order
+hust.soict.globalict.aims.Aims
+hust.soict.globalict.aims.utils.DateUtils
+hust.soict.globalict.aims.utils.MyDate
+hust.soict.globalict.test.utils.DateTest
+hust.soict.globalict.test.disc.TestPassingParameter
++ OtherProjects
+hust.soict.globalict.lab01
+hust.soict.globalict.lab02
+For HEDSPI
++ AimsProject
+hust.soict.hedspi.aims.disc.DigitalVideoDisc
+hust.soict.hedspi.aims.order.Order
+hust.soict.hedspi.aims.Aims
+hust.soict.hedspi.aims.utils.DateUtils
+hust.soict.hedspi.aims.utils.MyDate
+hust.soict.hedspi.test.utils.DateTest
+hust.soict.hedspi.test.disc.TestPassingParameter
++ OtherProjects
+hust.soict.hedspi.lab01
+hust.soict.hedspi.lab02
+3
+Figure 2-Recommended Structure for Global ICT Figure 3-Recommended Structure for HEDSPI
+3. Search a dvd in AimsProject project:
+- In the DigitalVideoDisc class, write a boolean search(String title) method
+which finds out (case insensitive) if the corresponding disk of the current object contains the 
+title. Remember that if the title has multiple tokens (e.g. “Harry Potter”), the method still 
+returns true if the disc has a title including all the tokens (e.g. both two tokens “Harry” and 
+“Potter”) regardless their order and their distance (so true for all title including a token “Harry” 
+and a token “Potter” in any position in the title)
+- In the Order class, write a method DigitalVideoDisc getALuckyItem() which 
+randomly pick out (remember to use Math.random()) an item for free. Remember to update 
+and test the methods for listing of dvds and total cost of an order (specifying a lucky and free 
+item).
+- Create DiskTest class to test these methods in the package 
+hust.soict.[globalict|hedspi].aims
+4. String, StringBuilder and StringBuffer:
+- In the OtherProjects project, create a new package hust.soict.globalict.garbage
+for ICT or hust.soict.hedspi.garbage for HEDSPI. We work with this package in this exercise.
+- Create a new class ConcatenationInLoops to test the processing time to construct 
+String using + operator, StringBuffer and StringBuilder. The following piece of 
+code is a suggestion:
+4
+More information on String concatenation, please refer https://redfin.engineering/java-stringconcatenation-which-way-is-best-8f590a7d22a8.
+- Create a new class GarbageCreator. Create “garbage” as much as possible and observe 
+when you run a program (it should let the program stop working when too much “garbage”). 
+Write another class NoGarbage to solve the problem.
+Some suggestions:
+- Read a text/binary file to a String without using StringBuffer to concatenate String (only 
+use + operator). Observe and capture your screen when you choose a very long file
+- Improve the code using StringBuffer
+5. Assignment Submission
+ You must put all your work, written by yourself, to a directory Lab05, and push it to your 
+master branch of the valid repository before the deadline announced in the class. 
+ Each student is expected to turn in his or her own work and not give or receive unpermitted aid. 
+Otherwise, we would apply extreme methods for measurement to prevent cheating
+Object-Oriented Language and Theory
+Lecturer: NGUYEN Thi Thu Trang, trangntt@soict.hust.edu.vn
+Teaching Assistant: DO Minh Hieu, hieudominh@hotmail.com
+Lab 05: Memory Management and Class Organization
+* Objectives:
+In this lab, you will practice with: 
+• Creating packages to manage classes in Eclipse
+• Using some common packages/classes of Java API, e.g. Wrapper classes, Math, System
+• Practicing memory management with String and StringBuffer and other cases
+You need to use the project that you did with the previous labs including both AimsProject and other 
+projects.
+1. Import/export a project
+- Open Eclipse
+- You can import/export a project from/to an archive file. For example, if you want to 
+import from a zip file, you can follow the following steps:
++ Open File -> Import. 
++ Type zip to find Archive File if you have exported as a zip file before. You may choose 
+Existing Projects into Workspace if you want to open an existing project in your computer.
+Ignore this step if the AimsProject is already opened in the workspace.
+- Click Next and Browse to a zip file or a project to open
+2
+2. Re-organize your projects
+- Rename project, use packages and re-organize all hands-on labs and exercises from the 
+Lab01 up to now. 
++ For renaming or moving an item (i.e. a project, a class, a variable…), right click to the 
+item, choose Refactor -> Rename/Move and follow the steps.
+Figure 1-Refactoring
++ For creating a package, right click to the project (or go to menu File) and choose New -> 
+Package. Type the full path of package including parent packages, separated by a dot.
+- Your structure of your labs should be at least as below. You can create sub-packages 
+for more efficently organizing your classes in both projects and all listing packages. All 
+hands-on labs and excercises of lab01 and lab02 should be put in the corresponding 
+package in the OtherProjects project.
+For Global ICT
++ AimsProject
+hust.soict.globalict.aims.disc.DigitalVideoDisc
+hust.soict.globalict.aims.order.Order
+hust.soict.globalict.aims.Aims
+hust.soict.globalict.aims.utils.DateUtils
+hust.soict.globalict.aims.utils.MyDate
+hust.soict.globalict.test.utils.DateTest
+hust.soict.globalict.test.disc.TestPassingParameter
++ OtherProjects
+hust.soict.globalict.lab01
+hust.soict.globalict.lab02
+For HEDSPI
++ AimsProject
+hust.soict.hedspi.aims.disc.DigitalVideoDisc
+hust.soict.hedspi.aims.order.Order
+hust.soict.hedspi.aims.Aims
+hust.soict.hedspi.aims.utils.DateUtils
+hust.soict.hedspi.aims.utils.MyDate
+hust.soict.hedspi.test.utils.DateTest
+hust.soict.hedspi.test.disc.TestPassingParameter
++ OtherProjects
+hust.soict.hedspi.lab01
+hust.soict.hedspi.lab02
+3
+Figure 2-Recommended Structure for Global ICT Figure 3-Recommended Structure for HEDSPI
+3. Search a dvd in AimsProject project:
+- In the DigitalVideoDisc class, write a boolean search(String title) method
+which finds out (case insensitive) if the corresponding disk of the current object contains the 
+title. Remember that if the title has multiple tokens (e.g. “Harry Potter”), the method still 
+returns true if the disc has a title including all the tokens (e.g. both two tokens “Harry” and 
+“Potter”) regardless their order and their distance (so true for all title including a token “Harry” 
+and a token “Potter” in any position in the title)
+- In the Order class, write a method DigitalVideoDisc getALuckyItem() which 
+randomly pick out (remember to use Math.random()) an item for free. Remember to update 
+and test the methods for listing of dvds and total cost of an order (specifying a lucky and free 
+item).
+- Create DiskTest class to test these methods in the package 
+hust.soict.[globalict|hedspi].aims
+4. String, StringBuilder and StringBuffer:
+- In the OtherProjects project, create a new package hust.soict.globalict.garbage
+for ICT or hust.soict.hedspi.garbage for HEDSPI. We work with this package in this exercise.
+- Create a new class ConcatenationInLoops to test the processing time to construct 
+String using + operator, StringBuffer and StringBuilder. The following piece of 
+code is a suggestion:
+4
+More information on String concatenation, please refer https://redfin.engineering/java-stringconcatenation-which-way-is-best-8f590a7d22a8.
+- Create a new class GarbageCreator. Create “garbage” as much as possible and observe 
+when you run a program (it should let the program stop working when too much “garbage”). 
+Write another class NoGarbage to solve the problem.
+Some suggestions:
+- Read a text/binary file to a String without using StringBuffer to concatenate String (only 
+use + operator). Observe and capture your screen when you choose a very long file
+- Improve the code using StringBuffer
+5. Assignment Submission
+ You must put all your work, written by yourself, to a directory Lab05, and push it to your 
+master branch of the valid repository before the deadline announced in the class. 
+ Each student is expected to turn in his or her own work and not give or receive unpermitted aid. 
+Otherwise, we would apply extreme methods for measurement to prevent cheating
+Object-Oriented Language and Theory
+Lecturer: NGUYEN Thi Thu Trang, trangntt@soict.hust.edu.vn
+Teaching Assistant: DO Minh Hieu, hieudominh@hotmail.com
+Lab 05: Memory Management and Class Organization
+* Objectives:
+In this lab, you will practice with: 
+• Creating packages to manage classes in Eclipse
+• Using some common packages/classes of Java API, e.g. Wrapper classes, Math, System
+• Practicing memory management with String and StringBuffer and other cases
+You need to use the project that you did with the previous labs including both AimsProject and other 
+projects.
+1. Import/export a project
+- Open Eclipse
+- You can import/export a project from/to an archive file. For example, if you want to 
+import from a zip file, you can follow the following steps:
++ Open File -> Import. 
++ Type zip to find Archive File if you have exported as a zip file before. You may choose 
+Existing Projects into Workspace if you want to open an existing project in your computer.
+Ignore this step if the AimsProject is already opened in the workspace.
+- Click Next and Browse to a zip file or a project to open
+2
+2. Re-organize your projects
+- Rename project, use packages and re-organize all hands-on labs and exercises from the 
+Lab01 up to now. 
++ For renaming or moving an item (i.e. a project, a class, a variable…), right click to the 
+item, choose Refactor -> Rename/Move and follow the steps.
+Figure 1-Refactoring
++ For creating a package, right click to the project (or go to menu File) and choose New -> 
+Package. Type the full path of package including parent packages, separated by a dot.
+- Your structure of your labs should be at least as below. You can create sub-packages 
+for more efficently organizing your classes in both projects and all listing packages. All 
+hands-on labs and excercises of lab01 and lab02 should be put in the corresponding 
+package in the OtherProjects project.
+For Global ICT
++ AimsProject
+hust.soict.globalict.aims.disc.DigitalVideoDisc
+hust.soict.globalict.aims.order.Order
+hust.soict.globalict.aims.Aims
+hust.soict.globalict.aims.utils.DateUtils
+hust.soict.globalict.aims.utils.MyDate
+hust.soict.globalict.test.utils.DateTest
+hust.soict.globalict.test.disc.TestPassingParameter
++ OtherProjects
+hust.soict.globalict.lab01
+hust.soict.globalict.lab02
+For HEDSPI
++ AimsProject
+hust.soict.hedspi.aims.disc.DigitalVideoDisc
+hust.soict.hedspi.aims.order.Order
+hust.soict.hedspi.aims.Aims
+hust.soict.hedspi.aims.utils.DateUtils
+hust.soict.hedspi.aims.utils.MyDate
+hust.soict.hedspi.test.utils.DateTest
+hust.soict.hedspi.test.disc.TestPassingParameter
++ OtherProjects
+hust.soict.hedspi.lab01
+hust.soict.hedspi.lab02
+3
+Figure 2-Recommended Structure for Global ICT Figure 3-Recommended Structure for HEDSPI
+3. Search a dvd in AimsProject project:
+- In the DigitalVideoDisc class, write a boolean search(String title) method
+which finds out (case insensitive) if the corresponding disk of the current object contains the 
+title. Remember that if the title has multiple tokens (e.g. “Harry Potter”), the method still 
+returns true if the disc has a title including all the tokens (e.g. both two tokens “Harry” and 
+“Potter”) regardless their order and their distance (so true for all title including a token “Harry” 
+and a token “Potter” in any position in the title)
+- In the Order class, write a method DigitalVideoDisc getALuckyItem() which 
+randomly pick out (remember to use Math.random()) an item for free. Remember to update 
+and test the methods for listing of dvds and total cost of an order (specifying a lucky and free 
+item).
+- Create DiskTest class to test these methods in the package 
+hust.soict.[globalict|hedspi].aims
+4. String, StringBuilder and StringBuffer:
+- In the OtherProjects project, create a new package hust.soict.globalict.garbage
+for ICT or hust.soict.hedspi.garbage for HEDSPI. We work with this package in this exercise.
+- Create a new class ConcatenationInLoops to test the processing time to construct 
+String using + operator, StringBuffer and StringBuilder. The following piece of 
+code is a suggestion:
+4
+More information on String concatenation, please refer https://redfin.engineering/java-stringconcatenation-which-way-is-best-8f590a7d22a8.
+- Create a new class GarbageCreator. Create “garbage” as much as possible and observe 
+when you run a program (it should let the program stop working when too much “garbage”). 
+Write another class NoGarbage to solve the problem.
+Some suggestions:
+- Read a text/binary file to a String without using StringBuffer to concatenate String (only 
+use + operator). Observe and capture your screen when you choose a very long file
+- Improve the code using StringBuffer
+5. Assignment Submission
+ You must put all your work, written by yourself, to a directory Lab05, and push it to your 
+master branch of the valid repository before the deadline announced in the class. 
+ Each student is expected to turn in his or her own work and not give or receive unpermitted aid. 
+Otherwise, we would apply extreme methods for measurement to prevent cheating

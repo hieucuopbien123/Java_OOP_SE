@@ -1,0 +1,23 @@
+-> Hướng đối tượng: 
+Là 1 lối viết code nên dùng ngôn ngữ nào ta cũng có thể áp dụng hướng đối tượng được. Module thì tái dùng hàm, OOP thì tái dùng class
+VD: ta bóp cò thì đạn sẽ bắn ra từ khẩu súng. Nó theo thứ tự như 1 thủ tục. Nhưng khi hướng đối tượng ta phải tạo ra các đối tượng như viên đạn, khẩu súng, người tác động và cho 3 đối tượng ấy tác động lẫn nhau là người bóp cò, thì súng nổ, đạn văng đi. Góc nhìn nó khác với hướng thủ tục. 
+Ưu điểm là code sẽ dễ đọc hơn, dễ bảo trì. Code gần gũi hơn với các object trong đời sống, more adaptable with changes. 
+Generalization và Aggregation là 2 tính chất chủ yếu giúp tái sử dụng mã nguồn và đó cũng là điểm chung của 2 loại quan hệ.
+
+Class: Khi code ta thao tác với instance của class chứ class chỉ là 1 type biến.
+Object: 1 object là 1 instance của class chỉ 1 thứ cụ thể.
+
+Hầu hết các ngôn ngữ hiện đai bh đều hướng đối tượng.
+Đối tượng thì phải có trạng thái và hành vi. Lớp cũng chỉ là tập hợp các đối tượng có cùng trạng thái và hành vi. 
+Bản chất của OO là các object truyền message cho nhau. Bản chất của Structured-oriented là cấu trúc dữ liệu và thuật toán.
+VD: Để nắm vững OOP ta phải luôn đinh ninh rằng bản thân ta đang k làm 1 thứ, tức ta k hề gọi 1 hàm nào cả mà bản chất là ta đang bảo 1 object khác thực hiện hành động gì bằng cách truyền cho nó 1 message. Các object khác nhau sẽ có hành động xử lý cái message đó khác nhau. Message ở đây là piece of code to exec
+
+
+-> Method(nói trong OOP)/Function call binding là việc nó compare tên hàm và list các biến để tìm ra function definition đúng cần thực hiện. VD gọi foo() và foo(10); thì nó refer đến vùng nhớ đúng loại hàm cần gọi => thao tác đó gọi là function call binding. Nó chia 2 loại:
+1) Static binding là vc binding ngay trong compiling time, tốc độ sẽ nhanh hơn cái trên và lỗi sẽ báo từ compiling time.
+Trong C++ thì function call binding hay method binding nó đều là static function call binding luôn.
+2) Dynamic binding là method gọi vào lúc run-time. Java mặc định dùng dynamic binding.
+
+
+-> Có nhiều mô hình version control như: LOCK - MODIFY - UNLOCK, COPY - MODIFY - MERGE(github),..
+

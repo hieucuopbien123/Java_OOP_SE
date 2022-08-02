@@ -1,0 +1,13 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.root {
+	-fx-background-color: gray;
+}
+#up {
+	-fx-color: blue;
+}
+#desText{ 
+	-fx-font-size: 20;
+	-fx-font-family: "Lucida Console";
+	-fx-text-fill: "red";
+	-fx-alignment: center;
+}

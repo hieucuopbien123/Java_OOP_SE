@@ -1,0 +1,73 @@
+Design pattern:
+
+
+#Singleton Pattern:
+Singleton Pattern đảm bảo 1 lớp chỉ có 1 instance duy nhất, hạn chế việc khởi tạo 1 class. Cung cấp 1 điểm truy cập toàn cục cho lớp. Chính singleton pattern cũng được sử dụng trong các pattern khác như Abstract Factory, Builder,.. hay các lớp java như java.lang.Runtime,..
+Triển khai: dùng private constructor của class để đảm bảo class khác k thể truy cập vào constructor và tạo instance mới; tạo 1 biến private static để đảm bảo duy nhất dùng trong class đó thôi; Để các class khác truy cập vào global instance này thì cần 1 public static method trả về giá trị của instance. Bản thân nó có rất nhiều cách triển khai
+-> Eager initialization
+-> Static block initialization
+-> Lazy initialization
+-> Thread safe initialization
+
+-> Bill pugh singleton:
+Trong code thực tế, static variable được JVM khởi tạo khi: ta tạo 1 instance của class đó hoặc dùng đến static var của class đó. Code static block cũng được chạy static var được tạo. Còn static nested class thì đặc biệt hơn là chỉ khi nào dùng đến thì mới chạy.
+=> Nested static class là class static được định nghĩa trong 1 class khác. Do nó là định nghĩa nên khi gặp sẽ k chạy ngay vì ta đâu có tạo 1 instance hay dùng static của nó đâu nên biến static ở trong static class vẫn k được khai báo ngay
+
+Private class cx cần có constructor vì cx k khởi tạo được instance bên ngoài. Private static class định nghĩa trong phạm vi class thì chỉ dùng được trong phạm vi class đó.
+
+-> Dùng Reflection để hủy singleton pattern
+-> Dùng Singleton với Serialization:
+
+
+
+# Strategy pattern(Encapsulate alg)
+Vấn đề nó giải quyết là khi có 1 tập hợp các thuật toán, mỗi thuật toán là 1 strategy khác nhau và ở các TH khác nhau, client sẽ tự chọn ra strategy để dùng.
+
+Suprise là cái pattern này chính là cách cô làm với dự án OOP Lab Graph. 
+Client có hàng loạt các strategy dependency tạo ra trong hàm, Client truyền nó vào context aggregation và gọi context.doSomething thì strategy sẽ execute. Context có biến interface strategy, các strategy sẽ implements interface đó. Muốn thêm strategy mới thì cứ thêm class miễn implements đúng cái interface kia.
+
+Trong dự án ta dùng k đúng vai trò của context nên bỏ nó đi vẫn được. Context ở đây tên của nó k đúng là context mà phải là 1 object gì đó trong đời sống. VD: Order aggregation đến PayStrategy. Khi đó Context ở đây chính là order, Order nó sẽ làm nhiều vc hơn là chỉ forward đúng 1 hàm của PayStrategy vì nó là 1 object thực tiễn là lưu thông tin và các hàm thao tác với order nên có thể có totalCost, getTotalCost,... Chứ dùng Context với gọi như trong Graph kia là sai.
+
+
+
+# Observer Pattern(Subscriber - Publisher)
+Vấn đề giải quyết: Định nghĩa ra 1 subscription mechanism khi nhiều object có qh với nhau, sự kiện đổi cái này sẽ đổi cả object khác. 
+
+Publisher: subscribers[], subscribe(s: Subscriber), unsubscribe(s: Subscriber), notifySubscribers()
+Subscriber: update(context)
+=> Tạo Subscriber -> gọi subscriber nó vào publisher -> khi có sự kiện thì notifySubscribers bằng cách foreach và s.update(this)
+
+VD:
+Interface Publisher: registerObserver(Ob: Observer), removeObserver(Ob: Observer), notifyObservers()
+Interface Observer: update()
+Các object observer sẽ implements Observer. Các object publisher sẽ implements Publisher và cho chúng tương tác.
+
+
+
+# State pattern:
+Vấn đề giải quyết: Khi cần thay đổi hành vi của object khi state của nó đổi. Nó gần với finite state machine.
+VD: Khi trạng thái đặt hàng thay đổi thì hiển thị nó ra cho người dùng và thay đổi như v, 1 số action sẽ được thực hiện
+
+VD: OpenState, SendState kế thừa abstract class OrderState và thực thi các hàm bên trong. Đây là 2 trạng thái khác nhau của đơn hàng.
+Trong class Order ta có 1 biến OrderState và 1 list các item. Khi gọi hàm sendOut() thì state đổi sang SendState, gọi confirm sẽ chuyển sang OpenState bằng cách gọi new và gán cho biến state. Khi đó gọi hàm tùy trạng thái thoải mái.
+Thử xem khi thêm 1 state mới vào thì xử lý những gì -> tạo class state đó và implement các hàm, viết hàm đổi trạng thái cho nó trong Order là xong. Còn gọi thế nào chung hết r.
+
+VĐ là có nhiều state thì có hàm khác nhau nhưng cùng kế thừa 1 abstract class OrderState. Ở trong đây có 2 cách:
+1) abstract class khai báo hết các hàm kiểu mặc định, k có thì để trống để các class k có hành động đó k cần implement
+2) Abstract calss chỉ khai báo các hàm chung thôi, các hàm riêng ta vẫn dùng riêng và có gì thì cast sang để gọi các hàm riêng. Cách nào cũng được nhưng xem chừng C2 đỡ viết code nhiều hơn vì file abstract k phình to khi nhiều state thêm vào.
+
+
+
+#
+
+
+
+# Other:
+Tổng quan:
+Nhóm Creational: Tập trung vào việc khởi tạo object 1 cách trừu tượng
+  Singleton, Factory Method, Abstract Factory, Builder, Prototype, Object Pool
+Nhóm Structural: Tập trung vào bài toán liên kết quan hệ giữa các class, object
+  Adaper, Bridge, Composite, Decorator, Facade, FlyWeight, Proxy
+Nhóm Behavioral: Tập trung vào bài toán các object giao tiếp với nhau
+  Chain of Responsibility, Command, Interpreter, Iterator, Mediator, Memento, Observer, State, Strategy, Template Method, Visitor
+

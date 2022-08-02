@@ -1,0 +1,181 @@
+# Class diagram:
+Nằm trong program design. Chuyên dùng cho phát triển hướng đối tượng. Còn có package diagram là biểu đồ như class diagram nhưng nó sẽ gom các class chung 1 package đóng vào khung và ghi tên package.
+Class diagram đúng ra là k cần show mọi biến và hàm mà có thể ẩn đi các private mem or các thứ mà ta thấy k liên quan, k quan trọng đến kỹ thuật OOP ở trong class.
+Các biến local trong 1 function or return type thì k cần biểu diễn trong class diagram. Đôi lúc có người vẽ là dependency nhưng nó cực kỳ yếu và k cần ghi. 
+Vc tạo ra class cần đảm bảo high coherence, low coupling.
+
+A kế thừa B, B có 1 hàm dependency C, A có 1 hàm riêng cũng dependency C. Ta vẽ mũi tên dependency B tới C thì vẫn có thể vẽ dependency từ A tới C. Tương tự với các quan hệ khác nếu A và B cùng aggregation đến C thì phải vẽ cả, quan hệ đấy là do A và B cùng có riêng quan hệ với C chứ kp A có qh với C là nhờ kế thừa B nhé. 
+Trong thực tế, dependency nó k qtr và k thể hiện tính chất của hướng đối tượng nên trong các class diagram quá to, họ bỏ luôn dependency kqtr cho đỡ rối.
+Vừa quan hệ dependency, vừa quan hệ aggregation thì chỉ cần ghi quan hệ aggregation thôi.
+C chứa biến mapping <<Pair<int, int>>, B> thì C vẫn có quan hệ aggregation với B.
+K cần ghi các class hay thư viện có sẵn của hệ thống trong diagram.
+Nếu dùng fxml hay các file kp OOP thì có thể biểu diễn nó bằng view file cho quan hệ association or dependency đến controller. Trong class diagram có thể vẽ file vào mà.
+
+Nếu A kế thừa B mà A và B cùng có aggregation đến C độc lập hoặc TH A có 2 aggregation đến C thì khả năng cao là code của ta cấu trúc bị sai rồi, code k tối ưu và chắc chắn sẽ có cách tối ưu hơn nữa. 
+
+Class Diagram vẽ như trong plantuml là đúng r
+Có thể gói nhiều class trong 1 package. VD package university bao gồm course, schedule, student, lecturer, professor => chú ý tên package chuẩn
+
+-> Tổng hợp ký hiệu
++ - # bỏ trống là default/package
+Generalization: A____|>B khi class A extends B
+Realization: A --|> B thì class A implements interface B. Cái phần trong cứ cho là k tô màu đi
+Association: A ___ B là quan hệ chung chung của 3 cái dưới khi mà chỉ biết là có quan hệ chứ k rõ ràng. Trong thực tế vẽ phải đầy đủ. Association loại chung này cũng có 2 dạng có mũi tên và k có mũi tên nhưng vẫn ít dùng. VD: class A { private B b; public A(B b) { <giá trị biến b của class được set thông qua constructor or 1 hàm setter> } }
+Dependency: A ---> B thì class A có 1 hàm kiểu public void test(B b) { }. A phụ thuộc vào B. VD Person có method hasRead nhận vào 1 params Book xác định thuộc tính của Person đã đọc cuốn sách này hay chưa thì Person --> Book hay Person phụ thuộc vào Book. Cái thuộc tính Person đã đọc sách này hay chưa phụ thuộc vào quyển sách truyền vào là sách nào.
+Aggregation: A <>_____ B thì class A có biến kiểu private List<B> bs or có 1 biến B tùy vào loại quan hệ 1-many hay many to many. Giá trị được gán thông qua setter, hàm add. 
+Composition: A <o>___ B thì class A có biến kiểu private B b = new B(); Nó khác với cái trên là vòng đời của biến B nó phụ thuộc vào biến A vì khi A xóa thì B cũng bị xóa.
+
+-> Multiplicity trong class diagram thể hiện quan hệ về số lượng giữa các đối tượng được tạo từ các class trong class diagram:
+0...1: 0 or 1
+n: buộc có n
+0...* : 0 hoặc nhiều
+1...* : 1 hoặc nhiều
+m...n: có tối thiểu là m và tối đa là n
+
+-> Association: has-a
+Association là quan hệ cơ sở, các quan hệ như aggregation, composition là các loại đặc biệt của association. Các quan hệ bth là biểu diễn đủ các quan hệ trong code rồi. Association là quan hệ kiểu 2 class có chung tính chất, có liên quan gì tới nhau nhưng thg dùng khi quan hệ này k rõ ràng. Như cách ta dùng view nối với controller v or VD Car dùng Driver thì Car __ Driver
+VD Bank A có nhiều nhân viên 1,2,3 thì nối 3 đường association A với 1,2,3
+
+-> Aggregation: has-a
+Aggregation thì class này chứa member instance class khác. Tuân thủ đúng nguyên tắc thuộc tính thì nó là quan hệ kiểu A has-some Bs, B is-a-part-of A
+VD: Car 1<>___2 Door
+VD: Quadrangle 1<>___4 Point
+Thg dùng 1..* => nếu k có số mặc định là 1 1
+VD: B có A a; và giá trị của a được gán ở trong hàm nào đó => B xóa thì A k bị xóa, vòng đời độc lập 2 cái.
+Có lúc quan hệ trong hàm main có 1 biến cũng coi là aggregation như trong dự án AimsProject
+
+-> Dependency:
+A ---> B thì A phụ thuộc vào B. VD Person có method hasRead nhận vào 1 params Book xác định thuộc tính của Person đã đọc cuốn sách này hay chưa thì Person --> Book hay Person phụ thuộc vào Book. Cái thuộc tính Person đã đọc sách này hay chưa phụ thuộc vào quyển sách truyền vào là sách nào.
+
+-> Inheritance/Generalization: is-a
+Kế thừa thì quan hệ "là 1 dạng của" VD: hv là 1 dạng của hcn
+VD: ô tô là class mới có nhiều các object thành phần class cũ là cửa, kính, lốp xe thì là aggregation; ô tô là 1 dạng phương tiện giao thông nên kế thừa từ lớp phương tiện giao thông
+Indirect inheritance là nói ông nội với cháu chắt
+
+-> Realization:
+Quan hệ này trong class diagram có thể biểu diễn dưới dạng icon thì interface là 1 vòng tròn nhỏ và k cần viết nd bên trong
+
+-> Composition:
+B chứa A a = new A(); nên vòng đời của a phụ thuộc vào biến class B
+B chứa A a; và trong constructor gán this.a = ... để khởi tạo cho a thì vẫn là composition: B <o>____ A 
+
+-> Delegation:
+Thực tế nó chính là aggregation đó
+
+-> Other:
+- Trong class diagram còn có role, ít dùng, nó được viết ngược bên với cái chỉ số lượng, chữ nhỏ, xác định vai trò của class này trong quan hệ
+VD: Car (company car)_____(driver) Person
+- Có thể có specified range như 2..4 hay multiple disjoint ranges như 2,4..6
+- Many-to-many có thể chuyển sang 2 cái one to many
+- Good design là sự kết hợp của app classes và solution classes. App classes biểu diễn app concepts, solution classes bd system concep như DB, UI Object,...
+- Method abstract hay static đều được in nghiêng trong diagram.
+- Vc kế thừa hay realization giúp ta tái sử dụng mà mở rộng cấu trúc. Các thứ composition, aggregation giúp tái sử dụng code.
+- Class to như tên của system có thể kp ghi nếu k liên quan đến hệ thống
+
+
+
+# Usecase diagram:
+Nằm trong requirement analysis.
+
+-> Usecase metadata lấy từ requirement. Dùng khi đề bài yêu cầu mô tả usecase
+Name, goal, actor, trigger, entry conditions, post conditions, basic flow, alternative flows, exceptions. Vd:
+Name of Use Case: Take Exam
+Goal: Enables a student to take an exam online with a web browser
+Actor(s): ExamTaker
+Trigger: ExamTaker is notified that the exam is ready to be taken
+Entry conditions: ExamTaker must be registered for course. ExamTaker must have authentication credentials
+Post conditions: Completed exam is ready to be graded.
+Basic flow of events:
+1. ExamTaker connects to the server
+2. The server checks whether ExamTaker is already authenticated and runs authentication process if necessary
+3. ExamTaker selects an exam from a list of options
+4. ExamTaker repeatedly selects a question and either types in a solution, attaches a file with a solution or edit a solution
+5. ExamTaker either submits completed exams or saves current state
+6. When a completed exam is submitted, the server checks that all questions have been attempted and send acknowledgement to ExamTaker
+7. ExamTaker logs out. 
+Alternative flows and exceptions(là đường thay thế cho basic flow, ở đây là đường chạy vào exception):
+In the following list, each flow is linked to a step of the basic flow.
+3. ExamTaker has previously entered part of the exam, but not 
+submitted it.
+4. Solution file not accepted by system
+6. Incomplete submission
+Exceptions lead to failure of the use case
+2. Authentication failure 
+=> 2 cái flow 1 cái mô tả actions của usecase thành công, 1 cái mô tả khi có lỗi.
+
+
+-> Scenerio: 
+Là total interaction của user với system
+
+-> Use case:
+Chuỗi các hành động của software mà có thể show ra kết quả cho actor nhìn thấy được. Tức software phải làm 1 động từ gì (thực tế là 1 chuỗi hành động) và truyền đạt được kết quả cho actor thì mới gọi là 1 use case. Use case phải dễ hiểu.
+Mỗi UseCase phải là 1 thứ hệ thống show được cho người dùng or người dùng phải hành động gì đó để tương tác với hệ thống chứ các hành động k nhìn thấy or show được kết quả thì k là 1 usecase
+Là verb nhưng thg nhầm với actions vì actions nó chi tiết hơn 1 use-case. Usecase mô tả hành động lớn của actor or system và thể hiện mục đích cuối cùng của chuỗi actions. Diagram k bh vẽ action nên rất ngắn gọn. VD: CRUD là 1 use case có 4 action, thêm search riêng 1 usecase nx
+
+-> Actor: 
+Actor có thể là người, 1 software khác, thiết bị ngoại vi or database
+Là đối tượng bên ngoài và k là 1 phần của system nhưng có tương tác với system
+Tên của actor phải nói nên role, responsibility của actor.
+1 actor buộc nối với ít nhất 1 usecase. quan hệ actor và usecase có thể là many to many
+Primary actor: là actor start use case, secondary actor là actor có tương tác với usecase nhưng kp là top 1, qh sẽ là has-to-do/to-do-UC-we-need
+=> Thực tế khi có nhiều actor association thì để tương tác được với usecase thì 1 mọi actor đều phải tương tác. VD primary actor sẽ k thể nói là tương tác được với usecase nếu có secondary actor k tương tác.
+Actor có thể dùng or được dùng bởi system, miễn có tương tác. Actor có thể link tới abstract or non-abstract use case qua association và chỉ link được với actor khác bằng inheritance.
+Nguyên tắc theo như cô nói thì UseCase nào cũng gán với 1 actor chứ đừng vẽ 1 usecase chả nối tới actor nào => đúng ra cứ nối nếu như actor đó tương tác trực tiếp với usecase
+
+-> System boundary:
+
+-> Relationship:
+--> Association: Nối actor và usecase bằng đường liền để thể hiện sự tương tác. Dấu mũi tên có thể có hoặc không để biểu diễn cái nào chủ động tác động vào cái nào. Đối tượng nào tạo ra interaction đầu tiên vào đối tương nào.
+
+--> Trong usecase diagram cũng có các kiểu quan hệ đừng nhầm với class diagram:
+Association: Ac ____ UC  => Ac can interact with UC
+Association directed: điều này là k chuẩn nhưng 1 cách k phổ biến cho rằng dấu mũi tên của association thể hiện actor tương tác là primary hay secondary. VD: A ___> UC ___> B thì A là primary, B là secondary
+
+Inheritance: Ac1 ____|> A  => Ac1 inherrit A, Ac1 cũng có thể tương tác với UC mà A có tương tác với.
+Giữa 2 UC cũng có thể có generalization quan hệ vẽ như kế thừa của actor. Phân biệt với Extension là quan hệ này phải là qh "là" còn extend nó cứ bổ sung optional behavior nên có thể kp là qh đó mà là "may-be-do", khi extend dùng kiểu bổ sung 1 alternative method thì nó mới khá giống "là" nhưng thực ra vẫn khác so với kế thừa.
+Nếu usecase1 kế thừa usecase2 thì đây là 1 số TH hiếm hoi khi 1 usecase k nối đến actor nào. Tức là ở đây nếu actor X có thể thực hiện usecase2 thì chỉ cần vẽ association nó với usecase2 còn usecase1 k cần vẽ. Khi usecase1 kế thừa usecase2 thì mọi actor tương tác được với usecase2, đều mặc định là cx tương tác được với usecase1. Nếu usecase1 đặc biệt cần thêm actor khác tương tác thì nối actor khác đó với usecase1 trực tiếp là được
+
+Extension: UC1 <--<<extend>>-- UC2  => UC2 cung 1 optional hoặc alternative behavior có thể làm. UC1 là cơ sở để thực hiện UC2
+Extension point: phân cách với tên bằng đường gạch liền trong usecase chỉ ra UC này rơi vào TH nào thì mới có option chạy vào extended behavior nào. Extension point có thể vẽ 1 ô chữ nhật nét đứt ở giữa chứa ĐK rơi vào <<extend>> đó. Lưu ý là extend k mang ý nghĩa bao gồm
+
+Inclusion: UC1 <--<<include>>-- UC2  => Để làm UC2 buộc phải làm xong UC1. Nh UC có thể cùng include 1 UC.
+
+-> Lỗi hiểu relationship:
+VD: Chú ý A kế thừa B, B nối với login r thì A k cần nối login nữa
+VD: customer ___ (open account) ___include__> (validate) ___ Bank employee => validate là 1 action chứ kp 1 usecase nên dùng sai, nối luôn từ open account vào Bank employee
+VD: Tương tự (open account) __include__ (email),(verify) => email và verify là actions
+VD: A ___ (use case Y) ___ B => A và B can interact with Y togother. Nếu thực hiện usecase Y thì buộc phải có cả 2
+VD: B ___|> A ___ (Y) <|___ (Z) => A và B can interact with Y/Z together => éo phải
+VD: họ thg làm kiểu A, B association C. C include D, A lại association D => A và B là bắt buộc để thực hiện C. Mà để thực hiện C phải thực hiện D và cần 1 A để thực hiện D.
+VD: A,B ___|> C(abstract class) ___ UC1  khác với  A ___ UC1 ___ B
+=> TH1 nó là A và B có thể tương tác với UC1, TH2 là A và B buộc phải làm đồng thời UC1 mới tương tác được với UC1
+
+Làm rõ quan hệ kế thừa và extend:
+Uc1 kế thừa Uc2 thì đây là quan hệ là. Khi A làm Uc1, họ hiển nhiên k bắt buộc phải làm Uc2 rồi mới làm Uc1 vì Uc1 "là" Uc2 nên họ làm Uc1 thì nó cũng tương tự làm Uc2 và thêm 1 vài hàm khác của riêng Uc1. Nhưng họ rõ ràng chỉ làm điều này 1 lần khi làm Uc1. Nhưng có thể hiểu là để làm Uc1, họ phải invoke nó, nhưng Uc1 là Uc2 nên cũng như vc họ invoke làm Uc2 v. Phân biệt invoke như điều này.
+Còn Uc1 extend cho Uc2 thì quan hệ này là optional. Nếu họ muốn làm Uc1, họ buộc phải làm Uc2 trước đó. Hay họ làm xong Uc2 rồi thì họ có quyền chọn tiếp làm Uc1 hay không nhưng bắt buộc phải làm mọi thứ của Uc2 trước r mới tính tiếp.
+
+-> Other:
+Class diagram là lập trình hướng đối tượng nhưng usecase có thể k, VD ta dùng quan hệ kế thừa trong usecase nó chỉ bảo là 2 chức năng "là" nhau chứ k bảo trong code nó thực sự được viết kế thừa nhau. 1 ngôn ngữ hướng module cũng có thể viết usecase diagram cho nó.
+
+Nên lọc riêng động từ và danh từ vì nó rất ảo, chỉ 1 hành động nhỏ của actor tác động vào hệ thống cũng phải liên quan đến 1 usecase nào đó(dạng chủ động), chứ k có chuyện hành động nhỏ đó chả thuộc usecase nào, nó có thể là hẳn 1 usecase riêng. 
+Phải phân biệt phần giới thiệu với hành động. Nếu actor mà có action bị động thì có thể k liên quan tới hệ thống vì 1 người bên ngoài chả làm gì mà tự dưng app lại tác động trực tiếp với họ thì cũng kỳ lắm. Do đó các action của hệ thống và action bị động của actor có thể bỏ qua.
+
+Nếu có nhiều actor tương tác với hệ thống thì phải nối cả vào đúng như quan hệ association
+
+Phải đọc kỹ và phân biệt hành động nào liên quan tới ứng dụng. VD nó viết app is run once each day tức là có 1 usecase "run application" nào đó vì nó là động từ tác động trực tiếp vào system chứ k thể hệ thống tự run
+
+Với quy mô của 1 ứng dụng to mới thấy những cái tưởng là to thực chất chỉ là action bé nhỏ
+
+UML Quiz:
+Thừa actor trong combination -> chỉ lấy đúng lượng actor thôi
+Kế thừa lại có thêm association ở con thì ta coi là thêm người, phải đủ lượng actor cả cha, cả con mới thực hiện được usecase ở con.
+U và U và U coi là U được => k, phải đủ người chứ k được thừa người
+Usecase1 include usecase2 k có nghĩa combination of actors tương tác với usecase2 phải đủ để tương tác với usecase1, tương tự với extend => đúng ý đề bài thôi
+có thể thêm số ở đầu actor trên relationship với usecase để chỉ định số lượng cụ thể như class diagram
+actor k communicate with other actor
+usecase diagram k có chức năng phân rã function of system mà chỉ xác định ai tương tác với usecase nào của system
+usecase are derived from the clients's request. usecase xđ chức năng và hành vi của hệ thống
+Chú ý: vẽ usecase diagram cho cả bài or vẽ usecase diagram cho 1 usecase. Nếu chỉ vẽ cho 1 TH usecase thì k cần vẽ quan hệ actor với các usecase khác, chỉ vẽ nối cái gì với nó
+
+VD: Staff có thể manage report nhưng chỉ sau khi login để xác nhận đó là staff thì mới được manage report nhưng ta k cần vẽ manage report <<include>> login vì bản thân staff có thể manage được report chứ k cần 1 bước login trước đó để chứng minh được đó là staff, vì bản thân ta vẽ từ actor staff thì đó đã là staff rồi. Ta vẫn coi login và manage report là 2 usecase rời nhau k có qh gì và vai trò staff làm được 2 cái đó.
+

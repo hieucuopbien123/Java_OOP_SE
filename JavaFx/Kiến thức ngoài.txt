@@ -1,0 +1,24 @@
+-> E(fx)clipse là plugin cho eclipse giúp lập trình JavaFX. JavaFX Scene Builder là bộ công cụ kéo thả tạo code dạng XML như công cụ trong Qt ấy.
+Nếu viết hoàn toàn bằng java cũng ok nhưng JavaFX Scene Builder cho phép đơn giản hơn và file khi tạo sẽ mang mã XML là fxml
+VD: Java Code -> MyView.fxml
+
+-> Để cài và setup: 
+=> Cài E(fx)clipse trên marketplace. Cài JavaFXSceneBuilder trên web và add url vào
+tải về lib JavaFX đúng phiên bản và giải nén ra 1 thư mục, lấy đường dẫn đến thư mục lib 
+=> Tạo 1 workspace mới -> Window -> Preferences -> tạo lib trong workspace -> add tất cả các file jar vào workspace
+=> Tạo 1 JavaFx project mới k tạo module-info, xóa module info đi -> chọn project -> build path -> add library -> User library -> chọn lib đó -> Chọn Run As project: gõ: --module-path "C:\JavaFx\javafx-sdk-18.0.1\lib" --add-modules javafx.controls,javafx.fxml -> nếu run vẫn bị lỗi thì build path -> configure build path -> xóa ModulePath JavaFX SDK đi
+
+=> Mỗi khi tạo 1 project mới hay 1 workspace mới phải lặp lại những gì cần thiết
+
+=> Trong JavaFX có nhiều dự án và có nhiều instance chạy mà ta set VD như Main(1), Main(2) và mỗi cái set riêng VM arguments. Chỉ cần tạo 1 cái chạy được là dùng được ở các project cùng workspace khác.
+
+Để setup javafx scene builder: tải và cài ở 1 thư mục
+-> tạo New Other -> JavaFX FXML Document -> sinh file.fxml mới
+Phải thêm tool vào workspace: window -> preference -> javafx -> thêm url file.ext của SceneBuilder
+-> Mở file.fxml và cầm tool -> thêm thành root vào scene -> chạy
+Nên nhớ khi load hay thao tác với I/O đều phải try catch error
+
+Để tạo css file ta cứ new file và save tên.css là được -> add file đó vào scene của dự án
+
+Các bước khi tạo 1 project mới ở 1 workspace mới: tạo workspace -> window preference thêm userlib là javaFX link tới các file jar -> tạo 1 dự án javafx -> xóa module info -> vào thêm build path thư viện user lib javaFX vào project -> xóa javaFX SDK trong build path configuration của project đi -> chạy dự án -> vào Run As chỉnh argument thêm cái VM config -> vào window preference thêm url đến SceneBuilder.exe -> tạo file fxml new document -> chạy dự án
+

@@ -1,0 +1,41 @@
+Dạng bài khả năng cao sẽ vào:
+
+1 bài chắc chắn đề bài dài để vẽ biểu đồ lớp
+1 ý xây dựng lớp hay hàm đơn giản
+1 ý xây dựng lớp và hàm dùng cấu trúc dữ liệu khó hơn
+=> chỉ cần nắm cơ bản java là được r, nắm cách vẽ class diagram là ok
+
+Còn lại là lý thuyết hỏi về:
+4 tính chất của hướng đối tượng
+
+phân biệt interface và abstract class
+-> Đơn kế thừa, quan hệ "là" và có tính reuse source code, hàm có thể có body or k, có thể có constructor, có đủ loại biến final static or biến bth, class dùng extends nó, các methods dùng visibility tùy ý
+-> Đa kế thừa, các class có thể k có quan hệ gì và k giúp reuse source code, hàm luôn k có body, k có constructor, chỉ có biến final và static, class dùng phải implements nó, interface chỉ có public method
+
+Có thể hỏi cả về Java:
+primitive type hay wrapper class 
+casting lỗi
+bản chất truyền params và bản chất lưu heap/stack của java
+hashcode và equals và ==
+
+thao tác với string:
+điểm hay nhất của nó là dùng new thì luôn tạo trên heap nhưng k trên pool
+Dùng StringBuffer và StringBuilder buộc phải khởi tạo new cho nó
+
+constructor của class
+các cấp độ visibility có tính chất như nào của class, class:
+Thú vị: constructor mặc định thực chất là của class java.lang.Object; 
+Class và interface nếu k khai báo là public thì chỉ dùng trong cùng package. Có public mới dùng được ở các package khác. private thì k dùng được ở đâu khác 
+Sự kỳ lạ của protected
+
+override và overload: chú ý cái signature
+
+Có cả:
+try catch finally: unchecked exception và checked exception, đk finally dừng, ngang hàng or là con với multicatch
+
+dùng this và super
+
+Ôn cả: 
+comparable, comparator: 
+toString và print: đơn giản hàm toString trả ra string như nào thì print trực tiếp biến class object đó ra thì sẽ hiện ra nội dung của hàm này
+

@@ -1,0 +1,380 @@
+Java:
+
+
+#Basic:
+-> Eclipse: 
+Có nhiều workspace và trong 1 workspace có nhiều project, trong project có nhiều package, trong package có nhiều file class. Để đổi workspace: file -> switch workspace.
+
+-> Package:
+là thứ gồm nhiều lớp. Mỗi 1 lớp dùng trong 1 lớp khác thì nó nên có keyword package ở đầu file và file cần dùng thì cần ngăn cách với dấu chấm.
+Vd: package oolt.hedspi;
+
+-> Biến và type:
+Tên biến k được bắt đầu bằng số
+
+1 vài convention đặt tên:
+Hằng số: THE_EXAMPLE
+Method/variable: theExample
+package: theexample
+class: TheExample
+
+Java có 4 primitive type: int, float, char, bool
+2 reference type: array, Object => chú ý là mọi class kế thừa Object
+Với int: byte(1 bytes), short(2bytes), int(4bytes), long(8byte)
+float: float, double; 
+char(2 bytes) có thể dùng hexa: char t = '\u05D0'; or ký tự bình thường, default sẽ là ký tự \u0000
+bool(1byte) chú ý trong java k dùng được int cho bool
+
+octal bắt đầu bằng 0. VD: 032
+hexa bắt đầu bằng 0x. VD: 0x1A or 0x1a như nhau vì literal trong Java k pb viết hoa hay thường
+26L là long, 2f or 2F là float or 2D là double => floating point k ký tự mặc định cx là double
+7.1e2 là scientific representation
+
+Các hàm của class có sẵn Collections, Arrays, System
+
+-> Lỗi:
+int a; System.out.println(a); => sai ngay vì java có quy tắc là variable phải khởi tạo giá trị r mới được dùng trong các expression
+
+Trong C++ mảng 3 phần tử mà ta truy cập phần tử thứ 4 sẽ hiển thị giá trị rác(k sửa đổi thì k có lỗi)
+Trong Java mảng 3 phần tử mà làm bất cứ thứ gì thay đổi với phần tử thứ 4 nó sẽ báo lỗi ngay kể cả vc read -> kiểm lỗi và tính chặt chẽ ok hơn
+
+-> Comment:
+/**Javadoc* comments dưới dạng javadoc*/
+
+-> Other:
+Về Locale NumberFormat chú ý là ở VN ngăn cách phần nghìn với phần trăm bằng dấu chấm còn số thập phân dùng dấu phẩy còn ở Mỹ ngược lại.
+
+Các cách swap 2 biến
+BiFunction
+Overloading (...params) function trong java
+label for loop
+
+@SuppressWarnings("null") VD khi ta in ra 1 string mà có tiềm năng là null sẽ báo warning, dùng cái này sẽ cản warning
+
+Switch case phải có default. Ta k thể thao tác với 1 biến khi tạo ra nó mà k gán giá trị ban đầu cho nó. Nên nếu ta tạo ra 1 biến k có giá trị ban đầu mà chỉ gán nó trong switch case mà k có default thì trình biên dịch tự báo lỗi rằng biến có TH k khai báo mà sử dụng có thể crash Ct
+
+Trong java cũng có các type cực cơ bản như vector. Tính chất của nó là size tự co dãn khi thao tác
+
+3 cách khởi tạo mảng giá trị(thuần chú k dùng collection)
+
+-> Input scanner:
+scanner nhận đối số System.in thì sẽ xử lý input vì System.in là chuẩn đầu vào java, còn System.out là chuẩn đầu ra, còn System.err dùng báo lỗi
+
+-> Show dialog input, output
+-> Math lib
+-> Format number
+-> Enum
+-> template wildcard
+
+
+
+# IMPORTANT:
+-> Casting:
+Trong các ngôn ngữ k chỉ java, về mảng casting phải nhớ, phần mềm thông thường sẽ tự cast data từ nhỏ sang lớn nhưng từ lớn sang nhỏ ta phải explicit. 
+VD: double f; long g; f = g; g = f; => sai ngay vì float k cast sang kiểu nhỏ hơn là long được. Từ lớn sang nhỏ nó cắt phần thừa nên nếu dùng đến các byte thừa thì sẽ mất dữ liệu khi cast. Cơ chế của nó thực ra là hệ thống tự ép kiểu nếu dữ liệu k bị mất, còn bị mất thì phải có xác nhận của user nên nó mới chỉ tự cast từ nhỏ đến lớn như v. 
+=> Chú ý mặc dù float 4 bytes, double 8bytes, long 8 bytes nhưng ta vẫn coi float và double lớn hơn long
+VD: float f = 12.5; => sai ngay vì mặc định k có chữ F ở sau thì nó vẫn mặc định là double => dùng parseFloat chủ động. Tương tự với số nguyên mặc định cũng là int
+
+-> Bản chất truyền params vào hàm là tham chiếu hay giá trị thì như C++:
+Nếu ta dùng func(int a) thì bên trong gán a = 10 thì bên ngoài k đổi nhưng dùng func(MyDate a) thì bên trong gán a.setDay(10) thì bên ngoài có đổi.
+VD: void func(MyDate dvd1, MyDate dvd2); int x1=10; int x2=20; MyDate d1,d2 khởi tạo new; func(d1,d2);
+Stack: x1=10, x2=20, d1, d2, dvd1, dvd2
+Heap: new MyDate1 -> day,month,year và new MyDate2-> day,month,year
+Trong đó d1 và dvd1 cùng trỏ tới MyDate1, d2 và dvd2 cùng trỏ tới MyDate2
+=> Thế này là ta đủ hiểu ví dụ thử swap như dvd1=dvd2 thì dvd1 sẽ trỏ tới MyDate2 chứ giá trị ô nhớ MyDate1 không đổi tức d1 bên ngoài k đổi
+=> Nhưng nếu gán dvd1.setDay(20) tức đổi giá trị vùng nhớ MyDate1 sẽ ảnh hưởng d1 bên ngoài => tức là biến trỏ tới trong stack thì copy nhưng biến đó vẫn trỏ đến đúng địa chỉ bên ngoài và giá trị chỉ ảnh hưởng ra bên ngoài khi ta thay đổi giá trị của ô nhớ bằng cách gọi hàm của Object như v. Do đó TH swap thì bên ngoài k đổi nhưng setDelay thì bên ngoài lại đổi làm ta tưởng nhầm tham chiếu hay copy. 
+TH biến primitive int thì tương tự VD bên trong cho a = 10 thì nó trỏ đến 1 vùng nhớ hằng khác chứ giá trị vùng nhớ ban đầu k đổi. Chính vì biến primitive éo có hàm nào để thay đổi trực tiếp giá trị vùng nhớ của nó khi truyền vào hàm mà trong java thay đổi hằng số chỉ là trỏ biến đến 1 ô nhớ khác trong global constant pool nên biến primitive kbh ảnh hưởng ra bên ngoài
+Tương tự truyền mảng vào thì gán a[0]=1 là đang đổi giá trị ô nhớ đó nên ảnh hưởng ra ngoài
+Wrapper Class cũng giống như primitive type ở Th này. Interger cũng như int đều là giá trị pass vào vì cùng trỏ đến vùng nhớ hằng => Sai, phải hiểu là cái này nó như reference type nhưng k có hàm nào thay đổi giá trị bộ nhớ của nó mà chỉ refer đến vùng nhớ khác nên luôn luôn là copy. Kiểu func(Integer a) thì a là copy của biến truyền vào cùng trỏ đến vùng nhớ hằng. Tất cả chỉ cùng 1 cơ chế.
+
+-> So sánh 2 biến:
+Trong C++, việc so sánh 2 class cho nhau là k được trừ khi ta định nghĩa operator cho nó. Trong Java, việc cho a == b với a, b là 2 biến class thì nó sẽ tự động compare địa chỉ, nếu 2 biến trỏ cùng 1 địa chỉ thì mới bằng nhau. Nếu muốn so sánh giá trị ta phải viết lại operator or hàm riêng compare từng trường.
+Ta có thể hiểu là == và equals đều so sánh địa chỉ nhưng equals có thể đổi bằng override. Primitive nó k có new nên pool hằng số của nó luôn fix giá trị cho các biến nên đã cùng giá trị là cùng địa chỉ nên chẳng khác nào so sánh giá trị cả. Object Wrapper thì vẫn thế nhưng nó được override cái equals thành ss giá trị. Class bth thì đúng hệt mặc định.
+
+--> Primitive: (int)
+== : ss giá trị
+
+--> Object Wrapper: (Integer)
+== : so sánh địa chỉ với pool lưu const, new thì pool sẽ lưu nhiều const chắc chắn khác nhau dù các ký tự giống
+equals object : so sánh giá trị
+
+--> Biến class object bth: (Student)
+== : so sánh địa chỉ 2 object
+equals object custom thì mặc định là so sánh địa chỉ và ta có thể override cho nó so sánh gì cx đc.
+
+-> Wrapper class:
+Mỗi primitive đều có Wrapper class đi với nó cung các hàm thao tác với dữ liệu đó: Void, Long, Short, Character, Byte,..
+Pool hằng số thực chất lưu trong heap.
+--> Casting:
+Object Wrapper class -> number value: float f = new Float("4.5").floatValue(); => k còn được dùng vì các Wrapper cho primitive dùng new đã bị deprecated hết. or bỏ cải floatValue nó vẫn hoạt động
+Object Wrapper class -> string: f.toString()
+string, String -> number value: Integer.parseInt("123");
+Number value -> String Object: String a = String.valueOf(123.5);
+string -> Object Wrapper class: Double a = Double.valueOf("1.2");
+=> Kiểu parseInt là chuyển sang int thuần ấy còn valueOf sẽ lấy value of type đó chuẩn luôn.
+
+
+
+# hashcode và equals
+Mọi object đều kế thừa từ class Object có 2 phương thức này. Khi cần override equals để so sánh theo giá trị chẳng hạn thì ta phải hiểu rất rõ 2 hàm này. Đặc biệt là khi làm vc với collection dựa trên bảng băm như HashSet và HashMap
+
+VD hàm contains dùng equals để so sánh
+
+Thực tế các kiểu băm như HashTable, HashSet, HashMap nó dùng bảng băm lưu trữ các đối tượng theo nhóm. Trong 1 nhóm sẽ chỉ chứa các đối tượng có chung giá trị băm là hashCode() kiểu:
+hashCode1 -> {A, B, C,..} 
+hashCode2 -> {E, F, G,..} => trong đó các đối tượng E, F, G,... là các class có hàm hashCode() trả ra cùng giá trị là "hashCode2" 
+=> Khi thêm đối tượng vào HashSet chẳng hạn thì java object đó có 1 hashCode được gán cho nó cung bởi JVM. Con số này để định vị nó trong bảng băm vì collection dựa trên bảng băm như HashSet, HashMap k duy trì thứ tự các phần tử. Chính vì nó định vị object trong bảng băm của bộ nhớ nên có thể coi nó trả ra số nguyên địa chỉ vùng nhớ mà Object đang được lưu
+
+hashCode là 32 signed integer value. Hashcode được quản lý bởi hash-based data structure như HashTable, HashSet. hashCode return randomly generated for mỗi instance và giá trị randomly generated đó có thể đổi khi program exec. Mặc định nó trả ra địa chỉ vùng nhớ, thực tế thì ta đổi sang cái khác được
+
+Khi override equals cũng nên override hashCode. Quy tắc là: 
+Nếu 2 đối tượng bằng nhau thì hashCode phải bằng nhau. Nếu 2 đối tượng k bằng nhau thì k có quy định cho hashCode của nó, và nếu 2 đối tượng có hashCode giống nhau thì cũng k có sự ràng buộc nào về sự bằng nhau của chúng => dễ nhớ vì giống quy tắc trong bảng băm đó, ví dụ 2 đối tượng khác mã băm chắc chắn k được bằng nhau, nếu cùng mã băm là cùng 1 nhóm nhưng chưa chắc đã là 1 được
+
+Nếu override equals mà k override hashCode có thể gây lỗi khi dùng các hàm khác mà dùng đến hashCode:
+VD: class Student có name, id, age. Class Test có 1 HashSet Student. Theo tính chất của HashSet nó sẽ loại bỏ phần tử Student trùng ở trong tập. Nhưng ở đây ta new 3 Student trong đó 2 student ta để trùng giá trị 3 trường name id age và nhét vào HashSet thì sẽ thấy tập HashSet vẫn còn nguyên 3 cái. NN là vì HashSet nó sử dụng hashCode và equals để so sánh 2 object. NN là vì hashCode để đảm bảo 2 object thuộc cùng 1 nhóm trong hash table, equals để đảm bảo 2 objects bằng nhau ở mọi trường vì cùng 1 nhóm chưa chắc đã bằng nhau mà. Ở đây, hashCode mặc định là trả ra địa chỉ vùng nhớ thì 2 cái khác nhau mẹ rồi. Mục đích là ta muốn 2 object cùng id thì coi là trùng và chỉ lấy 1 nên ta override hashCode là giá trị id => vẫn chưa được vì 1 object cùng id thuộc cùng 1 nhóm nhưng equals của class mặc định lại là ss theo địa chỉ nên vẫn khác nhau, ta phải cho nó equals khi trùng id là được. Tức ở TH này buộc phải override cả 2 method.
+
+
+
+# Error handling try catch:
+--> finally chỉ bị dừng khi thread dừng, dùng system.exit(), exception lại phát sinh trong finally block => Dùng close file, socket, connection và release resource
+Java có 2 loại exception là Checked Exception và Unchecked Exception: Checked Exception là Exception vào compiletime; Unchecked Exception là vào Runtime và ta cần bắt cái thứ 2
+
+--> Có thể dùng try catch, try catch finally, multicatch, nested try, try with resource, throw và throws
+try { } 
+catch (ExceptionType1 e1) { } 
+catch (ExceptionType2 e2) { }
+=> ExceptionType1 phải là con của ExceptionType2 or 1 class equivalent nếu k thì hiển nhiên trái với logic
+
+--> Exception delegation:
+1 method có thể delegate exception cho caller của nó bằng cách: dùng throw bình thường nhưng k handle nó. Trong function definition thêm throws <tên class exception> vào.
+1 method có thể delegate nhiều hơn 1 exception. VD dùng throws ArithmeticException, NullPointerException ở ngay function definition
+1 method k có exception declaration ở đầu sẽ tự throw RuntimeException chung khi có lỗi vì exception này được delegated cho JVM
+---> Khi kế thừa:
+Overriding method of child class sẽ k thể throw exception mới mà chỉ throw được tập hợp exception giống với các exception được throw từ parent class
+
+
+
+#Collection Framework trong java:
+Framework là 1 tập hợp các thư viện đóng gói để hỗ trợ phát triển ứng dụng dựa trên framework đó và nó cũng cung cấp các nguyên tắc cấu trúc của ứng dụng mà ta phải tuân theo. Vd Framework Spring của JS để lập trình web với Java. Để sử dụng phải tuân theo các quy chuẩn của nó.
+Collections khăc phục nhược điểm mảng. K cần khai báo trước số lượng phần tử fix cứng. Nó là 1 tập hợp các class lưu danh sách và có khả năng tự co dãn khi danh sách thay đổi
+Collection Framework là 1 tập hợp các class và interface hỗ trợ thao tác trên các đối tượng. Collection Framework cung: interface, class triển khai interface, algs.
+
+-> Có 2 loại là Interface Collection và Class Collection:
+
+--> Interface Collection có thể cho phép lưu các phần tử giống nhau or các phần tử có thứ tự or not. Có thể bao gồm các phương thức như add, clear, compare hay retaining duy trì các đối tượng. VD: List Interface, Set, SortedSet, Map và SortedMap
+
+--> Class Collection cung các lớp để triển khai Interface Collection. Có rất nhiều nhưng 6 loại chính là: LinkedList, ArrayList, HashSet, TreeSet, HashMap và TreeMap
+Collections Framework trong Java cung cấp các thuật toán để các Collection có thể sử dụng được
+
+--> Mấy cái class và interface quanh đi quẩn lại chỉ có vài hàm, dường như cái nào cũng có và có 1 số hàm cái có cái k. Ta chỉ cần dùng đúng type dữ liệu ta dùng để lưu và cần cái gì thì tra gg xem có sẵn cái đó k đã:
+Interface List là bình thường -> ArrayList, LinkedList. LinkedList dùng khi cần xóa, thêm nhiều. ArrayList dùng khi truy xuất nhiều
+Interface Set các phần tử k trùng lặp và k quan tâm thứ tự -> HashSet, TreeSet. HashSet k theo thứ tự thêm vào ban đầu. TreeSet thì buộc dùng khi cần sắp xếp
+SortedSet là set có các phần tử được sắp xếp truy cập nhanh -> TreeSet
+Map khi muốn truy xuất, cập nhật, tìm kiếm phần tử thông qua khóa của phần tử đó -> LinkedHashMap, HashMap, TreeMap. HashMap k phụ thuộc thứ tự thêm vào ban đầu, truy xuất bằng khóa duy nhất của nó. LinkedHashMap thì thứ tự phần tự dựa theo thứ tự lúc thêm vào vì linked list reference next bth
+SortedMap là map sắp xếp theo khóa -> TreeMap sắp xếp tăng dần theo khóa
+=> Set là tập k trùng lặp, LinkedList và array tự hiểu, Map là ánh xạ key value, Hash là k sắp xếp nhưng đánh chỉ mục truy xuất vẫn nhanh và thứ tự bị thay đổi, Tree là sắp xếp truy xuất nhanh.
+---> HashSet:
+Kích thước của HashSet là số lượng value của HashSet
+Kích thước khởi tạo của HashSet là kích thước ngay thời điểm nó được khởi tạo là 2^4=16 và tăng dần lên 2^5=32, 2^6=64 với từng ngưỡng mà số lượng phần tử nó đạt được. 
+Hệ số tải là hệ số dùng để tính đến ngưỡng nào thì capacity của HashSet sẽ tự tăng lên. default là 0.75f
+Ngưỡng: Threshold=Current capacity*Loadfactor
+VD: tạo 1 HashSet kích thước ban đầu là 16 và hệ số tải là 0.75 thì ngưỡng tiếp theo là 16*0.75=12 tức khi thêm đến mức 12 phần tử vào HashSet thì kích thước HashSet này sẽ tự tăng tiếp từ 16->32 nhân 0.75
+---> Casting từ mảng bth thành collection:
+
+-> Iterator để duyệt qua các phần tử của 1 đối tượng thì dùng iterator chứ k dùng các vòng lặp như for while bth. Iterator là 1 interface cung 1 số phương thực duyệt qua các phần tử của bất kỳ tập nào hay xóa các phần tử trong quá trình lặp
+
+-> Comparable và Comparator là 2 interface để so sánh và sắp xếp vị trí 2 đối tượng của Collection:
+Comparable là interface và khi 1 class implements nó phải override hàm compareTo để custom vc so sánh 2 biến class đó theo trường gì tùy ý. Sau khi implements nó thì các hàm có sẵn như sort, PriorityQueue của java sẽ tự động dùng compareTo để so sánh
+Comparator là 1 class có sẵn của java.util, nó có 2 hàm compare(object1, object2) và equals(object). Class này giúp ta so sánh 1 số TH nhất thời khi cần truyền nó vào hàm. VD: Collection.sort(List, Comparator); thì class Comparator truyền vào phải implements hàm compare ở TH này chẳng hạn. K cần kế thừa hay implements gì hết
+
+
+# Thao tác với Date và Locale:
+Cách format Date hiển thị ra
+Format number, giá tiền, tỉ lệ phần trăm theo vùng miền
+Trong java có 2 class: java.sql.Date kế thừa java.util.Date
+=> java.sql.Date chỉ có ngày/tháng/năm, java.util.Date có ngày/tháng/năm và thời gian giờ/phút/giây
+
+
+
+# Thao tác với string: 
+-> StringTokenizer:
+StringTokenizer giúp tách các phần của String thành các token con. VD mỗi từ là 1 token. Nếu k chỉ định ngăn cách bằng từ nào thì sẽ mặc định là space
+
+-> String: immutable type
+str1.equals(str2); => so sánh giá trị 2 biến có giống nhau k
+str1 == str2; => so sánh 2 biến có cùng tham chiếu đến 1 đối tượng k.
+String ta coi nó như hằng số vậy và giá trị của nó được fix trong pool.
+
+Bản chất String trong Java là immutable. VD: String s = "Hello"; s.concat(" Java"); System.out.println(s); => thì vẫn in ra Hello bởi vì immutable nên s k đổi giá trị được
+Nếu dùng: String s = "Hello"; s = s.concat(" Java"); System.out.println(s); tức là ta gán s sang 1 chuỗi mới "Hello Java" nhưng bản chất chuỗi "Hello" vẫn tồn tại trong pool constant string và k bị đổi
+NN là vì hiệu năng, team JVM thấy các chuỗi trong các ứng dụng hầu như là lặp lại nên họ thiết kế string constants pool chỉ tạo ra 1 instance duy nhất là 1 hằng string; String là kiểu dữ liệu dùng nhiều nhất trong các ứng dụng. Khi dùng driver hay tạo 1 kết nối đến URL nào đó ta thg phải truyền đối tượng dạng String. Nếu nó k immutable có thể gây ra vấn đề bảo mật Pandora Box
+
+String pool là 1 vùng nhớ đặc biệt nằm trong vùng heap lưu các chuỗi immutable. Nếu String quá dài có thể gây tràn heap. 2 cách tạo string:
+String str = "abc"; => JVM check "abc" tồn tại trong pool trong heap chưa -> đã tồn tại thì JVM tham chiếu biến str đến vùng nhớ chuỗi này trong pool, nếu chưa thì JVM tạo ra object chứa chuỗi này đưa vào pool và cho str tham chiếu đến vùng nhớ vừa tạo
+String str = new String("abc"); => JVM chả check gì hết mà tạo 1 object trong vùng nhớ heap có giá trị "abc" => Do String là immutable nên vc dùng new với String là k cần thiết
+VD: String s1 = "Cat"; String s2 = "Cat"; => trên Java Heap có 1 cái String Pool và bên trong nó có 1 constant string "Cat" và s1, s2 cùng trỏ đến vùng nhớ constant string đó
+String s3 = new String("Cat"); => 1 constant string được tạo ra trong java heap nhưng k tạo trong String Constant Pool nx
+=> s1==s2 nhưng s3!=s1
+=> Chú ý String Pool nằm trong Java Heap và Java Heap còn chứa nh thứ khác nx. Tức là 2 cách tạo string cùng lưu trong heap nhưng ở 2 nơi khác nhau
+
+-> StringBuilder và StringBuffer: mutable type
+Khi thao tác với string phức tạp thì dùng StringBuffer và StringBuilder. 2 cái khá giống nhau như ta đã biết là phải khởi tạo nó như Object có new và thao tác với data lưu trên heap và k lưu trong pool. 
+
+StringBuilder quản lý chuỗi có thể đổi kích thước và nội dung vì ngay từ cái tên thì 2 cái này đã k lưu trong pool mà lưu trong buffer mem.
+Các methods StringBuffer đã được đồng bộ, thích hợp ứng dụng đa luồng tức là luồng an toàn vì nó k cho 2 luồng cùng truy cập vào method của StringBuffer đồng thời. StringBuilder thì không được đồng bộ và chỉ thích hợp với ứng dụng đơn luồng vì đa luồng nó k an toàn. 
+=> Hiệu suất khi sử dụng bth: String < StringBuffer < StringBuilder
+
+Nếu bt trước string có thể đổi thì nên dùng StringBuffer or StringBuilder luôn. Còn string fix dùng nhiều thì cho String thg.
+
+
+
+# FileHandling:
+Đọc file bằng StringBuilder
+Đọc file bằng operator + của String
+Đọc file trực tiếp 1 cục vào String
+Đọc file chuẩn với BufferedInputStream
+Mở và ghi file
+Ghi thêm vào 1 file
+Xóa file
+Đổi tên file
+Copy nội dung file này sang file khác
+Lưu object ra file
+Nén file
+Giải nén file
+Tạo file mới
+zip 1 thư mục
+
+
+
+# Class:
+Từ khóa final xác định đây là implementation cuối cùng của class, method, var. Nên dùng để khai báo hso or 1 final class mà k thể bị kế thừa bởi 1 class khác.
+
+Hiện tượng alias
+
+-> Constructor và destructor:
+Destructor trong Java là do JVM thực hiện còn destructor trong C++ là do hàm ~. Trong java ta k định nghĩa destructor
+Ta k thể gọi destructor để xóa 1 biến class được nhưng có thể gán cho 1 biến class bằng null. Ngay sau đó ta có thể xử lý thêm các thứ khi biến này bị xóa vì garbage collector sẽ ngay lập tức xóa biến này cho ta sau khi gán null.
+Ta k thể cản gc chạy nhưng có thể request nó chạy sớm hơn với system.gc(); Lệnh này k đảm bảo nó chạy mà chỉ gửi request bảo nó chạy. Trong class Object có hàm finalize() luôn được chạy trước khi JVM dọn. finalize() thì xóa con trước cha sau
+
+Trong constructor k có static, abstract, final, native, synchronized
+Constructor k có return value nhưng dùng new nó vẫn trả ra reference trỏ vào new object. Trong java k dùng * như C++ mà dùng tên k thôi. Tương tự dùng chấm mọi lúc chứ k dùng mũi tên gọi hàm con trỏ như C++
+Mặc định thì mọi class trong java đều kế thừa từ class java.lang.Object => Nếu 1 class k có constructor thì class sẽ dùng constructor mặc định của java.lang.Object
+Trong constructor luôn dùng super(); đầu tiên dù có kế thừa hay không cho chắc nên bao giờ cha cũng thực hiện constructor xong trước con.
+constructor mặc định có trong Java, nhưng nếu ta định nghĩa bất kỳ 1 loại hàm constructor nào khác thì constructor mặc định sẽ k tự được tạo ra nx mà ta phải tự code hàm mặc định đó.
+
+Constructor có thể k cần super() nếu class cha dùng khởi tạo mặc định có sẵn của JVM.
+Ngay trong hàm khởi tạo của con, ta có thể gán cho các biến của cha trực tiếp mà k cần phải pass vào super vì constructor của cha luôn được gọi trước con(k có super vẫn tự gọi trước) nên các biến ở class cha đã được khởi tạo và khả dụng ở class con nên có thể gán được luôn. VD: class Cha{protected int a;} class Con extends Cha{ public Con(){ a = 10; }//vì lúc này a đã khả dụng ở class con }
+
+Tình huống: ta muốn check 1 biến class chỉ được tạo ra khi số lượng biến từng tạo ra k vượt quá 5 biến chẳng hạn. Ta có 1 biến static đếm số lượng biến class đó hiện tại
+=> Thông thường ta sẽ check trong constructor của class rằng nếu biến static này chưa vượt quá 5 thì sẽ ok còn vượt quá 5 thì báo cho người dùng. Nhưng như v là sai vì chỉ là đánh lừa người dùng thôi trong khi thực tế 1 khi đã gọi vào constructor thì chắc chắn biến sẽ được tạo ra
+=> Cách giải quyết là tạo ra 1 hàm static createClassVariable và check bên trong nếu biến static count chưa quá 5 thì return new Constructor(); còn nếu quá r thì return null và hiện thông báo người dùng. Xong bên ngoài mỗi khi cần tạo biến thì gán biến bằng hàm static đó là được => 1 ứng dụng bắt buộc của hàm static => rất hay
+
+-> Access modifier:
+Class có visibility là private thì k thể gọi new được
+Class và interface nếu k khai báo là public thì chỉ dùng trong cùng package. Có public mới dùng được ở các package khác. 
+Access modifier của con phải có khả năng truy cập >= cha. VD cha là default thì con phải là default or public. Cha public, con protected là sai.
+
+Hiểu từng cấp độ access modifier của class
+
+-> Ta phải hiểu là có 2 loại quan hệ, VD trong class A có 3 hàm private, public, protected thì:
+1) class B kế thừa class A thì gọi được những hàm nào(khi cùng package và khi khác package)
+2) class B có biến class A thì biến đó gọi được những hàm nào(khi cùng package và khi khác package)
+
+Tổng kết:
+B kế thừa A khi cùng package: dùng được protected và default/none
+B kế thừa A khi khác package: dùng được protected và k dùng được default
+B có biến class A cùng package: dùng được protected và default
+B có biến class A khác package: k dùng được protected và k dùng được default
+=> điều đặc biệt là protected dùng ở instance bên ngoài phụ thuộc vào package. Tức là hàm protected chỉ khi hoặc kế thừa, hoặc cùng package mới dùng được
+
+
+
+# Interface:
+Default method. 
+Implements nhiều interface, xử lý lỗi kim cương của interface có default method
+Các thuộc tính khai báo trong interface mặc định là hằng số mà k cần khai báo static final
+Các phương thức cũng mặc định là public mà k cần viết từ khóa public
+
+Interface có thể kế thừa nhau nhưng k implementation. Nó chỉ định nghĩa hằng số và hàm trừu tượng
+=> Chú ý 1 lớp chỉ được kế thừa 1 lớp khác nhưng 1 interface kế thừa được từ nhiều interface khác ngăn cách nhau dấu phẩy
+1 lớp kế thừa phương thức thì phải định nghĩa toàn bộ phương thức của interface đó, nếu k định nghĩa hết thì phải là lớp abstract
+
+Method Reference cx chỉ là cách thay thế vc dùng 1 hàm như 1 biến, nhanh hơn cả lamba
+Interface chỉ được chứa public method, static, final attribute cũng được
+
+
+
+# Abstract class:
+
+
+
+# Static:
+Các hàm được gọi trực tiếp trong main phải có static nếu k có instance
+static được cấp phát bộ nhớ 1 lần ngay khi biên dịch luôn và ra đời trước đối tượng. Chỉ được hủy khi kết thúc CT. Chỉ dùng khi cần chia sẻ cái data đó cho toàn bộ hệ thống phần mềm
+this là class hiện tại, super là class parent đều chỉ dùng trong non-static. Nó refer trực tiếp đến hàm constructor or dùng để chỉ instance của class hiện tại
+Biến final constant mà gắn với 1 class trong java thì thg có thêm static để dễ dàng truy cập
+
+
+
+# awt trong java:
+awt là thư viện giao diện có sẵn trong java, ta dùng nó mà k cần import thêm từ ngoài vào
+Bắt event, dùng lamba function
+
+Java Swing giúp lập trình giao diện và tương thích nhiều hệ điều hành
+import java.awt.*; là thư viện abstract windowing toolkit(AWT) cũ rồi
+import javax.swing.*; là bản mới
+
+
+
+# Thread:
+Dùng join, start cơ bản với Thread và Runnable
+Dùng synchronized và Thread. Custom Runnable class
+Dùng ThreadPool và ArrayBlockingQueue. Custom Thread class
+Dùng ExecutorService
+Share var giữa các Thread
+wait và notify với Thread
+Trong thực tế với mục đích xử lý bất đồng bộ, họ thg tạo ra Threadpool để quản lý nhiều Thread và dùng các class Runnable tạo các hàm xử lý phức tạp chứ ít khi tạo mỗi 1 Thread không. 
+=> VD: Có 10 task rất nặng cần thực hiện bất đồng bộ, ta cho nó thành các biến Runnable, dùng ExecutorService để quản lý thread và cho nó chạy các task đó. Các task có thể share các global variable với nhau mà k sợ conflict, giả sử có 1 biến runnable mà dùng trong nhiều thread thì dùng thêm synchronized với các hàm mà k muốn nhiều thread cùng thực hiện(tách phần update ra hàm riêng mà dùng synchronized cho tối ưu), dùng wait + notify chặn khi cần 1 runnable chỉ chạy khi 1 runnable khác làm gì để thỏa mãn điều kiện.
+
+1 chương trình đa luồng khi có >=2 luồng(thread) chạy song song nhau. Thread là đơn vị nhỏ nhất của tiến trình(process). Các luồng được quản lý bởi máy ảo JVM. 1 luồng gồm 4 phần: định dạng, bộ đếm chương trình, 1 tập thanh ghi và ngăn xếp -> xàm lol quá
+Bản chất: cũng là thực hiện task1, sang task2 làm, làm task1, làm task2,... chuyển qua lại liên tục và độ trễ nhỏ tính bằng nano giây. Đó là độ trễ để nhảy đang làm từ luồng này nhảy sang luồng khác
+Có 2 cách tạo đa luồng trong java: kế thừa lớp Thread; implements từ 1 interface có tên là Runnable.
+=> nếu tạo luồng bằng cách kế thừa lớp Thread thì k thể kế thừa thêm 1 lớp nào khác vì Java éo hỗ trợ đa kế thừa như C++. Còn nếu tạo luồng bằng cách implements Interface Runnable thì ok hơn vì có thể kế thừa thêm 1 lớp khác
+
+Giả sử ta tạo 1 CT tải tệp tin từ internet nhưng người dùng lại dùng nó để tải 1000 tập tin thì máy tự động tạo 1000 thread sẽ crash ct. Do đó ThreadPool ra đời để tạo nhét các thread vào đó ở 1 số lượng giới hạn. Xong gán công việc cho ThreadPool để nó check thread nào đang rảnh thì thực hiện việc từ từ tránh tắc nghẽn và tăng kiểm soát luồng(nếu chỉ vài luồng thì k cần). Bên trong ThreadPool, các task chèn vào 1 Blocking Queue mà các Thread sẽ lấy chúng ra lần lượt mà thực thi. Nếu nhiều thread đang rảnh thì chúng k thể tranh nhau lấy từ queue được mà sẽ chờ cho Thread rảnh trước đó lấy task ra thành công rồi từ từ các thread khác vào lấy thì mới gọi là blocking queue.
+Kể tử Java 5, ThreadPool được xây dựng sẵn trong gói java.util.concurrent vì v ta k phải tạo 1 ThreadPool mà sử dụng lớp có sẵn của gói này => Executor
+
+Java dùng 1 lớp riêng CountDownLatch để đếm bởi vì việc đếm k hề dễ vì các luồng xử lý song song. VD 2 luồng dùng chung 1 biến count. luồng 1 giảm count đi 1 liên tục, luồng 2 cũng thế nhưng nếu luồng 1 đang định giảm chưa xong thì luồng 2 tác động tới nó đổi giá trị -> kết quả sẽ k theo ý muốn khi 2 hàm tác động vào biến cùng 1 lúc
+Nếu dùng join từng thread 1 ngay sau khi start thread đó thì thành đồng bộ mẹ nó rồi nói làm gì
+Để làm được chỉ cần dùng synchronized or CountDownLatch có sẵn là xong
+
+
+
+# Other:
+-> Native keyword:
+Từ khóa native chỉ dùng cho method định nghĩa 1 hàm được triển khai bằng ngôn ngữ khác như C++. Nó có thể dùng để tăng hiệu suất hệ thông, giúp chương trình giao tiếp ở mức máy, bộ nhớ or sử dụng các mã nguồn có sẵn nhưng k đc viết bằng java. VD: public native int intMethod(int i);
+Trong file main.c ta dùng: 
+#include <jni.h>
+#include "Main.h"
+JNIEXPORT jint JNICALL Java_Main_intMethod(JNIEnv *env, jobject obj, jint i) {
+  return i * i;
+}
+=> native k tốt khi nó phá vỡ bản chất chạy trên mọi nền tảng của java và K chắc về sự tương thích phiên bản
+
+-> Để xóa 1 phần tử ở 1 vị trí bất kỳ khỏi mảng:
+Nếu mảng đó dùng các kiểu Object có sẵn như ArrayList thì xóa rất dễ nhưng nếu dùng int bình thường thì: ta có thể xóa như solidity là nhanh nhất bằng cách gán vào phần tử cuối và xóa phần tử cuối bằng cách giảm số lượng phần tử đi 1 đơn vị; Ta có thể xóa mà vẫn giữ nguyên thứ tự bằng cách chạy vòng for gán lần lượt; Ta có thể tạo ra mảng copy or dùng kết hợp các kiểu object trong 1 hàm trả ra 1 mảng mới đã xóa phần tử. Sau đó bên ngoài ta gán arr = hàm đó thoải mái vì Garbage collection của java tự take care phần còn lại cho ta
+Garbage Collector tự xóa các object mà unreferenced, ta gán null or out of scope,... JVM quyết định khi nào gc chạy dọn rác, thường là khi bộ nhớ thấp. 
+
+-> Trong java hay C++ thì: a/b với b = 0 với a và b là double sẽ ra inf, còn a và b là int sẽ báo lỗi. NN là lỗi làm tròn số chấm động trong các ngôn ngữ. NN là vì 1 số hệ thập phân khi đổi sang nhị phân có thể là vô hạn nhưng máy tính lưu nhị phân lại hữu hạn. VD: 1 ct
+double	d1{ 1.0 };
+double	d2{ 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 };
+cout << d1 << " " << d2 << " " << (d1 == d2) << endl;
+Nên nếu a/b với b=0 và a và b cùng là chấm động thì khi tính toán nó chưa chắc đã chia số 0 đâu
+
+Tổng quan:
+Biến và type, xử lý lỗi, template, input output, enum
+Casting Wrapper class, equals và ==, tham chiếu hay giá trị
+Collection, thao tác string, thao tác file, ngày giờ
+Class, interface, abstract class, static
+Thread, lập trình GUI
+

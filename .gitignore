@@ -1,0 +1,11 @@
+.vscode
+bin
+lib
+.metadata
+.settings
+bin
+.classpath
+.project
+.build.fxbuild
+.apt*
+*.mp4

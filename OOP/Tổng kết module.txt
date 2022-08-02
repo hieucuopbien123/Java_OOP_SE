@@ -1,0 +1,206 @@
+OOP trong java:
+
+
+# Tư duy trong OOP
+
+
+
+# Encapsulation:
+Đóng gói methods và attributes(thành private) vào class đã là tính đóng gói r. 
+Tính đóng gói quan trọng kp vì nó ép ta gói vào class mà vai trò của nó là ngăn cản unwanted directly access bởi other object
+Gói các biến và hàm private, protected -> tránh các class bên ngoài truy cập vào thuộc tính đối tượng tùy tiên, cung API truy cập bởi các module khác thấy các type và method getter, setter.
+
+--> Ta kbh truy cập vào thuộc tính của 1 lớp bằng cách gọi trực tiếp vì k bảo mật mà luôn làm điều đó qua 1 phương thức của lớp, ngăn ngừa vc gán giá trị k mong muốn cho thuộc tính. Nếu dự án chỉ có mình ta thì thế nào cũng được nhưng dự án có nhiều người, không thể để bất cứ ai cũng chọc vào source code class cũng tùy tiện đổi giá trị thuộc tính của đối tượng class của ta gây kết quả k mong muốn.
+
+
+
+# Tính trừu tượng:
+Dùng setter getter cho attribute đặt private để chỉ thay đổi theo 1 hướng chuẩn định sẵn. Ẩn đi sự phức tạp chỉ cần cung ra API để sử dụng. 
+Người ta k cần biết bên trong nó cụ thể là gì nhưng vẫn hiểu được nó
+
+--> Generalization và Specialization trong hướng đối tượng:
+Generalization là tổng quát hóa giống với trừu tượng hóa. Trong cây kế thừa thì các class càng gần root thì mức độ tổng quát hóa càng cao. Nó ám chỉ vc convert hay upcast 1 subclass sang superclass, khiến cho subclass càng general hơn. Vì các class tầng cao thường cung API tổng quát hơn các class tầng thấp
+Specialization là quá trình ngược lại
+
+--> Khi ta để các biến luôn trong private thì k làm gì được, nhưng các biến cũng có lúc cần sửa đổi. Khi đó ta sẽ cho người khác quyền sửa đổi thuộc tính của ta, nhưng với điều kiện là bắt buộc phải sửa theo ý của ta trong TH cần thiết chứ kp get set toàn bộ thì các biến get set tùy ý thà để public còn hơn.
+VD: ta chỉ va_zin cho máy tính khi chưa dùng được nó quá 5 năm. Nếu ta để con_zin là biến public thì ai cũng tác động vào nó được và điều này k tốt. Khi đó ta phải để private còn public ta viết hàm va_zin cho nó check nếu chưa dùng được 5 năm thì mới thực hiện va_zin. Điều này chính là ví dụ chuẩn xác nhất cho TH tính trừu tượng. 
+Tại sao gọi là tính trừu tượng. Vì ta định nghĩa con_zin là private xong viết phương thức va_zin cho nó. Các coder khác nhìn vào chỉ cần biết là có thuộc tính va_zin và gọi nó chứ cũng mơ hồ kb bên trong xử lý như nào nên mới gọi nó là tính trừu tượng. Vì bản thân ta đã xử lý logic bên trong chuẩn hết r và những người khác chỉ cần gọi chứ k quan tâm bên trong có gì. Đó là bản chất mà nếu dùng public sẽ k thể xử lý được vì khi đó ai cũng va_zin bất cứ lúc nào, k còn tính chất ta mong muốn nx. Nó ẩn đi sự phức tạp cho người khác khi dùng thứ đang code vì họ k cần bt bên trong có gì, tập trung vào cốt lõi cần thiết
+
+
+
+# Tính kế thừa: 
+Nói về các mức độ của biến trong class và các cấp độ kế thừa
+
+--> Access modifier: public truy cập mọi nơi trong project, protected truy cập được từ trong lớp và các con và instance của nó trong các lớp cùng gói, none hay default chỉ truy cập từ lớp khai báo và các lớp cùng gói với lớp khai báo, private chỉ truy cập từ trong chính lớp gốc.
+Vd: A và B same package và A có 1 instance của B thì biến private của B chỉ dùng ở B, biến protected, none, public của B dùng được ở A.
+Vd: A và B khác package và A có 1 instance của B thì chỉ truy cập được public, 3 type còn lại thì k.
+Vd: A và B khác package và A kế thừa B thì A dùng được public, protected, k dùng được none và private => key
+Nếu 2 class thuộc 2 package khác nhau thì phải import package vào.
+Quan hệ tương tự với biến static nhưng static k cần 1 instance. 
+
+--> visibility của class chỉ là public, abstract, final, private, static: public là mặc định, final là class k thể bị kế thừa và mọi phương thức hay hàm đều là private or final. Private class k thể khởi tạo instance ở class khác, nếu private class được định nghĩa trong 1 class khác thì chỉ có thể dùng được bth trong class đó. static class dùng cho nested class cũng chỉ dùng trong phạm vi class parent.
+Các hàm k thể kế thừa là constructor và operator =(perform cùng task với constructor)
+
+--> Constructor của cha luôn được gọi trước con và luôn được gọi khi khai báo instance của con, kể cả con k có super vẫn gọi vào default constructor của cha. Nhưng nếu muốn gọi vào constructor có tham số khác của cha thì phải có super(list params). Constructor cha thực hiện sau nhưng lại thực hiện xong trước constructor của con.
+
+--> Hình vuông là đặc biệt hóa của hcn và hcn là tổng quát hóa của hv => lớp cơ sở, lớp kế thừa
+Có 3 dạng kế thừa: kế thừa class, kế thừa abstract class, kế thừa interface
+Child class có thể tái sử dụng code của cha và mở rộng theo 2 cách: override method, thêm method và atts mới. 
+
+
+
+# Tính đa hình: 
+Là vc trình biên dịch tìm thực hiện hàm ở lớp con ưu tiên hơn lớp cha.
+
+--> Đa hình thời gian chạy(override), đa hình thời gian biên dịch(overloading)
+override là 2 class cùng phương thức or biến thì con đè cha, k được với static và final. Điều kiện là con phải có visibility mở rộng hơn or bằng cha: public > protected > none > private
+overload là 2 class cùng hàm và khác tham số thì 1 tên hàm làm nhiều vai trò được.
+Tăng khả năng linh hoạt khi tái sử dụng. Cái nào dùng thuộc tính có sẵn thì dùng, k thích thì đè lên
+Override là cùng params và tên để ghi đè. Parent có overriden method, child có overriding method. Là 1 kiểu redefinition phân biệt với overload. K thể override constant, static, private method of class cha => signature = name(params)
+Overload signature của function thì tên, type trả về và visibility phải giống nhau, chỉ có params là khác nhau vì nó là điều kiện để xác định các function khi gọi.
+VD: private void test(){} và public void test(int a){} vẫn ok nhưng coi là 2 hàm độc lập chứ chả phải overload
+
+--> Đa hình tĩnh là kiểu mỗi class A1, A2, A3 kế thừa abstract class B thì phải implement độc lập đa hình từng hàm x() trong B với các tham số khác nhau, tức là trong B có nhiều hàm x() rỗng để trong từng class A ta implement lại hàm mà nó cần. Điều này là không tốt vì giả sử ta cần thêm 1 class A4 mới toanh thì về lý thuyết ta chỉ cần thêm vào A4 là xong nhưng thực tế lại phải thêm 1 hàm x() với tham số mới nx vào class B và cứ thế nó phình to class B ra. Vc overload như v cũng là đa hình(tĩnh) nhưng chẳng để làm gì. Thậm chí vc kế thừa abstract class mà như v thì cx coi như vô dụng. Thông thường overload kiểu này nó k là abtract class mà tạo instance của B bình thường luôn và A1, A2, A3 chỉ là case nhỏ của B sử dụng trong vài TH lẻ loi thôi còn instance của B vẫn là chính. Ở đây nếu B là abstract thì ta phải đinh ninh rằng k tạo instance cho B mà B chỉ định nghĩa các thuộc tính và method chung nhất, k cụ thể. 
+Nếu các class A1, A2 có các hàm như nhau mà cần tham số khác nhau thì ta có thể biến các tham số đó thành aggregation lúc khởi tạo or thông qua setter thì các hàm đa hình tĩnh có thể chuyển thành đa hình động
+Thật ra từ đa hình tĩnh dùng để chỉ các tính năng đa hình dùng bị sai k tối ưu.
+
+--> Nguyên tắc OCP trong SOLID: open for extension, close for modification => ưu tiên vc mở rộng và k ưu tiên vc thay đổi code. Tức là như VD ở bên trên, ta muốn mở rộng dự án, thêm các tính năng thì ta thêm class A4 và kế thừa từ B xong cứ code như bth là open for extension, còn các class khác dù có quan hệ với A4 nhưng lại k thay đổi code vì nó close for modification. Nhờ v, tính chặt chẽ, nhất quán được đảm bảo.
+
+--> Một cách hay khác để tạo 1 function - 1 responsibility:
+2 bước để thực hiện đa hình: kế thừa và delegation.
+VD cơ chế sử dụng: A1, A2 kế thừa abstract B, B định nghĩa các abstract function của các A và A implement nó => Bước 1 của đa hình là kế thừa
+VD: C là class có instance của B lấy từ new A1, new A2 nhưng C k gọi hàm trực tiếp của B để chạy mà C chạy thông qua 1 class D(context). C có 1 biến global D và các biến temporary tạo trong từng hàm là B. class D chứa B là 1 aggregation và ta gán temporary B cho D r gọi hàm của B thông qua hàm của D => delegation là vc ta k gọi hàm trực tiếp để thực hiện chức năng mà gọi thông qua 1 class khác. 
+=> Cái delegation nhiều TH nó k đem lại ích lợi gì
+Vd dùng delegation có lợi: class A có hàm caculate và gọi nó trong main của A. Dùng delegation sẽ giúp bao đóng nó trong 1 class bằng cách nhét hàm calculate vào 1 class mới là Calculator và cho Calculator implements interface ICalculator có hàm calculate. Thứ nhất, mỗi khi tính toán ta nhìn vào ICalculator sẽ biết có thể dùng những hàm gì để tính toán mà k cần biết bên trong nó thực hiện cái gì, tận dụng được vai trò của interface. Thứ hai, bao đóng nó trong class có tác dụng phân chia nhiệm vụ cho từng class rằng mỗi class thực hiện 1 chức năng. Chẳng hạn về sau có hàm run, convert hay các utilities gì khác cũng có thể tạo ra từng class riêng, mà khi tạo class riêng thì có thể tận dụng nhiều tính kế thừa hay các thứ để tận dụng tối đa vc tái sử dụng của OOP. 
+
+Vai trò thực sự của interface: Để khắc phục lỗi của tính kế thừa(mà nó được khắc phục sẵn trong aggregation nhưng aggregation k tốt bằng inheritance về cấu trúc). Vấn đề kim cương gặp trong tính kế thừa được khắc phục thông qua interface. VD: Chim và chó đều kế thừa từ Animal, nhưng 1 con có thể bay, 1 con có thể chạy. Ta định nghĩa 2 interface bay và chạy để 2 class implements riêng chứ extends cái Animal k thể hiện được điều đó => VD DFS và Cutvertex đều kế thừa từ Algorithm nhưng 1 thuật toán có thể có thêm chức năng này mà thuật toán khác k có, ta có thể cho nó implements 2 interface khác nhau để giải quyết điều này. Khi gọi thì dùng instance type là interface đó để gọi.
+
+Quay lại vấn đề ban đầu: delegation có lợi gì ở đây k?
+Class Context bao gói các hàm liên quan của class Algorithm(thực chất có mỗi buildStep và play) cũng như vc tạo 1 class thực hiện hàm calculate ở bên trên là để 1 class thực hiện 1 chức năng. Đúng hơn class Context nên để tên là 1 class có chức năng RunAlg trong dự án. Class Context có thể kế thừa or aggregation Algorithm tùy lợi ích muốn sử dụng nhưng khi đã dùng như này thì để aggregation sẽ ok hơn vì nó chỉ thực hiện 1 chức năng chứ k thực sự có vai trò kế thừa. Nhưng ở đây hầu như k có lợi ích gì vì chỉ có duy nhất 1 chức năng buildStep đó mà dự án lại nhỏ k tái sử dụng gì được nx. Ở đây nó y hệt như vc gọi hàm trực tiếp của class Alg v, nhìn vào class Context chỉ có forwarđ là thấy rõ. Nó đôi khi cũng có lợi nếu như cần tiền xử lý or hậu xử lý chung cái gì đó trong Context trước khi gọi hàm của Alg. 
+=> Nếu muốn cái này có ích thì class Algorithm phải có nhiều chức năng hơn, VD 4 chức năng đi và class Context chỉ gọi runAlgorithm là 1 chức năng trong 4 chức năng đó mà thôi thì class này có vai trò kiểu tách chức năng ấy, 1 class - 1 chức năng tách ra thì ok. Nhờ đó từng Algorithm đều có chung chức năng này thì class này có ý nghĩa. Chứ nếu class Algorithm chỉ có duy nhất 1 chức năng là chạy thuật toán, xong tạo Context biểu diễn đúng mỗi chức năng đó thôi thì nó gọi mẹ trực tiếp cho rồi. Cái này giống như Dog, Cat, Tiger cùng kế thừa abstract Animal nhưng trong class Animal cũng như 3 class con chỉ có đúng tính năng run() là cho con vật chạy thôi thì cần méo gì phải tạo interface AnimalRun có mỗi hàm run đúng k, gọi mẹ biến Animal a.run() luôn cho nhanh. Trừ khi Animal có nhiều hành động khác ngoài run
+
+-> Tính đa hình bình thường đó là method polymorphism. Còn Object polymorphism là thể loại 1 object thể hiện nhiều type khác nhau(bằng vc upcast và downcast), 1 interface được nhiều object có type khác nhau implements.
+
+-> Đa hình trong thực tế thể hiện VD 1 cái remote control có thể điều khiển được nhiều thiết bị điện tử, Vd các thiết bị điện tử đó cùng implements 1 interface.
+
+-> Để cho hàm đa hình, người ta dùng template or wildcard trong java: 
+Vd dùng bth: public void draw(List<Shape> shape) { }
+Vd dùng wildcard: public void draw(List<? extends Shape> shape) { } thì cách này chấp nhận mọi type Shape và con của type Shape chẳng hạn 
+
+
+
+# Abstract Class:
+--> Chỉ được đơn kế thừa. Có thể khai báo thêm các hàm có body và các hàm k có body. Có constructor ok vì dù k được khởi tạo instance nhưng các class khác có thể kế thừa thì cần dùng super để gán giá trị cho các biến. Có thể khởi tạo biến đủ loại static, final, biến bình thường.
+Nên khai báo các hàm là abstract trong nhiều TH và dùng 1 class General implements(k bắt buộc) nó để các class khác kế thừa chứ k implement trực tiếp trong abstract class vì dùng abstract method còn có chức năng là: ép buộc dev khi dùng class đó biết rằng method này bắt buộc phải có của đối tượng này, nếu k họ có thể miss method đó.
+Một abstract class extends 1 abstract class được, 1 interface cũng extends 1 interface khác chứ kp implements
+Khi tận dụng tính kế thừa ta phân chia ra 1 class cơ sở, nếu class đó k có instance nào mà chỉ khai báo thì nên biến nó thành abstract để tận dụng tính đa hình và định nghĩa API chung cho class con. Or ta chủ động cho abstract để ngăn người dùng tạo instance của class cơ sở khi ta chỉ expect người dùng tạo instance của 1 class con cụ thể.
+
+--> Abstract, interface -> CT chỉ tiết lộ cho người dùng thông tin cần thiết, người dùng k cần quan tâm những thứ kqtr mà chỉ cần dùng nó thôi
+Abstract class chỉ cần có ít nhất 1 method k định nghĩa body là được. 
+TH buộc cần đa hình với abstract class. VD: học sinh, giáo viên, phụ huynh đều kế thừa từ lớp con người. Ta muốn trong 1 class có 1 list 3 loại này thì ta phải tạo 3 list nhưng nếu nhờ kế thừa đa hình nên Person có thể là 1 trong 3 người này đều được nên ta có thể tạo 1 List<Person> ok.
+
+--> Generic programming là kỹ thuật lập trình mà 1 thứ có thể làm với nhiều data types khác nhau. VD trong C họ dùng con trỏ void, trong C++ dùng template, trong java họ dùng upcasting như cách ta xử lý vấn đề của tính kế thừa, ngoài ra java cũng có khái niệm template.
+=> Nó là phần của tính đa hình cần lưu ý
+
+
+
+# Interface:
+--> Có thể đa kế thừa. Mọi hàm đều k có body. K có constructor, k khởi tạo được instance, các class sẽ implements nó. Chỉ khởi tạo biến loại static và final. Vẫn có default method.
+Thg dùng interface kết hợp nhiều class vì họ chia ra sao cho 1 class chỉ có 1 responsibility, sửa 1 tính năng thì chỉ cần tìm sửa trong 1 class.
+Khi một nhóm đối tượng có cùng bản chất kế thừa từ một class thì nên sử dụng abstract class. Còn khi một nhóm đối tượng không có cùng bản chất nhưng chúng có hành động giống nhau thì sử dụng interface. VD Car Person Dog cùng implement Move interface. 
+Cái này cũng có ích lợi như hàm println + toString đó. Nó chỉ cần tạo 1 interface Move cho các class cần dùng thì implements. Xong tạo 1 class có thể làm gì đó với các class có khả năng move(implements interface Move) chứ k cần làm riêng Car, Person, Dog mà dùng Move chung cũng như println dùng với các class implements mà có tính năng toString
+
+Interface chỉ được chứa public method, static, final attribute cũng được
+Vd: Interface StoreKeeper k cần quan tâm đến thuộc tính khác mà chỉ quan tâm đến price và id of product của class implements nó.
+Vd về các collection trong java là chân thực nhất như dùng ArrayList hay LinkedList để implements các interface cho user dùng như Queue, Stack,.. 
+
+--> Disadvantage: Tính kế thừa để reuse source code và interface xử lý vấn đề về đa kế thừa và vđ kim cương, tuy nhiên nó k có vai trò reuse source mà chỉ biểu diễn quan hệ chung giữa các class
+
+--> protected k dùng khai báo cho lớp hay interface mà chỉ được dùng cho hàm or biến của class thôi. Cả biến và hàm của interface cx k đc dùng protected
+
+
+
+# Static:
+--> Ý tưởng để tạo graph example cho dự án OOP => ta phải dùng static method của Graph
+Trong hàm static method này ta phải tạo từng edge, từng vertex thì dùng thêm biến graph static ở trong Graph, muốn tạo 10 graph phải có sẵn 10 biến static. Hàm static createGraph sẽ xây các biến static kia. Tức khi CT chạy thì ta gán graph trong scene bằng loại graph nào là được. Muôn hiển thị trên giao diện thì phải duyệt từng node của graph và thêm vào canvas từng cái một
+
+--> Dùng method static của class Graph để tạo Graph => nghe đã thấy vô lý. Cần phải nắm vững khi nào dùng static method. static dùng khi ta cần dùng 1 biến or 1 hàm global của 1 class gì đó mà k cần instance, nhưng do tính chất static k dùng được các biến non-static nên thành ra nó cũng như là k gắn với class v.
+VD: ta có 1 class Student chứa thông tin của từng học sinh nhưng trong class lại có 1 biến numberOfStudent lưu số lượng học sinh là static sẽ được cộng lên mỗi khi 1 hs mới được sinh ra. Thực tế biến numberOfStudent và hàm increaseNumberOfStudent là static và k dùng được các biến non-static nhưng các hàm non-static lại gọi được hàm static bên trong thành ra ta hoàn toàn tạo 1 class riêng global lưu biến static numberOfStudent và hàm static increaseNumberOfStudent thoải mái và dùng độc lập với class Student được. Nhưng thực tế ng ta k làm như v vì nó cùng liên quan đến student nên dùng trong class Student luôn chứ k tách ra. Cần cân nhắc vì numberOfStudent k phải là 1 thuộc tính mà 1 học sinh phải có
+=> Thực tế, static method và static var giúp lưu thêm và thao tác với các thuộc tính global k cần instance của class, lưu 1 tính chất phụ gì đó của class khác so với các thuộc tính quan trọng. Do đó vc tạo graph bằng static method là k tốt vì 1 graph bên trong graph kp là 1 thuộc tính global mà có thể tạo ra mà k cần instance, kp ai cũng gọi được. 1 graph example kp là 1 thuộc tính phụ bổ sung thêm cho các thuộc tính chính của Graph mà bản thân nó là thuộc tính chính luôn nên k dùng static => nghĩ nhanh => thực tế dùng static ở TH này cũng được vì static k chỉ truy cập vào các thuộc tính phụ bổ sung mà nó cũng dùng truy cập vào các instance global của class. Ở đây ta truy cập vào 10 global instance tạo sẵn ok. 
+
+
+
+# Copy constructor:
+Trong java k có default copy constructor mà ta phải tự tạo. Ta có thể tạo thủ công bằng cách gán từng trường vào, đó gọi là shallow copy.
+
+--> Khi có mutable field:
+Mutable field là các biến class như Date, String,... thì vc gán bằng là ta gán địa chỉ nên k đúng. Khi đó ta phải dùng deep copy VD: this.startDate = new Date(variable.startDate.getTime()); để có vùng nhớ mới cùng giá trị(tùy ta muốn copy)
+Kể cả kế thừa và ta vẫn làm v được
+--> Hàm clone:
+Hàm clone có thể copy được ngắn gọn nhưng ta sẽ phải implements Cloneable interface và có thể gặp phải vấn đề CloneNotSupportedException.
+Hàm clone trả về biến class Object chung mà ta phải cast về đúng type cần dùng
+
+
+
+# Relationship:
+Với 1 kiểu biến của class, nếu biến đó chỉ dùng 1 lần xuyên suốt class thì ta ưu tiên dùng composition luôn, còn biến đó được tạo đi tạo lại nhiều lần thì dùng aggregation, để ý vòng đời biến nx.
+
+
+
+# SOLID:
+OOP chỉ là các tính chất của lập trình hướng đối tượng. SOLID mới là các code để tạo ra design OOP chuẩn, khi code xong cũng phải thỏa mãn tính chất của OOP.
+
+VD: vấn đề về trạng thái đơn hàng(xét trong OOP) thì ta k nên làm kiểu tự nảy sang trạng thái tiếp theo vì 1 trạng thái có thể nảy sang loạn xạ các trạng thái khác. Vì state là trạng thái của đơn hàng thì nó nên là thuộc tính private của class Order chứ k nên rời ở ngoài. Class abstract State được kế thừa bởi nhiều class PreparingState, PackagingState, ShippingState,... và có hàm execute để làm gì đó. Có thể gọi order.changeState(new PackegingState()); để truyền vào đổi biến private state của Order cx đc
+
+-> Single responsibility principle(SRP):
+Nếu 1 class chỉ lo 1 chức năng sẽ giúp duy trì tính chất high cohesion vì mỗi thành phần trong module đều functionally related, lý do duy nhất class đó thay đổi là chính chức năng đó thay đổi, bất cứ 1 cái gì ở function khác đều k ảnh hưởng và k có tác động.
+Bản chất ta tạo ra 1 hàm cho class là để class đó cần dùng như 1 hành vi của đối tượng đó chứ kp ta thêm vào vì ta cần dùng.
+VD: class ADSLModem và DialUpModem cùng implement 1 interface Modem lo 2 nhiệm vụ connect và transfer(có 2 hàm này). Client nhận 1 interface cho 2 hàm làm 2 việc khác nhau => họ khuyên nên tách ra 2 class ADSLConnection và ADSLTransfer, tương tự với DialUpModem. Nếu dùng interface có thể tách thành ModemConnection và ModemTransfer cho từng class implements cái tương ứng. Trong client gọi connect và transfer truyền vào truyền vào đúng loại interface mới được
+
+=> Cái bên trên ta dùng interface là vì có 2 class có hàm chung và client muốn gọi hàm từ cả 2 class đó nên dùng chung biến interface chứ tính chất SRP chỉ là vc tách class gốc thành các class con lo từng chức năng riêng mà thôi. VD: class ADSL rất lớn có rất nhiều thuộc tính và và tính năng, trong đó có connect và transfer thì tách thành ADSLConnection và ADSLTransfer, tách thành 2 class riêng và implements 2 hàm đó, sau đó cho nó thành 2 biến connection và trasfer trong class gốc ADSL(khi nó đúng là thuộc tính). Tức nó biến 2 hàm thành 2 biến trong class đó để giảm chức năng nhưng tăng thuộc tính. Khi client cần connect thì dùng thuộc tính connection ok.
+=> Góc nhìn này được dùng rất nhiều. VD: class iPhone có thuộc tính CPU là String và nó có hàm setCPU() => họ có thể tạo 1 class abstract CPU riêng trong đó có nhiều loại class CPU con khác nhau kế thừa từ CPU, bên trong có thuộc tính name chẳng hạn. Tức nó coi setCPU() cũng là 1 hàm chức năng riêng và tách ra class riêng và biến CPU thành thuộc tính của iPhone. Nó cũng có lợi ở chỗ, nếu 2 phone có cùng 1 loại CPU thì k phải setCPU nữa mà tạo 1 instance class có sẵn và mọi thứ đều ổn
+
+Chú ý ta dùng interface hay abstract class k nhất thiết để tạo 1 instance trong class có khả năng gom chung nhiều class khác, nó có thể dùng cho dependency để nhận nhiều loại tham số là các class khác nhau, 1 cách thể hiện tính đa hình khi không phải viết nhiều hàm cho từng loại type class tương tự nhau. 2 cách dùng interface và abstract class rất quan trọng mà ban đầu ta cứ nhầm là phải tạo thuộc tính mới cần dùng là sai.
+
+
+-> Open/closed principle(OCP): quan trọng nhất
+Nguyên tắc là thêm 1 tính năng thì thêm 1 class và implements theo 1 chuẩn chứ k cần phải fix vào những phần code đã viết. 
+VD: thông thường class Student ta muốn sort theo trường Name thì ta implements Comparable và thực hiện compareTo. Sau đó ta muốn mở rộng rằng Student có thể sort được theo trường Age. Điều ta làm là thêm trường đó vào Student và thêm 1 biến cờ và dùng if else biến cờ đó để sort theo trường nào. Mỗi lần gọi thì truyền thêm biến cờ. Điều này có thể fix:
+V1: CompareByName, CompareByAge 2 class riêng implements Comparable, nhận Student làm private. Sau đó client muốn sort thì khởi tạo 1 list<CompareByName> và cho nó sort là được. Nhờ v mỗi lần thêm 1 tính năng sort sẽ thêm 1 class mới implement Comparable là xong luôn.
+V2: Cách trên chưa tốt vì vẫn vi phạm DIP. Ta cho CompareByName và CompareByAge kế thừa abstract class CompareStudent. Abstract class này implements Comparable và có private Student. Để client chỉ cần có CompareStudent là được.
+V2 không khác V1 là mấy vì client vẫn có thể dùng List<Comparable> để thế cho 2 class kia nhưng abstract class được khuyển khích sử dụng hơn vì rõ ràng biến Student có chung ở cả 2 class có thể gom chung vào 1 class riêng nx.
+Như v client sẽ có 1 list<CompareStudent>. Mỗi lần cần dùng đến sắp xếp kiểu gì thì lại new List<CompareByName> gán cho student rồi gán cho list<CompareStudent> nếu dùng nhiều nơi, nếu dùng local thì tạo trong phạm vi hàm đó thôi. Nhưng nếu cái list sorted được gọi nhiều quá kiểu sort đi sort lại nhiều loại quá thì nên tạo ra các biến có sẵn là các list nhiều loại ở hàm khởi tạo r cứ lấy ra dùng thôi chứ đừng đổi qua đổi lại new liên tục
+
+VD2: Falcuty getOffice(), Staff getDept(), Secretary getTypesOfSpeed() cùng kế thừa Employee. Client có list Employee chạy printEmployees chạy for if else type gì thì gọi hàm tương ứng. Mỗi khi thêm 1 class vai trò mới như Director sẽ lại sửa hàm thêm 1 cái if else nữa và lại 1 hàm riêng. Bh ta cần sửa lại để mỗi khi thêm 1 vai trò mới thì chỉ cần thêm 1 class với các hàm theo chuẩn là xong
+=> class Employee abstract có hàm printEmployee, các class kia đều phải implements hàm này, bên trong lại gọi tới hàm tương ứng getOffice hay getDept tùy class. Bên trong Client gọi đúng printEmployee là xong. Nếu ta cần kiểu if là staff thì làm gì, if các cái khác thì làm gì ta vẫn có thể làm tương tự. Nhưng nếu muốn kiểu check nếu là Staff thì in ra chẳng hạn, còn k thì k in thì buộc phải if else sẽ là tốt nhất vẫn hơn là Falcuty với Secretary ép tạo ra 1 hàm trống k in. K ép các class implements interface nó k muốn(tạo hàm nó k cần)
+
+-> Liskov substitution principle(LSP):
+Class con có thể thay thế cho class cha ở mọi nơi mà k gây lỗi. 
+Vd: class VLCPlayer, WinampPlayer, DIVPlayer đều implements interface Media thực hiện 2 hàm playAudio và playVideo. Ở TH này 1 class thực hiện 2 chức năng khác nhau(vì nếu là 1 thì chỉ có 1 hàm chính còn các hàm khác sẽ bổ trợ hàm chức năng chính or lấy thông tin phụ gì khác) nhưng ta k quan tâm điều này. client có playVideo và playAudio gọi đến các hàm đó của Media. Vấn đề là chỉ riêng WinampPlayer k có playVideo() nhưng nó vẫn thực hiện hàm đó và bên trong throw ra thông báo lỗi. Tức là ở đây ta coi Media là cha và 3 class kia là con thì vi phạm LSP vì có con k thể thay thế cho cha ở playVideo. Fix bằng cách tách ra MediaAudioPlay và MediaVideoPlay và dùng 2 interface này dependency đến hàm của client thôi. 
+Ở đây k dùng interface kế thừa interface vì biết đâu sau này thêm 1 class mới chỉ có playVideo thì sao.
+
+-> Interface segregation principle(ISP):
+Client k nên bị ép buộc phải implement interface mà nó k dùng. Cơ bản nhất là ta tách interface là được.
+Tổng quan hơn bài của cô: nếu 1 class Media có thể có 1 trong 3 loại Player thì sao, ta chỉ cần cho nó có thuộc tính class MediaPlayer và khởi tạo nó bằng bất cứ loại nào và client có nó sẽ truyền vào hàm qua thuộc tính ok. Điều này k chỉ giúp mở rộng ở phía player mà còn giúp mở rộng phía Media, nếu như có nhiều loại Media có thể có 1 trong 3 loại player thì cho nó kế thừa media là xong(Media thành abstract). Nếu như có 1 loại class tương đồng type với Media nhưng kp Media nhưng cũng có thể có 1 trong 3 loại player thì cũng cho nó aggregation đến MeediaPlayer là được. 
+
+-> Dependency inversion principle(DIP): Strategy Pattern có nói về DIP
+1 class high level k được phụ thuộc vào directly class low level mà cần tạo abstract cho nó. NN là vì class low-level mà có nhiều loại khác nhau thì toang.
+VD bản của ta: class School có 1 biến là CompareByName cho list Students và trong hàm khởi tạo nó ta new nó và hàm sort ta compareByName.sort() là được => nhưng class high level là School lại phụ thuộc vào class low level là CompareByName khi nó đổi sang CompareByAge là sai chưa. Do đó cần tạo abstract cho nó như cô tạo thành chứa 1 biến CompareStudent chung, còn khi nào dùng thì compareStudent = new CompareByName() là được.
+Vc dùng new như thế vẫn k hay mà họ đưa nhiều giải pháp khác như:
+Constructor injection: compareStudent = compareByName với compareByName là tham số truyền vào constructor nếu biến này cần dùng ở ngoài kia nữa chứ có phải lúc nào cũng tạo new, và trong class chỉ dùng cái compareByName là mặc định
+Hoặc đơn giản là method injection trong hàm sort: compareStudent.sort() với compareStudent là đối số nhận vào và k cần là biến private của class => dùng khi nó chỉ dùng ở hàm này chứ k dùng ở nhiều chỗ nào khác trong class
+=> Tức là phạm vi biến được sử dụng rất quan trọng, ảnh hưởng đến vc tạo và dùng nó như nào. Tất cả visibility hay phạm vi biến gọi đều phải tối ưu.
+
+
+
+# Other:
+Hàm bạn chỉ có trong C++, tùy ngôn ngữ mà có OOP có điểm khác nhau.
+
+Tổng quan:
+4 tính chất OOP: encapsulation, abstract, inheritance, polymorphism
+5 tính chất SOLID: Single responsibility principle, Open/closed principle, Liskov substitution principle, Interface segregation principle, Dependency inversion principle
+Ngoài ra: static, interface, abstract class
+Quan trọng là cách tư duy khi code thực tế
+
+A kế thừa class B thì A k nên là abstract class
+

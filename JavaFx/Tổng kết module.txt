@@ -1,0 +1,86 @@
+JavaFX:
+Tất cả các component khác ta học khi cần dùng. Bh chỉ học các thứ qtr cần thiết cho dự án.
+
+
+# Basic:
+-> Other:
+Stage bao Scene, trong scene có từng components. Stage bao scene thì k resize thì mới hiện ra scene resize theo.
+
+implements interface Initializable cho controller để khi class view load xong thì thực hiện điều gì đầu tiên.
+
+JavaFx có nhiều hiệu ứng như css
+tạo tree view, list view các kiểu
+
+Tương tự javafx, các thư viện khác của java từ bên ngoài có thể thêm theo cách tương tự. Có thể thêm docs cho thư viện dùng
+
+
+
+-> Class chỉnh layout:
+VBox HBox AnchorPane BorderPane GridPane StackPane ...
+Dùng layout chồng layout để tạo bố cục
+
+Cái Region cho hgrow là always r computed size nó để nó chiếm hết k gian đẩy 2 cái sang 2 bên phải trái
+
+
+
+# Scene builder:
+1 scene 1 controller 1 file fxml là view là 1 bộ combo 3 thứ
+Khi dùng scene builder nên xóa và tạo mới bao tất cả bằng 1 cái AnchorPane.
+
+-> Thao tác:
+Liên kết action button với 1 hàm, liên kết object với 1 object trong class: File fxml cần nằm ở trong package cần liên kết đã -> chọn class controller -> gắn onAction với hàm tương ứng. Để liên kết hình tròn của view là biến hình tròn của class ta gõ id của nó là tên của biến
+
+Mỗi Scene gắn với 1 controller duy nhất
+
+Để co 1 container lại trong fxml -> vào modify -> use computer size là nó co về kiểu fit-content
+
+-> file fxml:
+phần đầu giới thiệu phiên bản ?xml có thể xóa đi k lỗi
+?import sẽ import các module javafx ta dùng trong view
+Các thẻ sau đó giống code react
+Vc viết <Label text="abc"/> giống với <Label><text>abc</text></Label>
+
+
+
+# Multiscene app:
+-> Chuyển đổi scene nó khác với cái circle di chuyển:
+TH1: ta gán 1 component trong view với 1 component trong class, xong trong class ta viết các hàm thay đổi thuộc tính của component trong view đó thì hiển thị ra sẽ khác
+TH2: ta tạo ra 2 component tách biệt ở 2 file fxml và chuyển qua lại giữa 2 file để load 2 component khác nhau. Cách này áp dụng với scene vì file fxml chỉ thao tác với cả scene chứ chưa thấy thao tác với từng component thì như nào. 
+Scene thì ta k thể dùng cách 1 vì scene k hiển thị ở trên view scene builder.
+
+
+
+# Binding và custom component:
+-> Trong GUI hiện đại đều có binding. Trong JavaFX thì mọi Property đều có thể binding
+VD dùng String và StringProperty thì cái thứ 2 có thể dùng như cái thứ nhất nhưng cung thêm chức năng là addListener và có thể 1 property có thể bind 1 property khác. Bên cạnh đó thì nó cũng trả ra 1 object có nhiều chức năng hơn là String thuần ban đầu
+
+Trong FXML vẫn có binding bth
+
+-> Custom component:
+Custom component giống như React nhưng tốt hơn vì k cần redux vẫn tương tác được.
+Tạo ra component fxml tùy ý -> nhét file đó vào 1 anchorPane là xong. Trong file đó có các thuộc tính mà ta có thể tùy chỉnh. Khi thao tác ta lại phải custom nó trong main
+Giống react, các biến số thao tác với class lớn thì ta nên để trong class lớn.
+
+Main có đúng 1 scene. Ở trong controller của scene phải tùy chỉnh được mọi thứ của con. Có thể custom component dùng 1 file controller or phân tách riêng:
+TH1: Tách riêng
+1 file anchor pane, 1 file controller, 1 view fxml. Pane khởi tạo sẽ kết nối fxml với controller và add và pane, controller là ta tạo mới mỗi lần. biến hay static để trong controller. controller set thủ công còn các hàm và id tự kết nối => nếu ta có 1 list các vertex và chọn 2 vertex để nối tạo edge thì hàm setColor nên để trong controller hay CustomShape. Để kiểm soát ở bên ngoài thì buộc phải có 1 list customshape có hàm setColor.
+TH2: 2 file
+Nếu controller k tạo mới thì k đảm bảo được các component tách rời nhau. Cái controller nên đảm bảo vc hiển thị còn CustomShape nên đảm bảo như 1 component cung API ra ngoài. 
+Khi dùng fxml ta k thể khởi tạo nó hay gì được. Cái id dùng mức nào cx đc.
+
+Cái controller đảm bảo ta thao tác gì với nó giao diện, cái CustomShape ta có thể thao tác với AnchorPane của nó cũng như là các cái bên trong. Tùy thuộc tính nào cần ở đâu mà dùng ở từng cấp độ
+
+
+
+# Other:
+Maven là tool quản lý package, phiên bản, lib của java. Tạo 1 Maven Project, có thể convert qua lại với java project -> thêm các dependency vào pom -> save tự build -> code như bth trong src/main
+Vc dùng các thư viện mạnh có thể phải cài thêm nhiều thứ khác
+Phải convert dự án java về phiên bản đúng để tránh lỗi
+
+Tổng quan: 
+Dùng thư viện ngoài và các tool SceneBuilder Maven
+Cách code JavaFX cơ bản
+Multiscene app
+Custom component
+Binding
+

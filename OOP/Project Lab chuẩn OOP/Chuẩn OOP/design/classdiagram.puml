@@ -1,0 +1,26 @@
+@startuml
+
+interface Playable
+abstract class Media
+interface MediaCreation
+
+Aims ..> Order
+Order o-- Media
+Book --|> Media
+Disc --|> Media
+DigitalVideoDisc --|> Disc
+CompactDisc --|> Disc
+Track --o CompactDisc
+Track ..|> Playable
+DigitalVideoDisc ..|> Playable
+CompactDisc ..|> Playable
+
+TrackCreation ..|> MediaCreation
+BookCreation ..|> MediaCreation
+CDCreation ..|> MediaCreation
+DVDCreation ..|> MediaCreation
+
+Aims ..> MediaCreation
+' Điều hay là aims dependency đến interface mới qtr cần vẽ thôi chứ dependency đến Book, CompactDisc các thứ k cần thể hiện
+
+@enduml

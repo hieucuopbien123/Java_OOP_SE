@@ -1,0 +1,124 @@
+Kiến thức ôn thi nhanh:
+
+-> Phân biệt các mức độ process:
+Heavy weight process: slower process, release at final stage, client chỉ đảm phán k cùng làm dự án, kế hoạch định sẵn k đổi, làm xong k cần nhìn lại cái đã làm, mỗi step phải fully detailed docs trước khi sang cái tiếp theo. VD waterfall
+Light weight process: speedy process, released liên tục, client cùng làm dự án, yêu cầu k rõ ràng và có thể đổi, chỉ final system mới làm document. VD: Agile Scrum
+Medium weight process: document tạo ra trong quá trình làm process, yêu cầu có thể đổi. VD: iterative refinement
+
+
+-> Phân biệt các mô hình phát triển phần mềm: thứ tự từ heavy đến light
+
+Waterfall: user k cùng làm, fully document rõ ràng ở mỗi stage, chỉ release ở final, clear requirement và k thay đổi, 1 manager quản lý mọi quyết định của dự án, kiểm thử chỉ sau khi hoàn thành dự án, tuần tự
+
+Modified Waterfall: tương tự trên nhưng cho phép quay lại khi hệ thống k chỉnh sửa nhiều so với yêu cầu trước đó
+ => Dùng khi từng phần tách rời với các phần còn lại của ct, version mới được phát triển dựa trên sản phẩm trước đó or chuyển từ hệ thống vật lý qua điện tử
+
+Iterative refinement: user cùng làm, docs tạo trong qtr làm, unclear requirement và có thể đổi, dự án quản lý bởi toàn bộ nhóm, testing thực hiện đồng thời khi phát triển phần mềm
+ => Tạo 1 system thô đủ chức năng chạy hết các bước và lặp lại để improve hoàn thành system
+
+Incremental Development: release liên tục ở mỗi increment, clear requirement ở từng increment, docs cần ở mỗi release
+ => Kết hợp iterative và waterfall. Chia increment từng chức năng và mỗi module chức năng đều trải qua 7 bước như waterfall, xong thì release 1 increment.
+
+Spiral: như iterative, requirement clear từng bước, docs ở cuối
+ => 1 biến thể iterative khi các comp thêm vào hệ thống khi hoàn thành, chú trọng việc fix lỗi và chọn ra hướng giải quyết tốt nhất
+
+Agile/Scrum: tương tự iterative
+ => 1 biến thể của iterative dùng sprint(chi tiết trong vở)
+
+=> Nhớ nhanh thì:
+waterfall: docs full ở mỗi stage, k quay lại
+modified waterfall: docs full ở mỗi stage, có quay lại khi k sửa nh
+iterative refinement: docs ở mỗi release, có quay lại sửa thoải mái, chú trọng xong sản phẩm là chính
+incremental development: docs ở mỗi release, mỗi chức năng là 1 waterfall, trong từng chức năng là iterative
+spiral: docs ở mỗi release, có quay lại sửa thoải mái, chú trọng việc fix lỗi và chọn ra hướng giải quyết tốt nhất
+Agile/Scrum: docs ở cuối, có quay lại sửa thoải mái, mỗi sprint là 1 release
+
+-> Phân biệt các cách client review planned system trong iterative refinement:
+User interface mock-ups: fake giao diện
+Throw-away software components: khách hài lòng nhưng vứt thiết kế đi, chỉ dùng để show nhu cầu
+Evolutionary prototyping: tương tự nhưng giữ lại dùng tiếp trong design UI/UX
+Rapid prototyping(k thi)
+Successive refinement(k thi)
+
+
+-> Project management:
+1) Activity diagram:
+Hình vuông điểm bắt đầu và kết thúc
+Hình tròn từng milestone
+Mũi tên nét liền chỉ luồng từ đầu đến đích. label của mũi tên là hành động
+=> có time thì thêm vào line để chỉ thời gian cần để đạt đến activity tiếp theo
+
+2) Critical Path Method:
+Vẽ precedency diagram -> thêm duration cho node -> tìm critical path và tính slack time mọi node -> tìm ES EF LS LF cho critical path -> tìm ES EF cho các node từ đầu đến đích, tìm LS LF cho các node từ đích về đầu
+=> Lưu ý: EF = ES + duration time - 1
+ES bắt đầu từ 1 ở node đầu
+ES sau hơn EF trước là 1 nếu liên tiếp nhau
+=> Có thể phải convert từ activity diagram sang precedency diagram:
+Khi convert thì 1 cạnh là 1 actitvity, tức là 1 node của precedency diagram; 2 cạnh nối liền nhau là 2 node nối liền nhau; 
+
+
+-> Model for requirements:
+1) Usecase diagram: 
+Tìm system boundary
+Xác định actor: mọi object tương tác với system
+Xác định usecase: tránh nhầm với action
+Tìm quan hệ giữa các actor và các usecase. Có 4 loại qh.
+(Cụ thể trong txt)
+
+2) Data Flow Diagram:
+Bắt đầu và kết thúc bằng hình tròn
+HCN là nơi lưu data
+Hành động của system xử lý data là rounded rectangle
+Named arrow là trạng thái gì thì làm gì
+
+3) Decision Table Model:
+Các hàng đầu là T F - để kết hợp các options lại
+Các hàng về sau là các options. Xử lý sao để chỉ tích X vào các ô
+
+3) Flowchart:
+Có 4 hình: bắt đầu bằng manual operation hình thang người dùng làm gì đầu tiên vào system -> decision hình thoi là boolean -> operation hcn là hành động tác động vào hệ thống -> báo thông tin cho người dùng bằng hình cờ -> kết thúc hình tròn. 
+Mũi tên nét liền có label T or F nếu là boolean path
+
+4) Finite State Machine:
+Bắt đầu hình tròn -> mũi tên cong liền là action -> action làm object đổi sang trạng thái trong hình oval tiếp theo -> kết thúc là 2 hình tròn lồng nhau.
+Case đi đến cuối luôn là case thành công
+
+5) ERD và relational database(k thi)
+
+
+-> Program design:
+1) Interaction diagram:
+vẽ các đường doc biểu diễn object -> chia ra từng mục action theo chiều ngang -> vẽ các đường đi của message tương ứng với từng action
+
+2) Sequence diagram: 
+Nét liền call, nét đứt return
+Viết từng object dạng instance -> vẽ các đường kẻ theo trình tự thời gian call và return -> alt và opt nếu cần 
+Lưu ý: chỉ vẽ return khi trả lại cái mà call muốn lấy -> chỉ vẽ return nếu cần có nó theo trình tự thời gian mới thực hiện được cái tiếp theo. Nó đủ chi tiết ở mức độ nhập input vào interface. Vc A _action__> B tức là action tác động vào B nhưng có thể kp do A thực hiện
+tên của object phải underline nx
+
+4) Class diagram: 
+Vẽ class, các thứ trong class, vẽ 6 loại quan hệ(rõ hơn trong file)
+
+3) Object diagram(k thi)
+
+
+-> System design:
+1) Deployment diagram:
+Vẽ các component nằm trong các node -> biểu diễn quan hệ các componentss bằng mũi tên nét đứt
+
+2) Component diagram(interface diagram):
+Vẽ các component -> vẽ các interface do từng component cung cấp -> vẽ realization và dependency giữa các component và interface
+
+3) System architecture
+Pipe: 
+Client/Server:
+Repository:
+Repository with Storage Access Layer:
+Three Tier Architecture:
+Master File Update:
+Master File with Batching Proccessing: 
+MVC architecture:
+
+
+-> Test
+

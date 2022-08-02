@@ -1,0 +1,156 @@
+' @startuml
+
+' abstract class KhoaNhac{
+'     tengoi: String
+'     notThamChieu: String
+'     dongKe: String
+'     print(): void
+' }
+' class KhoaSol{
+'     tenNhacCu: String
+' }
+' class KhoaDo{
+'     giongBe: String
+' }
+' class KhoaFa{
+'     bass: int
+' }
+' KhoaSol --|> KhoaNhac
+' KhoaDo --|> KhoaNhac
+' KhoaFa --|> KhoaNhac
+
+' class SoNhip{
+'     tuSo: int
+'     mauSo: int
+'     print(): void
+' }
+' class NotNhac{
+'     caoDo: int
+'     truongDo: int
+'     print(): void
+' }
+' class DauLang{
+'     truongDo: int
+'     print(): void
+' }
+
+' class KhuongNhac{
+'     khoaNhac: KhoaNhac
+'     soNhip: SoNhip
+'     oNhip: List<ONhip>
+' }
+' class ONhip{
+'     soThuTu: int
+'     notNhac: List<NotNhac>
+'     dauLang: List<DauLang>
+' }
+' KhuongNhac "1" o-- "1..6" ONhip
+' KhuongNhac "1" o-- "1" SoNhip
+' KhuongNhac "1" o-- "1" KhoaNhac
+' ONhip o-- NotNhac
+' ONhip o-- DauLang
+
+' @enduml
+
+
+
+
+
+@startuml
+
+abstract class KhoaNhac{
+    tengoi: String
+    notThamChieu: String
+    dongKe: String
+    + print(): void
+}
+class KhoaSol{
+    tenNhacCu: String
+}
+class KhoaDo{
+    giongBe: String
+}
+class KhoaFa{
+    bass: int
+}
+KhoaSol --|> KhoaNhac
+KhoaDo --|> KhoaNhac
+KhoaFa --|> KhoaNhac
+
+class SoNhip{
+    tuSo: int
+    mauSo: int
+    + print(): void
+}
+abstract class KyHieu{
+    truongDo: int
+    + {static}print(): void
+}
+class NotNhac{
+    - caoDo: int
+    + print(): void
+}
+class DauLang{
+    + print(): void
+}
+
+class KhuongNhac{
+    khoaNhac: KhoaNhac
+    soNhip: SoNhip
+    oNhips: List<ONhip>
+}
+class ONhip{
+    soThuTu: int
+    ' notNhac: List<NotNhac>
+    ' dauLang: List<DauLang>
+    kyHieu: List<KyHieu>
+
+}
+KhuongNhac "1" *-- "1..6" ONhip
+KhuongNhac "1" o-- "1" SoNhip
+KhuongNhac "1" o-- "1" KhoaNhac
+KyHieu <|-- NotNhac
+KyHieu <|-- DauLang
+ONhip "1" o-- "1..16" KyHieu
+
+@enduml
+
+
+
+
+class NotNhac extends KyHieu{
+    private int caoDo;
+    public NotNhac(int caoDo, int _truongDo){
+        this.caoDo = caoDo;
+        truongDo = _truongDo;
+    }
+    public NotNhac(){
+        
+    }
+    @Override
+    public void print(){
+        System.out.print(caoDo + "(" + truongDo + ")");
+    }
+}
+
+class KhuongNhac{
+    KhoaNhac khoaNhac;
+    SoNhip soNhip;
+    Vector<ONhip> oNhips = new Vector<ONhip>();
+    public void inBanNhac(){
+        khoaNhac.print();
+        System.out.print(" - ");
+        soNhip.print();
+        for(int i = 0; i < oNhips.size(); i++){
+            System.out.print(" | ");
+            oNhips[i].print();
+        }
+    }
+    public int demDauLang(){
+        int sum = 0;
+        for(int i = 0; i < oNhips.size(); i++){
+            sum += oNhip[i].size();
+        }
+        return sum;
+    }
+}

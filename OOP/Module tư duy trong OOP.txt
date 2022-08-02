@@ -1,0 +1,119 @@
+Tư duy trong OOP: Tư duy: 
+-> Khi nói về 1 class: phải biết class đó có những hàm xử lý gì. Còn khi nói về 1 relationship, phải biết cái nào chứa cái nào ở dạng 1 list hay 1 phần tử.
+
+-> Khi có 1 biến trong class này mà ta muốn dùng nó ở 1 hàm trong class khác. Ta có thể mỗi lần gọi hàm đó là pass từ từ biến qua function cho đến đích nó dùng. Nhưng nếu biến đó được dùng nhiều lần trong nhiều hàm của class đó thì có thể truyền vào làm 1 thuộc tính của class từ constructor để mọi lần đều lấy được trực tiếp vì aggregation ở đây nó refer tới địa chỉ. Nhưng cần phải cẩn thận vì vc đặt bừa bãi từng bước có thể làm hỏng OOP, ta cần cân nhắc biến kia có phải là 1 tính chất, 1 thuộc tính thực sự của class hay k. Vì có thể dependency TH đó đúng với OOP hơn.
+
+-> Phân tích dự án Graph OOP Lab:
+VD: trong class Step có aggregation class PseudoStep và ở đây ta đang cần lưu 1 list string là từng dòng pseudocode và 1 cái label để gán giá trị từng dòng đó hiển thị ra giao diện. Câu hỏi là class PseudoStep chứa cái gì ? Nó chứa cả cái list string và label hay chỉ chứa Label còn list string chứa trong Step.
+=> Nếu class Step chứa list String và PseudoStep chứa label thì: logic buộc phải viết trong Step nên sẽ bất tiện nếu class Step chứa rất nhiều loại step khác chứ k chỉ PseudoStep, tức là file này sẽ to ra, PseudoCode chứa mỗi 1 cục Label mà được tạo bằng fxml thì class này quá thừa thãi, nhưng 1 class Alg chứa 1 listStep nếu muốn thao tác với queue có thể gọi trực tiếp từ hàm của Step
+=> Nếu Pseudo code chứa hết cả list string và label thì logic thích viết ở đâu cũng được và vc chia file rất gọn nhưng nếu từ class Alg muốn thêm 1 phần tử vào list string chẳng hạn sẽ phải truyền qua Step -> PseudoStep thì vc forward như này làm code nó k tối ưu vì sai ngay từ quan hệ aggregation "là" mà.
+-> Đó là 1 VD về vc tối ưu là khi ta thêm 1 tính năng thì đơn giản ta thêm file mới và code chức năng mới trên file mới là xong, code ở các file khác chỉ sửa có 1 tí. Nếu ta thêm chức năng mới mà file Step to đùng ra xong chỉnh sửa nhiều làm code rối, file k đúng chức năng thì đó là chưa tối ưu.
+
+-> Tức là khi ta tạo ra 1 class nào đó, hãy nhớ rằng class đó làm 1 tính năng và code như nào để class này thể hiện tính năng này có thể tái sử dụng khi 1 component khác cũng cần tính năng này. Thử tưởng tượng khi thêm tính năng mới trong React thì như nào. VD ta thêm tính năng ChestExchange cho Trava. Từ 2 tính năng cũ mà ta thêm 1 tính năng mới thì chỉnh sửa button từ 2 thành 3 cái và code file tính năng mới hoàn toàn độc lập với 2 tính năng cũ. Các component chung tái sử dụng như EmptyBox chỉ cần biết API hộp đen chứ biết mẹ gì bên trong nó set màu hay logic như nào đâu. 
+Tức khi quyết định tạo 1 file mới cho 1 class mới. Ta phải tính 2 tình huống:
+1) 1 class khác cũng dùng tính năng này thì có tái sử dụng được k
+2) Thêm 1 tính năng mới tương tự như tính năng này vào thì code có phải chỉnh sửa nh không.
+
+-> Cân nhắc dùng protected để tạo ra quyền truy cập nhanh hơn ở lớp kế thừa, đỡ phải get liên tục nhưng dù sao ở trong các API class bình thường họ toàn get lồng liên tục. Nếu chỉ cần dùng ở class con thì dùng protected là lý tưởng. Nếu cần dùng bên ngoài thì private + get + set là lý tưởng. K dùng public cho biến trong class.
+VD: Nếu lồng 10 class kế thừa nhau thì class cấp 10 có thể truy cập biến class cấp 1 thoải mái mà k cần dùng 9 hàm getter. Còn API thay đổi có thể dùng thoải mái trực tiếp.
+Chú ý protected có thể được gọi ở ngoài nếu cùng package rất nguy hiểm, chú ý 2 kiểu mức độ gọi: kế thừa gọi ở con, gọi trực tiếp qua instance của cha khi dùng cùng package -> có thể tạo package riêng cho class để tránh điều này
+
+
+
+# Trong dự án luôn nhớ rằng những thứ gì mà được xử lý cơ chế như nhau đều có thể gom chung lại tối ưu code 
+VD: DigitalVideoDisc, Book, CompactDisc thì cửa hàng đều bán nên có thể gom vào 1 class là Media để cửa hàng thao tác, tức 3 class này đều kế thừa class Media.
+VD: A, B kế thừa C; E, F kế thừa D => A, B, E, F đều có hàm test() => Các hàm chung nên nhét vào interface có thể có nhiều interface để cần dùng thì dùng 1 biến interface đó là được thay vì phải chia case với từng class a b e f khác nhau. Các thứ riêng khác thì implement từng class.
+=> Interface dùng để gom các method chung, class dùng để gom các attribute và getter, setter của chúng chung => mix-in inheritance
+
+
+
+# Lỗi nhiều nhất dùng sai quan hệ
+VD: Thay vì dùng WindowWithScrollbar kế thừa Window và Scrollbar là multiple inheritance có thể k dùng được trong 1 số ngôn ngữ và bị sai quan hệ ở đây, ta dùng Scrollbar composition trong WindowWithScrollbar(vì window xóa thì scrollbar ta cũng muốn xóa theo và window chỉ gắn với 1 scrollbar tạo ra chỉ dùng bên trong, k dùng ở ngàoi) và WindowWithScrollbar kế thừa từ Window. Đúng quan hệ has-a và is-a
+
+Vd ta cho PseudoStep và DetailStep là aggregation của Step thì bản thân nó phải mang ý nghĩa là 1 thuộc tính của Step. VD: class Person có tóc, tai, mắt, mũi,.. còn PseudoStep nó vốn kp là 1 tính chất của Step mà nó là quan hệ "là" nên đúng ra là phải kế thừa. Nhưng nếu DetailStep và PseudoStep cùng kế thừa Step nhưng lại chẳng có hàm gì chung thì kế thừa chả để làm gì. 1 phần cũng là do lỗi đặt tên vì nó giống quan hệ "là". Ở đây có thể đôi tên của Step sao cho nó chứa PseudoStep như 1 thuộc tính kiểu StepContainer chẳng hạn, nhưng rút cục nó sai ngay từ đầu r.
+VD: Edge và Comment của DetailStep có thể tách thành 2 class riêng với quan hệ "là" với DetailStep.
+Ở đây PseudoStep mang thuộc tính riêng của từng Algorithm thì nên xây ngay tại constructor của từng thuật toán ok hơn.
+
+
+
+# Interface cũng là thứ giúp thực hiện 1 class - 1 chức năng riêng biệt
+VD lab: 1 class base có nhiều class con, mỗi class con sẽ phải tạo 1 hàm input data riêng. Hơn nữa class base là abstract và k có setter cho private variable thì buộc phải tạo instance thông qua constructor. 
+=> Ta gom việc tạo instance của class ra 1 class riêng lo riêng responsibility đó. VD ta tạo interface MediaCreation cho riêng vc đó và từng class trong package implement interface đó, tuân theo nguyên tắc 1 class 1 responsibility là DVDCreation, BookCreation, CDCreation. Và tạo ra bằng:
+MediaCreation a = new DVDCreation() => a.createMedia() => rồi client dependency đến cái interface kia là xong. Client ở đây là thứ chứa file main Ct chạy
+
+-> Mô hình chung cơ bản:
+- Có nhiều class A1, A2, A3,.. cùng kế thừa từ abstract class A. 
+- Abstract class IB có class Bx kế thừa nó implements mọi hàm và class B1, B2, B3 kế thừa tiếp từ Bx (B4, B5, B6 lại kế thừa từ IB trực tiếp implements mọi hàm)
+- A1, B1, B2 implements interface X. A2, B1, B3 implements interface Y vì nó cùng thực hiện hàm chung. 
+- Interface Z có tập hợp các class ZB1, ZB2, ZA1,.. cùng implements nó và gọi các hàm trong các class B1, B2, A1 thực hiện chung 1 chức năng gì đó để tuân thủ nguyên tắc 1 class 1 responsibility.
+=> File main gọi các tính năng của A1,A2,A3,B1,B2,B3 làm gì đó thông qua các interface và abstract class, các hàm rời hoàn toàn thì casting qua. Nó gọi hàm của B1, B2, A1 thông qua biến interface Z và ZB1, ZB2, ZA1 như TH MediaCreation trên
+
+Nguyên tắc hướng đối tượng cũng giống như vc chia file như file này này. Vc kiểm soát rất dễ nếu như ta thêm 1 chức năng mới thì chỉ cần làm ở 1 file là tự có hết chứ kp code mở rộng to dần ở 1 file cũ và xử lý code phức tạp ở nhiều class. Vd trong ứng dụng có các class hình tròn, hình vuông, hình thoi,... để thao tác gì đó ta k cần biết, nhưng 1 lúc nào đó ứng dụng cần mở rộng bằng cách thêm 1 hình mới vào là hình tam giác chẳng hạn thì chỉ cần thêm 1 class Triangle vào phát là xong mà k cần chỉnh sửa thêm ở nhiều class để thêm 1 tính năng mới.
+Về mặt tái sử dụng nó giống như trong React, mỗi component là 1 functional class(đúng tính chất 1 class - 1 chức năng). Tái sử dụng mạnh mẽ 1 component ở nhiều nơi.
+
+Phân tích 3 kiểu tái sử dụng tách ra từng chức năng:
+- Interface + aggregation:
+Client có AMedia abstract được kế thừa từ Disc, Book, Audio. Vc này đã là gom chung rồi nhưng h 3 class kia có cùng 1 hàm mà ta muốn implements hàm đó trong Client thì có thể cho 3 cái implement interface và gọi thông qua interface. Tức client dependency đến interface. Như v nghe khá ổn nhưng vẫn chưa hoàn toàn tuân thủ SRP. Chẳng hạn cần tuân thủ SRP và hàm chung ở đây là play() đi thì interface là Playable. Ta tạo ra 3 class DiscPlay, BookPlay, AudioPlay implements interface Playable. Rồi Client gọi play() dependency Playble thông qua 3 class kia. Nhưng như thế thì 3 class Disc, Book, Audio cũng phải aggregation đến các class Play. Đương nhiên nó được truyền vào khi khởi tạo ra để dùng trong Client.
+=> Đôi lúc k cần phải aggregation như class MediaCreation, nó dùng tương tự nhưng k cần đến aggregation vì class này chỉ có chức năng tạo instance chứ kp có instance rồi mới gọi hàm của nó
+
+- Interface + Static:
+Tương tự trên nhưng dùng cho các hàm gọi chung mà k cần cụ thể 1 instance. VD ở trên play ta cho nó là hàm static chứ kp là hàm bth bên trong. Khi đó gọi hàm sẽ dễ hơn và kp khởi tạo new cho các class Play, có thể dùng khi chỉ cần 1 hàm trong class chứ k có nhiều.
+
+
+
+# Xử lý class có 1 hàm lẻ ra
+A, B, C kế thừa abstract class D và khởi tạo instance D new A B C thì chẳng may B có 1 hàm lẻ mà 2 class kia k có thì khi cần gọi có thể cast sang B để gọi.
+Các class nên hạn chế có hàm setter, viết setter cho việc edit nếu cần thiết và coi khởi tạo là setter chứ k cho setter lung tung, hàm getter chỉ cần viết khi cần lấy. Cứ để các hàm này lại, cần thì tự viết ra, getter cũng nguy hiểm vì get xong r lại đổi được toàn bộ mọi thứ từ hàm public của class.
+=> Dự án trong OOP lab chuẩn nó cũng dùng như v. VD class DigitalVideoDisc có hàm search tìm ký tự trong title nhưng trong hàm main chỉ có aggregation Order mà thêm vào Media chứ k thao tác được với hàm search. Tương tự mọi hàm khác của các class DigitalVideoDisc, Book, CompactDisc đều k thể dùng được các hàm riêng của nó trong main. Đó chính là vấn đề ta thắc mắc thì trong các file test, chính cô cũng phải dùng cast từ Media qua để dùng các hàm đó.
+Cách khác để thực hiện điều này là dùng Interface và chia ra nhiều class, mỗi class 1 responsibility implements interface để chạy constructor độc lập. Thêm vào đó toString từng class cũng được dùng qua hàm println vì nó override toString nên hiện của con đúng r còn gì
+
+=> Ta cũng có thể thiết kế ra kiểu như toString + println. VD class A có 1 hàm lẻ => ta cho A implements interface B chứa hàm lẻ đó, class C chứa các hàm static chuyên gọi hàm lẻ này, ta tạo hàm static nhận interface làm params và bên trong gọi hàm lẻ này. Client bất cứ khi nào cần gọi hàm lẻ của A chỉ cần dùng hàm static của C(lúc nào cũng được) và truyền vào biến interface B để gọi hàm lẻ đó. Nếu hàm lẻ này mình A có và chỉ mình A thôi thì bỏ qua interface B đi mà truyền thẳng A vào hàm của C, nhưng như thế thì thà cast mẹ nó cho nhanh.
+
+
+
+# Dùng Package
+- package <tên project> chứa file hàm main chính để thao tác và các file test. Trong file hàm main có menu, main khai báo các instance bên trong và gọi menu. Trong main còn khai báo các hàm hỗ trợ cho vc gọi các hàm khác
+- package <tên model> chứa các file thao tác với model theo qh kế thừa, abstract class, aggeration. Nên nhớ các model sẽ được gom lại thanh từng cục, VD package media chứa các Media model, package date chứa các Date model.
+- package utils chứa các file có từng chức năng static riêng, nhận vào input các biến model và cho ra kết quả
+- package <tên chức năng> sẽ chứa các file có chức năng riêng của từng class. VD package factory có các file creation chẳng hạn. Package này có thể dùng static nhưng họ thg dùng bình thường luôn và khi cần gọi hàm phải truyền qua 1 biến new của nó. Thông thường thì chức năng kp tạo bừa bãi là được mà nếu code bị trùng thì mới dùng thôi. VD 5 class cùng có hàm createData thì interface DataCreation sẽ nằm trong package creation.
+
+=> Đây là cấu trúc chia cho mô hình cơ bản. Thực tế dùng MVC thì vc chia sẽ rất phức tạp từ package cho đến thiết kế class diagram
+
+
+
+# Giải quyết vấn đề abstract k overload:
+A, B, C cùng kế thừa từ abstract class D vì cả 3 cùng có 1 hàm là run() nhưng class C khác class A và B 1 chút là run của C nhận thêm đối số x vào hàm cơ. Khi đó để hàm run() là hàm abstract trong D thì phải biến cái x thành aggregation của C khi khởi tạo từ constructor là được, hàm run() lại thành k đối số
+=> Sẽ rất tệ nếu x nó k là 1 thuộc tính của C mà chỉ là 1 thứ vớ vẩn phụ thêm thì chưa giải quyết được
+
+
+
+# Hướng xây dựng OOP:
+Ta cứ tách từng đối tượng ra từng phần cực nhỏ r gom lại xem cái nào xứng đáng có 1 class riêng r phân chia các class cùng loại vào chung 1 package. Sau đó phân chia:
+1) Xem class nào chứa biến class nào "thuộc tính", class nào kế thừa class nào "là"
+2) Phân chia xem các class nào chung thuộc tính thì gom lại cho cùng kế thừa 1 abstract class, tức từ trước đó ta k chủ động chia mà về sau tự nhóm các class quan hệ "là" chung cho abstract class. Nếu cần tạo instance thì kế thừa class bth thôi, kp abstract class. 
+3) Nhiều class chung 1 hàm chức năng thì cho implements 1 interface và thực hiện 1 class - 1 responsibilities. Ở class riêng này có thể chứa các biến class khác và có hàm thao tác với các biến đó về chức năng riêng đó mà nó đảm nhận. VD chức năng Creation gom tất cả vào 1 package factory ok.
+4) Mỗi class menu chứa hàm main duy nhất để thao tác với các class khác và hàm main gọi biến class là dependency(khai báo trong main). Package chứa file này cũng là package chứa các file có main để test
+
+=> Thực tế main chứa biến thì nó kp là aggregation đâu mà khi áp dụng mô hình MVC vào thì file giao diện nó gắn với controller thì controller này tương đương với file main đó. Khi đó các biến trong file main nó như aggregation trong controller v, nên ta mới viết được trong main như v để hình dùng thôi
+
+-> OOP ta biết cái graph là biến private nhưng nếu ta cho hàm getGraph trả ra biến graph đó thì liệu có được. Vì nếu dùng getGraph, ta sẽ toàn quyền thay đổi về property của cái Graph. Tùy thuộc vào class Graph có quyền thay đổi như nào mà ta có thể đổi graph của class đó thoải mái. Nếu class Graph là kiểu class thuần được toàn quyền thay đổi vì có đầy đủ getter, setter thì điều này vô hình làm tính đóng gói trở nên lố bịch vì class nào cũng thay đổi được mọi thứ.
+Do đó, Vd class A có Graph graph thì:
+Nếu ta muốn thay đổi bản thân của biến graph sang 1 địa chỉ riêng thì cần tạo setter cho graph.
+Nếu graph là biến class thuần được thay đổi mọi thứ ngoài tầm kiểm soát của class A thì: nếu muốn thay đổi toàn quyền biến graph thì tạo hàm getter cho nó; nếu muốn thay đổi graph theo ý muốn chỉ được thông qua các API của class A thì ta bỏ hàm setter đi và tạo ra các hàm API set attribute cho cái graph của class A riêng, nhưng điều này cũng đồng nghĩa class A có rất nhiều hàm bị trùng với class Graph nếu như vc set attribute là k đổi và nếu cần thay đổi đến 100 thuộc tính thì sẽ lên tới 100 hàm rất lớn
+=> Nếu k muốn class A làm như v có thể làm 1 PP khác: tạo 1 class CustomGraph extends Graph và class này giữ mọi thuộc tính setter getter của Graph nhưng muốn thay đổi như nào khi dùng class A thì chỉ cần override các thuộc tính cần thay đổi. Nhờ v thì class A k cần phải viết logic trùng lặp. Điều đặc biệt là điều này giúp tách logic class A ra rất nhiều nhưng nếu CustomGraph cần dùng đến biến của class A để dùng trong hàm setter thì: 
+1) Ta vẫn có thể tạo API tiếp trong class A để gọi vào 1 hàm từ class CustomGraph nhưng class CustomGraph k có cách nào xóa thuộc tính từ Graph được. Ta phải tự hiểu là k dùng hàm đó trong Graph nhưng thông thường thay đổi data thông qua biến của class A thì thường hàm đó bị đổi chức năng 1 tẹo nên có thể chơi kiểu 2 hàm, 1 hàm gán gì cũng được, 1 hàm gán theo thuộc tính của class A thì 2 chức năng khác nhau cũng ok.
+2) Cách 2 là ta cho CustomGraph chứa các biến aggregation là các biến từ class A kiểu:
+class A {
+  private int a;
+  private CustomGraph graph;
+  public A(int b){
+    a = b;
+    graph = new CustomGraph(a); //a phải là thuộc tính của custom graph
+  }
+}
+thì khi class CustomGraph dùng địa chỉ biến từ class A là dùng được các biến của class A nhưng bị giới hạn k được nhiều biến. Vẫn áp dụng Cách 1 kèm được còn Cách 2 chỉ dùng với các biến dùng nhiều kiểu biến a nó như hẳn 1 thuộc tính của CustomGraph. 
+Tức là ở trong class Step có PseudoStep làm 1 biến private và ta muốn add vào hay làm gì thì ghi lại đúng. Bh ta getPseudoStep phát là xong thay vì gọi truyền nhau.
+=> Chưa giải quyết được VD: A có aggregation B. B có 5 hàm a,b,c,d,e. Ta muốn A k dùng được a,b. A dùng được c,d như cũ. A custom e() khác đi => số lượng hàm ở đây VD cực lớn. Khi này a, b k dùng được thì ta đơn giản là k thay đổi gì cả mà ẩn nó đi, k gọi đến nó là xong chứ k nhất thiết phải tìm cách để y hệt v đâu. 
+Giải quyết vấn đề này theo cách tốt nhất mà ta biết thì phải tạo customgraph và implement thuộc tính e và getCustomGraph. Nhớ chú ý thỏa mãn tính chất method phải là 1 hành động của object. 
+Hoặc nếu class ngắn thì có thể: để getter cho biến private đó + vẫn viết các hàm mà có sự thay đổi theo ý ta trong class A. Chấp nhận vc người khác có thể dùng getter để từ đó set giá trị linh tinh vì rảnh lắm mới làm v.
+

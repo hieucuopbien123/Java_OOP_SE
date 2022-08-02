@@ -1,0 +1,119 @@
+-> Java là gì
+Java là ngôn ngữ hướng đối tượng. Java được sử dụng xây dựng website động hay nâng cao chức năng của server. VD: Google, Facebook, Linkedin.com và ebay.com viết bằng java. Cụ thể họ dùng java làm backend cho hệ thống của họ. 
+Website java sẽ có hiệu năng cao. HTML, JS, CSS vẫn dùng phía client xử lý giao diện. Các framework nổi tiếng của Java dùng cho web là Spring, JSP/Serviet, Struts. Java thì có thể dùng để tạo web server với Java Servlet API, nó manage request from browser và gửi trả kết quả. JSP(Java Server Page) dùng cho HTML page với embeded Java code. VD: Spring Framework là một bộ sưu tập các công cụ nổi bật để xây dựng các ứng dụng web quy mô lớn bằng java
+Java được sử dụng phát triển trò chơi. Game thường là kết hợp của nhiều ngôn ngữ và có thể dùng Java làm ngôn ngữ chính. VD: các trò chơi phát triển trên website. Thư viện LWJGL cực nhẹ giúp cho các trò chơi tối ưu hóa của java. VD: God of War,... Thư viện jmonkeyengine là thư viện game 3D nổi tiếng của Java.
+Java có thể dùng phát triển ứng dụng Android(cạnh tranh Kotlin của Google). Nó tương thích với VS và Kotlin.
+Dùng trong BigDaga với các công cụ: Hadoop, Apache Spark, Apache Storm,..
+Java phat triển GUI ứng dụng desktop. Nó có các thư viện như AWT, Swing, JavaFX giúp làm điều đó
+Ngoài ra còn giúp xd ứng dụng nhúng, phát triển phần mềm, ứng dụng bảo mật. VD: Eclipse, Inetelli Idea, Murex, các phần mềm internet banking,...
+
+JavaJDK là tool biên dịch java. Eclipse, IntelliJ là IDE code java
+=> Tối thiểu có 2 thứ này để code java. Khi có JavaJDK trong environment variable(window) thì dùng được command java.
+Java trải qua nhiều phiên bản, có TLS như Java17, Java11, Java8. Nhưng SE JDK v8 là bản TLS stable được dùng ổn định nhất dù hiện tại có nhiều phiên bản mới ra mắt.
+
+Oracle là tổ chức sở hữu Java, thực ra là mua lại chủ củ là Sun Microsystem. Java đặt theo tên 1 hòn đảo ở Indo sản xuất cà phê. Họ tạo ra JVM vì muốn java chạy được nhiều nền tảng khác nhau. 
+
+JRE(Java Runtime Environment) là môi trường chạy java gồm JVM và 1 số thư viện Java giúp thực thi chương trình viết bằng java
+JDK(Java Development Kit) là bộ phát triển Java lại bao gồm cả JRE và Java Development Tools(các công cụ phát triển java). Do đó cần tải JDK để phát triển ứng dụng Java chẳng hạn Javac để biên dịch r nó dùng JRE để chạy luôn. Có JDK + IDE là code chạy được Java luôn r.
+
+Oracle khi phát hành Java7 đã phát hành 2 biến thể khác nhau của JDK.
+OpenJDK mã nguồn mở được bảo trì và phát triển bởi Oracle nhưng cho phép cộng đồng và các công ty tham gia phát triển như Red Hat, Apple Inc, IBM,... OpenJDK được cập nhập thường xuyên dựa trên phản hồi người dùng, đôi khi k ổn định. OpenJDK cũng có các đặc tả mà tổ chức muốn tạo biến thể của JDK phải tuân thủ.
+Oracle JDK được bảo trì và phát triển bởi Oracle và cũng tuân thủ các đặc tả như nói ở OpenJDK nhưng mã nguồn đóng. Nó tập trung vào sự ổn định, đáp ứng hiệu năng JVM.
+
+Java platform là môi trường phát triển và deploy sản phẩm chạy trên mọi OS: Java Program -> Java API -> JVM -> Host OS
+Java kế thừa từ C++ nhưng các tính năng khó của C++ bị lược bỏ làm nó dễ dùng hơn. Mạnh mẽ và an toàn VD chế độ tự động gom rác và đa nhiệm tốt
+
+Vai trò của package: tránh conflict tên class, phân bố và tổ chức class, 1 package có thể chứa 1 package khác. Các package phổ biến nhất java: 
+java.lang chứa các class tối thiểu cho design của ngôn ngữ java; chứa wrapper class như String, StringBuffer và Object,.. được mặc định import implicitly trong mọi classes
+java.util: chứa các collection frameworks, event module, class về date time các thứ
+java.io: các class về input output, serialization của hệ thống file
+java.math: class về toán học
+java.sql: cung API để access và xử lý data lưu trong data source thường là relational database
+java.text: cung class và interface để xử lý text, date, number, message độc lập với ngôn ngữ tự nhiên
+java.swing: cung class và interface tạo giao diện
+
+
+-> Trong VSC:
+Chỉ cần cài extension làm theo hướng dẫn là mọi thứ được setup, có thể dùng VSC làm IDE.
+
+Khi dùng Run của VSC mặc định sẽ dùng javac tự biên dịch sinh file.class cùng thư mục file.java
+
+Tạo dự án Java: CTRL+SHIFT+P => java: Create Java Project
+F5 or CTRL+SHIFT+D để compile và Run và Debug
+CTRL+F5 để chạy chương trình
+
+javac file.java => biên dịch java thành các class
+java <tên class> => chạy file java
+java --version
+javac --version
+
+
+-> Cơ chế compile trong java:
+Editor -> viết source code -> javac file.java -> sinh ra file.class -> java file -> execution
+
+Screen hiển thị, CPU xử lý, keyboard tương tác, RAM lưu trữ
+Text được bd bằng 8 bits 01, instruction hay các thứ đều được bd bằng 8 bit 01 VD: ADD là 10000011 và đó chỉ là 8bit. Hiện tại máy tính chạy đến 64bits 1 lúc
+VD: thực hiện phép cộng trong máy tính bằng Assembly a + b
+lưu giá trị a, lưu giá trị b vào 2 địa chỉ, cộng lại content 2 địa chỉ, store kết quả
+=> Ngày xưa máy tính đời đầu họ chuyển code sang mã máy bằng mapping sheet còn bh họ dùng assembler. Nó phải gọi thêm 1 function là OS calls để display output of code
+Điều này có thể tóm gọn bằng 1 dòng của ngôn ngữ bậc cao: cout << a+b; và chuyển lên công đoạn trên bằng compiler:
+print(a+b) --compiler C lang--> lưu giá....kết quả(bằng assembly) --asembler--> mã máy 01
+=> Tuy nhiên các compiler đời mới, nó chứa cả compiler và tích hợp assembler để chuyển từ ngôn ngữ bậc cao sang mã máy luôn tăng tốc độ
+Tùy hệ điều hành mà cái mã máy có thể khác nhau và assembly khác nhau. Dẫn đến 1 phần mềm muốn chạy trên nhiều hệ điều hành sẽ phải mua nhiều compiler để chuyển sang mã máy của từng hệ điều hành. Đó là với ngôn ngữ bth.
+Trong java nó viết hàm cộng kiểu: System.out.println(1+2) ở dạng file.java nhưng nó k mang đặc trưng của hệ điều hành nào hết mà javacompiler sẽ compile sang bytecode dạng 01010 lưu trong classfile. classfile này k có hđh nào hiểu được mà chỉ có Java Virtual Machine(JVM) lưu trong RAM của system. JVM sẽ xđ hđh hiện tại và convert bytecode sang mã máy từng platform. Chữ system trong code tức là tùy vào system là gì thì cx chơi đc nên code java compile 1 phát là chạy trên mọi hđh. Nhờ JVM của java mà nó mới cross platform được nv.
+
+Cơ chế compile và link trong C: VD file a1.c chứa main gọi f1(), f2(); a2.c chứa f1(); a3.c chứa f2() -> compiler sẽ compile file main tạo ra 3 file.obj là a1.obj, a2.obj, a3.obj là machine code -> Linker sẽ link 3 file này thành file.exe -> Chạy file.exe -> file.exe sẽ load vào RAM và chạy
+
+Cơ chế compile trong Java: tương tự a1.java, a2.java, a3.java qua compiler chạy main sinh ra a1.class, a2.class, a3.class -> k có giai đoạn linking mà dùng JVM -> chạy CT -> Class loader của JVM sẽ load 3 file.class vào trong RAM -> Bytecode verifier of JVM sẽ verify 3 file.class đảm bảo về security -> sau đó excecution engine của JVM sẽ convert bytecode thành native machine code và chạy nó
+=> quá trình chuyển hóa bytecode thành machine code được thực hiện lúc compiling khi execute. Đó cũng là lý do vì sao java chậm khi compile vì nó còn bận xd hđh nào để compile.
+=> Đó cũng là các giai đoạn mà 1 chương trình java phải trải qua khi hoạt động
+
+--> JIT(Just In Time) compiler: là trình biên dịch tại chỗ là vc biên dịch CT thành mã máy để CPU hiểu lúc runtime
+Compiler là trình biên dịch, interpreter là trình thông dịch. Nhưng nói như v cũng k đúng vì nó chỉ là cách chuyển 1 mã ngôn ngữ về mã máy mà thôi, nên có ngôn ngữ vừa biên dịch được, vừa thông dịch được đơn giản vì nó dùng được nhiều cách chuyển để chuyển được sang mã máy. 
+VD: [C++ code -> compiler compile toàn bộ source 1 lúc -> nhiều file machine code tùy hđh](dev làm) -> hệ điều hành nào thì dùng file machine code tương ứng
+Còn: [Python code](dev làm) -> Intepreter từng dòng -> tùy máy nào cho ra kết quả => với ĐK máy đó chạy được trình thông dịch python
+=> Tức 1 loại compile sẵn chỉ cần chạy, 1 loại lúc chạy mới intepret từng dòng. 1 cái phải compile từ trước, 1 cái chạy mọi hđh miễn được hỗ trợ.
+=> Java tương tự vì JIT compiler là cốt lõi của JVM của java. So về tốc độ thì đúng là interpreter language như nó k có cửa so với compiled language như C++, C, C# nhưng các kỹ sư của Oracle đã thiết kế JVM với hàng loạt thuật toán phức tạp để CT sử dụng hiệu quả hơn. VD JVM sẽ check xem đoạn code nào thực thi nhiều lần thì sẽ là 1 block of code và được compile để mỗi lần thực thi dùng trực tiếp machine code chứ k cần interpret mỗi lần chạy, 1 vài phần CT sẽ được thực thi native code như v. Đương nhiên sau khi được compile thì phần code đó được lưu trữ lại native code đó gọi là code cache.
+1 ứng dụng lớn mà dùng JIT thì mỗi lần khởi động đều lâu vì phải biên dịch lại. 
+VD: C++ cũng có trình thông dịch nhưng quan trọng là máy có hỗ trợ hay không chứ các ngôn ngữ hoàn toàn là thông dịch như java thì máy nào cũng hỗ trợ.
+
+Khi chạy 1 java file ta dùng: java -jar file.jar => 1 JVM mới được sinh ra và CT được thực thi trên đó, tức mỗi app chạy trên 1 JVM độc lập.
+
+Ngay cả JS khi browser compile cũng dùng interpreter nhưng ở các phiên bản mới hơn browser tích hợp JIT gọi là monitor. Nó xác định các đoạn code trùng gọi là swarm. Đoạn nào chạy nhiều lần gọi là hot. Các đoạn hot sẽ được đưa đi biên dịch. 
+
+Compiler là bth. Interpreter là từng dòng. JIT compiler là phiên bản nâng cấp của Interpreter với cơ chế như trên.
+
+
+-> Memory management:
+Memmory management của java được ẩn đi đối với dev. Dev k cần care về mem quản lý như nào hay phải free bộ nhớ hay k vì JVM tự làm hết.
+Heap lưu constant pool và new variable, thực tế nó lưu trên stack và reference pointer vào heap. Còn primitive var được lưu trực tiếp trên stack.
+GC quét qua JVM's list of objects định kỳ để lấy lại vùng nhớ nguồn resource của object nào mà k được referenced. Thông thường GC chạy khi mem low, nh lúc k thể đoán trước.
+Hàm finalize của object được run ngay sau khi gc chạy và dọn object đó. Request gc run soon bằng System.gc() => chỉ dùng overrdie hàm finalize trong TH đặc biệt
+Object sau khi bị xóa có thể được gán null tự động.
+
+
+-> GUI:
+AWT(Abstract Windowing Toolkit) API chỉ dùng cho simple GUI
+Swing: code java thuần nhưng linh hoạt hơn
+JavaFX: Khi cần develop rich internet app, có sẵn nh components rất mạnh
+
+
+-> Other:
+Trong java phải đặt tên class trùng tên file để biên dịch ra file cùng tên
+
+Linux: copy dùng SHIFT+CTRL+C, paste dùng SHIFT+CTRL+V => thêm mỗi SHIFT
+
+Có thể refactor các file vào các package khác nhau, import dự án java từ file zip được
+Ta có thể export dự án của ta thành 1 thư viện đuôi file.jar để dùng trong 1 dự án khác. Ta có thể export project của ta thành 1 ứng dụng chạy bằng 1 file.jar bằng command line để chạy với: java -jar file.jar => với các thư viện ngoài khi sử dụng sẽ phải thêm VM argument vào cho ứng dụng để dùng các thư viện đó. Do đó ta nên export thư viện ra kèm file.jar và nhớ để thêm bin vào cùng cấp thư viện nếu k sẽ k chạy được.
+Export file jar => rightclick -> export Runnable Jar File => chọn dự án có file main và đặt tên .jar trong Eclipse
+
+jDiff, diff là các tool check sự thay đổi của code, dù sao bh toàn dùng git
+
+Lỗ hổng bảo mật Log4J là lỗ hổng trong package Log4J chuyên dùng để log nó bị lỗ hổng ở chỗ nó lấy code của hacker và chạy, hacker chỉ cần chuẩn bị sẵn 1 url có code java chứa mã độc và gửi vào và log4j sẽ tự tìm đến url server chạy phần code hack đó. Những ứng dụng dùng package log4j or dùng các package mà bên trong package lại dùng log4j đều bị lỗi này. Để fix phải cập nhập máy chủ java lên phiên bản mới nhất. VD: các server minecraft viết bằng java bị hack bằng cách này
+
+Dùng java với MySQL thông qua Java JDBC Driver để thao tác Java với CSDL:
+Cần tải thêm NetBeans IDE về máy tính để làm môi trường code. Tải thư viện MySQL Connector/J để thao tác với MySQL trong Java.
+Netbeans là IDE mạnh của Java dùng cho ứng dụng web, di động, desktop hết. Nó cũng giống Eclipses hỗ trợ nhiều ngôn ngữ khác nx. Để cài NetBeans cũng phải có sẵn JDK. 
+=> bỏ. Chỉ cần biết có thể thao tác với Database SQL bằng Java thông qua driver, cũng như trong Qt ta thao tác với Microsoft SQL được ấy
+
+Theo kiểu truyền thống người ta chỉ xử lý lỗi bằng if else, về sau cho try catch ra đời để tiện hơn và code rõ ràng hơn. Và áp dụng OOP để gói các loại error vào thành 1 đối tượng class riêng. Mọi class về các loại exception đều kế thừa từ class Exception và Exception kế thừa từ class Throwable.

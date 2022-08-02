@@ -1,0 +1,99 @@
+@startuml
+
+abstract class Army{
+    damage: int
+    blood: int
+    armor: int
+}
+class Powder{
+    munition: int
+}
+abstract class NonMunition{ }
+class Hop{ }
+class Sword{ }
+class Spear{ }
+abstract class Line{
+    capacity: int
+    slot: int
+}
+class Front{
+    all: NonMunition[][]
+}
+class LongRange{
+    all: Powder[][]
+}
+interface TroopInFlank{ }
+class Flank{
+    all: TroopInFlank[][]
+    isLeft: boolean
+}
+class Formation{ }
+
+Powder --|> Army
+NonMunition --|> Army
+Hop --|> NonMunition
+Sword --|> NonMunition
+Spear --|> NonMunition
+Sword ..|> TroopInFlank
+Spear ..|> TroopInFlank
+Flank --|> Line
+LongRange --|> Line
+Front --|> Line
+TroopInFlank "*" --o "1" Flank
+Powder "*" --o "1" LongRange 
+NonMunition "*" --o "1" Front 
+Formation "1" o-- "1" Front
+Formation "1" o-- "1" LongRange
+Formation "1" o-- "2" Flank
+
+@enduml
+
+class Flank extends Line{
+    boolean isLeft;
+    TroopInFlank[][] all;
+    public Flank(bool isLeft){
+        this.isLeft = isLeft;
+        all = new TroopInFlank[20][3];
+        capacity = 20;
+        slot = 3;
+    }
+}
+
+public void arrange(TroopInFlank[] group){
+    Vector<Sword> sword = new Vector<Sword>();
+    Vector<Spear> spear = new Vector<Spear>();
+    for(int i = 0; i < 20; i++){
+        for(int j = 0; j < 3; j++){
+            if(all[i][j] != null){
+                if(all[i][j] instanceof Sword){
+                    sword.add(all[i][j]);
+                }else{
+                    spear.add(all[i][j]);
+                }
+            }
+        }
+    }
+    for(TroopInFlank t: group){
+        if(t instanceof Sword){
+            sword.add(t);
+        }else{
+            spear.add(t);
+        }
+    }
+    int indexSword = 0;
+    int indexSpear = 0;
+    for(int i = 0; i < 3; i++){
+        if(indexSword >= sword.size() && indexSpear >= spear.size()){
+            break;
+        }
+        for(int j = 0; j < 20; j++){
+            if(indexSword < sword.size()){
+                all[j][i] = sword[indexSword++];
+            }else if(indexSpear < spear.size()){
+                all[j][i] = spear[indexSpear++];
+            }else{
+                break;
+            }
+        }
+    }
+}

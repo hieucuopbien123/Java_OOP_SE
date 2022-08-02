@@ -1,0 +1,27 @@
+-> SE:
+SE là phương pháp phát triển sản phẩm, bảo trì sản phẩm, giải quyết vđ, tránh delay, đảm bảo chất lượng. 
+Các vấn đề về sản phẩm hỏng, chưa thỏa mãn người dùng, đang làm thì gặp trục trặc như thiếu ngân sách, thiếu nhân lực, công nghệ khó hay bất cứ 1 vấn đề gì chưa nói đến việc code mà ảnh hưởng đến quá trình phát triển sản phẩm là thuộc phạm vi của môn SE, bao gồm cả trao đổi với khách hàng hay quy trình làm việc của nhóm.
+Theo thời gian, giá của hardware giảm dần nhưng giá của software tăng dần.
+
+Client là người cung tài nguyên, tiền bạc để dev code cho họ.
+Customer là khách hàng mua sản phẩm để dùng cho tổ chức của họ.
+User là người dùng cuối trực tiếp sản phẩm. Với personal software thì customer và user có thể là 1.
+=> VD: trường ta cho hs dùng MS Team thì trường là customer, user là hs. Trường không cung tài nguyên và tiền bạc cho đội dev của MS làm nên trường k là client. MS Team là 1 sản phẩm của công ty product Microsoft nên MS tự cung tiền bạc và tài nguyên các thứ cho đội dev của họ làm nên client là chính MS.
+Mức độ hài lòng của client là mức độ thành công của software.
+
+Cái này tách ra làm 1 môn riêng vì yêu cầu của client có thể thay đổi liên tục và cần có 1 phương pháp đúng đắn nhất để phát triển sản phẩm đúng hướng khi mà phần lớn các dự án thất bại là do thực hiện sai requirement của client. Giải pháp chung nhất vẫn là deliver sản phẩm liên tục để nhận feedback thay đổi.
+
+
+-> Software requirements specification(SRA): là báo cáo phân tích yêu cầu là chỉ biểu đồ UML, làm sau feasibility.
+UML(Unified Modeling Language) - ngôn ngữ mô hình hóa thống nhất là ngôn ngữ dành cho việc đặc tả, hình dung, xây dựng và làm tài liệu của các hệ thống phần mềm. Trong UML có 9 dạng biểu đồ mà cái PlantUML ta dùng để vẽ UML Diagram đó. Nó là 1 trong những ngôn ngữ chuẩn để xây dựng hệ thống phần mềm hướng đối tượng.
+=> Dùng UML ở giai đoạn thiết kế. 1 project có nhiều UML
+
+
+-> UC Diagram Quiz trả lời: vở ghi
+
+Bài usecase payroll system:
+Ở phần đầu, nó đang cố chia ra làm 3 loại employee khác nhau chứ kp là 3 hàm khác nhau. Nó đang giới thiệu loại employee nào được trả như thế nào và cũng chỉ giới thiệu actor và chưa làm với usecase, trừ cái cuối. 
+Khi nói select payment, nếu k nói gì bên trong thì là 1 action và action thì luôn gắn với mọi usecase. Ở đây nó có giải thích chi tiết bên trong nên nó phải là 1 usecase mới. Select payment có 3 TH có thể xảy ra nhưng 3 TH đó nó như 1 action thì đúng hơn chứ kp usecase extend từ select payment. Vì nó chả nói bên trong như nào và cũng hơi chi tiết quá sẵn r nên nó là 1 action.
+=> Thực ra 3 cái đó là action nghe cũng kỳ, nên để kế thừa select payment, vì nó là 1 kiểu select payment mà
+
+
