@@ -1,0 +1,96 @@
+# Software development process:
+
+-> Waterfall:
+Tuần tự, k update, yêu cầu rõ ràng, docs ở mỗi bước, client k gắn với quá trình code.
+
+--> Modified Water Model: 
+Dùng khi các phần của hệ chương trình tách rời với các phần còn lại, version mới của system được phát triển dựa trên sản phẩm trước đó or convert từ hệ thống manual sang hệ thống điện tử nhưng requirement hiểu hoàn toàn.
+Dự án chỉ quay trở lại bước trước nếu hệ thống k chỉnh sửa nhiều so với yêu cầu trước đó.
+
+-> Iterative refinement:
+Tạo 1 system thô chạy hết các bước và repeat để improve system. Dùng khi requirement k clear và có thể đổi, docs ở mỗi bước cuối, k release vội
+
+Protype là sample mẫu của ứng dụng để trao đổi với người dùng cho vừa ý. Khi người dùng đã vừa ý thì có thể design dựa trên prototype sẽ chắc chắn design được vừa ý người dùng.
+
+--> Medium weight process: 
+Docs được tạo during process
+
+--> Techniques mà client dùng để review planned system(prototype model): 
+Nguyên tắc là tạo cái gì đó hoạt động càng nhanh càng tốt cho user check nhưng k release nó. Tức cái này chính các loại Iterative refinement nhưng khác nhau trong cách user review system để dev fix cho hài lòng họ.
+---> User interface mock-ups: fake giao diện
+
+---> Throw-away software components: 
+Tức là bth ta dùng lại cái prototype người dùng hài lòng để thiết kế nhưng PP này k cần
+Ta tạo prototype và nhận feedback của client về prototype đó(có thể viết ra giấy), chỉnh sửa đến khi hài lòng thì throw away và tự code hệ thống riêng độc lập tương tự. Chỉ là 1 cách show nhu cầu của user nằm trong iterative refinement
+
+---> Evolutionary prototyping: 
+Tương tự trên nhưng k throw away mà ở đây ta hiện thực hóa bằng code luôn và đánh giá với user.
+
+---> Rapid prototyping: biểu diễn nhanh 1 trạng thái của sản phẩm để xác nhận với user
+---> Successive refinement: là qtr thực hiện 1 phần của software giúp đơn giản hóa vc tìm lỗi
+
+-> Incremental Development:
+Là 1 cách khác biến thể kết hợp iterative và waterfall. Nó chia increment từng chức năng trong requirement và mỗi module lại trải qua cả 7 bước như của waterfall, mỗi module xong là 1 version release.
+Điểm khác biệt nhất với iterative là iterative nó có 1 rough system đủ chức năng luôn và sau đó từng chức năng đó được thêm và fix thì incremental nó thêm từng cái chứ kp có tất cả từ đầu như iterative
+
+-> Spiral:
+1 biến thể của iterative với các components mới được updated thêm vào hệ thống phát triển khi nó được hoàn thành. 
+Requirement ở mỗi bước phải clear, chú trọng hơn vc fix lỗi ở các bước và chọn ra cách giải quyết tốt nhất. 1 spiral có 4 quadrant:
+1 quadrant: tập hợp requirement và phân tích vào mỗi đầu spriral.
+2 quadrant: tìm mọi cách giải quyết vấn đề, bugs và chọn ra cách giải quyết tốt nhất
+3 quadrant: phát triển tính năng và verified testing
+4 quadrant: curtomer đánh giá version đó của client và chuẩn bị next phase
+
+-> Agile:
+Vid Agile: https://www.youtube.com/watch?v=mCvIg01KnZ0
+1 biến thể của iterative dùng sprint
+
+Agile là 1 triết lý giúp nhanh chóng thích ứng và phản hồi với thay đổi để đạt được thành công trong môi trường biến động liên tục. Tức là nó chỉ chung tất cả các kỹ thuật phát triển phần mềm theo triết lý Agile. Các kỹ thuật đó mới định nghĩa rõ hơn để vận dụng vào bối cảnh công việc cụ thể của ta.
+Nó giúp ta lập kế hoạch, chuyển giao sản phẩm và cải tiến liên tục thích ứng với sự thay đổi.
+
+--> 4 đánh giá Agile:
+cá nhân và sự tương tác hơn là quy trình và công cụ, các thành viên phải tương tác hỗ trợ nhau trong dự án
+phần mềm chạy tốt hơn là tài liệu đầy đủ
+cộng tác với khách hàng hơn là đàm phán hợp đồng, phải hiểu khách hàng
+phản hồi với sự thay đổi hơn là bám theo kế hoạch
+
+--> 12 nguyên tắc Agile:
+Ưu tiên cao nhất là thỏa mãn khách hàng thông qua việc chuyển giao sớm và liên tục các phần mềm có giá trị
+Chào đón thay đổi trong yêu cầu thậm chí rất muộn trong qtr ptr. 
+Thường xuyên chuyển giao phần mềm chạy tốt với khách hàng càng ngắn càng tốt
+Nhà kinh doanh và dev phải làm việc cùng nhau hàng ngày suốt dự án
+Xây dựng dự án quanh những cá nhân có động lực. Cung cho họ môi trường và sự hỗ trợ cần thiết và niềm tin cho họ hoàn thành công việc
+Truyền đạt thông tin tới dev bằng cách hội thoại trực tiếp
+Thước đo của tiến độ là phần mềm chạy tốt
+Phát triển liên tục và bền vững
+Liên tục qt đến kỹ thuật và thiết kế gia tăng sự linh hoạt
+Sự đơn giản, nghệ thuật tối đa hóa lượng công việc chưa xong là căn bản
+Các nhóm tự tổ chức đưa ra kiến trúc, yêu cầu và thiết kế tốt nhất
+Bộ phận sản xuất, thiết kế phần mềm phải thường xuyên tiếp nhận thông tin, thử nghiệm, đánh giá để phần mềm trở nên hiệu quả hơn. Sau đó họ sẽ điều chỉnh và thay đổi cho phù hợp thích ứng thường xuyên với những thay đổi.
+
+--> Scrum: 
+Là 1 trong những cách tốt nhất để áp dụng Agile cho dự án
+Sprint: ktg cố định hoàn thành 1 phần của project và có thể dùng cho production fully tested và có minimal intermediate docs cho maintenance. 1 sprint thg có 4-9 người làm trong 2-4 tuần.
+Timebox: tập hợp các ktg hoàn thành 1 phần của project. Mỗi sprint là 1 timebox nhưng sprint có quá trình 4 bước requirement, design, code, test. Còn timebox liên quan về mặt thời gian 
+
+---> Scrum Role: 
+Scrum Master: hiểu mọi thứ của scrum, giúp mọi người cải thiện tương tác, tối đa hóa giá trị, quản lý scrum process.
+Product Owner: là cầu nối business - technical, chịu trách nhiệm update backlog từ userstories.
+Development Team: nhiều thành phần dev, phân tích, design.
+
+Product Backlog: Nó chứa userstories của client mà sẽ được chuyển đổi thành task để thực hiện
+Sprint Backlog: Nó hình thành từ Product Backlog sau khi ta đã nói rõ task là gì và xử lý task nào in-progress, to-do, done.
+
+Epic: 1 tập hợp userstories tạo thành 1 function lớn
+Userstories: statement of user expectation
+Tasks: task là thứ cần thực hiện để đạt được user stories như kỳ vọng, có 3 tính chất khác nhau là design, development, test
+
+=> có 3 loại meeting ở đầu, liên tục daily ở giữa, cuối
+Sprint planning meeting: xác định các tính năng ưu tiên của Product Backlog để thực hiện trong sprint hiện tại. Nếu 1 sprint k hoàn thành kịp, sprint sau phải có plan meeting resolve cái trước.
+Daily Stand-up meeting: thảo luận về task và tiến trình công việc, support lẫn nhau
+Sprint retrospective meeting: diễn ra cuối các sprint lớn dùng cho continuous improvement.
+
+Trong thực tế, người ta thg dùng Mixed processes
+
+Quy trình: vở ghi cửa hàng của Mary
+

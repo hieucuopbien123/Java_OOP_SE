@@ -7,6 +7,8 @@ Dùng trong BigDaga với các công cụ: Hadoop, Apache Spark, Apache Storm,..
 Java phat triển GUI ứng dụng desktop. Nó có các thư viện như AWT, Swing, JavaFX giúp làm điều đó
 Ngoài ra còn giúp xd ứng dụng nhúng, phát triển phần mềm, ứng dụng bảo mật. VD: Eclipse, Inetelli Idea, Murex, các phần mềm internet banking,...
 
+Java và NodeJS mạnh ngang nhau và có thể cross-compiled cùng nhau. Java có thể dịch sang JS được
+
 JavaJDK là tool biên dịch java. Eclipse, IntelliJ là IDE code java
 => Tối thiểu có 2 thứ này để code java. Khi có JavaJDK trong environment variable(window) thì dùng được command java.
 Java trải qua nhiều phiên bản, có TLS như Java17, Java11, Java8. Nhưng SE JDK v8 là bản TLS stable được dùng ổn định nhất dù hiện tại có nhiều phiên bản mới ra mắt.
