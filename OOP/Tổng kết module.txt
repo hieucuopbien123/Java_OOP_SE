@@ -191,6 +191,39 @@ Constructor injection: compareStudent = compareByName với compareByName là th
 Hoặc đơn giản là method injection trong hàm sort: compareStudent.sort() với compareStudent là đối số nhận vào và k cần là biến private của class => dùng khi nó chỉ dùng ở hàm này chứ k dùng ở nhiều chỗ nào khác trong class
 => Tức là phạm vi biến được sử dụng rất quan trọng, ảnh hưởng đến vc tạo và dùng nó như nào. Tất cả visibility hay phạm vi biến gọi đều phải tối ưu.
 
+-> Nhanh:
+Reminder Program: Các hành động trong 1 class k liên quan (có thể tách ra) thì k cohesion. 
+SRP: có hơn 1 lý do để đổi, đánh giá 1 class có thể đổi trong tl k / VD 1 class có 3 trách nhiệm, sửa 1 phải test lại cả 2 cái kia, cohesion sẽ đảm bảo 1 clsas đủ nhỏ để chỉ sửa trong phạm vi module đó
+OCP: Timer phụ thuộc vào TimeToStretch, nếu sau này có TimeToListenToMusic sẽ phải tạo thêm 1 biến mới. Thay vì v, dùng List<TimerTask> chung
+DIP: class tầng cao k phụ thuộc vào lớp thấp hơn, nếu có, phải abstract class thấp hơn thành 1 cấp cao tổng quát hơn
+LSP: các class con đồng cấp có thể thay thế cho nhau. VD: A nằm trong C, A đồng cấp với B thì B cũng có thể nằm trong C mà k bị sai ý nghĩa
+ISP: giống với LSP nhưng LSP là class còn ISP là interface. Nó đảm bảo vc thay thế bằng cách mọi class implement 1 interface đều đảm bảo phải implement mọi method của nó mà k để trống
+
+
+
+# Cohesion and Coupling: 
+Coupling là sự phụ thuộc lẫn nhau của các module. Các thành phần trong phần mềm nên phụ thuộc càng ít chặt chẽ càng tốt. Để đảm bảo điều này, khi code ta thử thay đổi các thành phần trong 1 module rồi check xem các module khác có thay dổi code nhiều không
+Cohesion là các thành phần bên trong class nên phụ thuộc càng chặt chẽ thì càng tốt. Nếu đảm bảo được điều này khi code, ta chắc chắn class sẽ chỉ làm 1 nhiệm vụ thì các thành phần của 1 chức năng sẽ liên quan tới nhau. Ngược lại sẽ rất rối. VD class Invoice sẽ k lưu trường customer_name vì trường này được lưu trong class Customer hay class Payment vì class Invoice chỉ tính toán hóa đơn k liên quan. Nếu lưu vào sẽ vi phạm high cohesion
+
+-> Có nhiều loại
+Coupling:
+1) Content Coupling:
+1 class truy xuất trực tiếp biến 1 class khác. Nên thêm getter, setter chẳng hạn
+Để private + getter setter khác gì với để public. Dù getter setter lấy y hệt như biến gốc cũng k nên dùng public vì nó vi phạm coupling. Sau này khi ta muốn setter và getter của nó thay đổi chứ k còn lấy y hệt nữa. Ta sẽ phải tìm từng chỗ ở mọi class khác để chuyển từ lấy trực tiếp sang gọi getter rất phiền toái.
+2) Common coupling: global store đó, k xđ được phần code nào dùng và thay đổi global store các ngôn ngữ cấu trúc như C mắc nhiều.
+3) Control coupling: truyền tham số vào hàm và logic phụ thuộc vào tham số đó. VD truyền type và if else check type nào sẽ thực hiện hàm tương ứng. Có hàm dùng thêm params, có hàm k, có hàm dùng thêm params loại khác. 
+4) Stamp coupling (từ đây chấp nhận được): Truyền cả object vao nhưng thực tế chỉ cần 1 vài trường trong đó, thừa params.
+5) Data coupling(mô hình ổn nhất): các module chỉ tương tác với nhau thông qua params truyền vào (k quá nhiều params). Nó giống stamp coupling nhưng tốt hơn vì params truyền vào k dư thừa
+
+Cohesion:
+1) Coincidental: Nhưng phần tử nằm chung vị trí với các component khác trong module nhưng lại chả phục vụ gì cho xử lý logic chức năng. VD thêm 1 hàm bừa vào class mà nó kbh được gọi trong class đó. Or nó được dùng trong class nhưng k nên là 1 phần của class vì k giúp ích cho chức năng chính.
+2) Logical Cohesion: Là khi các components liên quan logic chứ k lq chức năng. VD: 3 function đọc data từ tape, disk, network chung 1 module => nghe ổn vì 3 cái cùng 1 loại chức năng nhưng nó k liên quan đến nhau sẽ vi phạm cohesion. Dù nó có vài hàm có thể gọi chung tái sử dụng or chung 1 loại biến thì nên tạo 1 interface để nó override lại readInput, vẫn là các module khác nhau sẽ tốt hơn
+3) Temporal cohesion: Các component liên quan về mặt thời gian. VD 10 component init 10 loại data khác nhau cho ứng dụng khi khởi động (chạy cùng lúc) thì gom vào 1 module. Chưa tốt lắm
+4) Procedural cohesion: Nhưng component ở chung 1 module nhưng lại chỉ liên quan vì chúng theo 1 thứ tự thực thi cụ thể. Cohesion yếu vì khó tái sử dụng. VD: 1 chức năng tích lũy điểm phải tính điểm HK, lưu điểm HK, tính điểm cả kỳ, lưu điểm cả kỳ => 4 chức năng đó mà nhét vào cùng 1 component là vi phạm
+5) Communicaional cohesion: Các component cùng thao tác với chung 1 data bị nhét vào 1 class 
+6) Sequential cohesion (thiết kế từ đây là tốt): output của 1 ele là input của 1 ele khác. Thg ở các functional programming language.
+7) Functional cohesion: Tất cả các element trong component đều cần thiết cho mục đích chính của component
+
 
 
 # Other:
@@ -203,4 +236,5 @@ Ngoài ra: static, interface, abstract class
 Quan trọng là cách tư duy khi code thực tế
 
 A kế thừa class B thì A k nên là abstract class
+
 
