@@ -1,0 +1,37 @@
+@startuml
+
+actor Staff as S
+participant "VIP Management" as VM
+participant "VIP Input Interface" as VII
+participant "VIP Controller" as VC
+participant "Mail Service" as MS
+database Database as D
+
+S -> VM: Register for VIP
+VM -> VII: Input VIP info
+VII -> VC: POST to server
+VC -> D: Add new VIP
+D --> VC
+VC --> VM: Add new VIP successfully
+VM -> S: Show VIP code
+
+opt Update VIP Information
+    S -> VM: Update VIP
+    VM -> VII: Input new VIP info
+    VII -> VC: PATCH to server
+    VC -> D: Update query to database
+end
+opt Retrieve Card Information
+    S -> VM: Retrieve Card info
+    VM -> VII: Input VIP info
+    VII -> VC: PATCH to server
+    VC -> MS: Send card info to email
+end
+opt Extend VIP
+    S -> VM: Retrieve Card info
+    VM -> VII: Input VIP info
+    VII -> VC: PATCH to server
+    VC -> D: Update VIP expired time
+end
+
+@enduml

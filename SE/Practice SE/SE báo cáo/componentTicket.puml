@@ -1,0 +1,31 @@
+@startuml
+
+skinparam componentStyle uml1
+
+interface PATCH as P1
+interface GET as G1
+interface GET as G2
+interface POST as P2
+
+package Server {
+    [Payment_Controller]
+    [Ticket_Controller]
+}
+
+package client {
+    [Payment_Making] 
+    [Sell_Ticket]
+}
+
+[Payment_Controller] -- P1
+[Payment_Controller] -- G1
+
+[Ticket_Controller] -- P2
+[Ticket_Controller] -- G2
+
+[Payment_Making]  .up.> P1
+[Payment_Making]  .up.> G1
+[Sell_Ticket] .up.> P2
+[Sell_Ticket] .up.> G2
+
+@enduml

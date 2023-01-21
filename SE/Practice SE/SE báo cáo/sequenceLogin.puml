@@ -1,0 +1,22 @@
+@startuml
+
+actor User as U
+participant "Login Interface" as LI
+control "Login Controller" as S
+database Database as D
+
+U -> LI: Send login info
+LI -> S: POST info to server
+S -> D: Fetch info from database
+S <-- D
+S -> S: Validate login info
+
+alt Wrong info
+    S --> LI: Wrong username or password 
+    LI -> U: Show error pop-up
+else Right info
+    S --> LI: Login successfully
+    LI -> U: Redirect to HomePage
+end
+
+@enduml

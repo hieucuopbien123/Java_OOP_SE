@@ -1,0 +1,13 @@
+@startuml
+left to right direction
+Source ..> Sink 
+rectangle "Init phase" {
+    Source -> (Prepare service)
+    (Prepare service) -[hidden]-(Register with service)
+    (Register with service) <- Sink
+    Source -> (Secure channel)
+    (Secure channel) <-- Sink 
+    Source --> (Ensure readiness) 
+    (Ensure readiness) <- Sink
+}
+@enduml

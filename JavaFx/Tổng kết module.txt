@@ -13,6 +13,14 @@ tạo tree view, list view các kiểu
 
 Tương tự javafx, các thư viện khác của java từ bên ngoài có thể thêm theo cách tương tự. Có thể thêm docs cho thư viện dùng
 
+Có thể import file vào dự án dùng
+
+-> Phân trang:
+Trong 1 package có 1 page, trong page có nhiều component khác của page đó là fxml, mỗi page có 1 controller, độc lập nhau => chia file tùy biến
+Dùng layout constraint tạo responsive nhưng chỉ chỉnh được vị trí, k chỉnh được kích thước tùy màn hình như nào như web
+Dùng bth cũng có tự động căn chỉnh kích thước. VD: StackPane
+Muốn có ảnh phải refresh lại riêng thư mục thêm ảnh
+Muốn căn giữa ở vài element, phải dùng HBox or VBox r chỉnh grow của nó để đẩy thẻ của mình ra
 
 
 -> Class chỉnh layout:

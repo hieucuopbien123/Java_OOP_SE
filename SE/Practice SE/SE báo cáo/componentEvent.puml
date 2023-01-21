@@ -1,0 +1,19 @@
+@startuml
+
+skinparam componentStyle uml1
+
+interface HTTP
+interface POST_BOOKING
+
+[Event_Controller] -left- HTTP
+[Event_Controller] -right- POST_BOOKING
+
+[Event_Slice] .right.> HTTP
+[Event_Booking] .left.> POST_BOOKING
+
+note top of HTTP
+    only admin can patch, 
+    create, delete events
+end note
+
+@enduml

@@ -4,9 +4,9 @@ VD: Java Code -> MyView.fxml
 
 -> Để cài và setup: 
 => Cài E(fx)clipse trên marketplace. Cài JavaFXSceneBuilder trên web và add url vào
-tải về lib JavaFX đúng phiên bản và giải nén ra 1 thư mục, lấy đường dẫn đến thư mục lib 
-=> Tạo 1 workspace mới -> Window -> Preferences -> tạo lib trong workspace -> add tất cả các file jar vào workspace
-=> Tạo 1 JavaFx project mới k tạo module-info, xóa module info đi -> chọn project -> build path -> add library -> User library -> chọn lib đó -> Chọn Run As project: gõ: --module-path "C:\JavaFx\javafx-sdk-18.0.1\lib" --add-modules javafx.controls,javafx.fxml -> nếu run vẫn bị lỗi thì build path -> configure build path -> xóa ModulePath JavaFX SDK đi
+Tải về từ web cả lib JavaFX đúng phiên bản và giải nén ra 1 thư mục, lấy đường dẫn đến thư mục lib 
+=> Tạo 1 workspace mới -> Window -> Preferences -> tạo lib JavaFX trong workspace -> add tất cả các file jar vào workspace (trong java/BuildPath/User Libraries + Add External JARs)
+=> Tạo 1 JavaFx project mới k tạo module-info, xóa module info đi -> chọn project -> build path -> add library -> User library -> chọn lib đó -> Chọn Run As project r gõ VM arguments: --module-path "<url>" --add-modules javafx.controls,javafx.fxml -> nếu run vẫn bị lỗi thì build path -> configure build path -> xóa ModulePath JavaFX SDK đi (trong libraries / modulepath)
 
 => Mỗi khi tạo 1 project mới hay 1 workspace mới phải lặp lại những gì cần thiết
 
@@ -14,7 +14,7 @@ tải về lib JavaFX đúng phiên bản và giải nén ra 1 thư mục, lấy
 
 Để setup javafx scene builder: tải và cài ở 1 thư mục
 -> tạo New Other -> JavaFX FXML Document -> sinh file.fxml mới
-Phải thêm tool vào workspace: window -> preference -> javafx -> thêm url file.ext của SceneBuilder
+Phải thêm tool vào workspace: window -> preference -> javafx -> thêm url file.exe của SceneBuilder
 -> Mở file.fxml và cầm tool -> thêm thành root vào scene -> chạy
 Nên nhớ khi load hay thao tác với I/O đều phải try catch error
 

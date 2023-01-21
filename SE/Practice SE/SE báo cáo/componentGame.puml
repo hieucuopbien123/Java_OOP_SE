@@ -1,0 +1,34 @@
+@startuml
+
+skinparam componentStyle uml1
+
+interface HTTP
+interface PATCH
+interface GET
+
+package Server {
+    [Price_Constant]
+    [Game_Controller]
+}
+
+[Game_Controller] -- HTTP
+[Price_Constant] -- GET
+[Price_Constant] -- PATCH
+
+[Game_Slice] .up.> HTTP
+[Game_Slice] .up.> PATCH
+[Game_Slice] .up.> GET
+
+note right of PATCH
+    only admin can
+    update price
+end note
+
+note right of HTTP
+    only admin can 
+    patch, create, 
+    delete games
+end note
+
+
+@enduml

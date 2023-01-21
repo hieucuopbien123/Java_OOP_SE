@@ -1,0 +1,89 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Normal Customer" as NC
+actor "VIP" as VIP
+actor "Admin" as Admin
+actor "Staff" as Staff
+
+VIP --|> NC
+
+rectangle TinkerbellGarden {
+    usecase "Login" as Login
+    usecase "Logout" as Logout
+    usecase "Book Event Ticket" as BET
+    usecase "Exchange VIP Point" as EVP
+    usecase "Sell Ticket" as ST
+    usecase "Sell Ticket Discount" as STD
+    usecase "Sell VIP Ticket" as SVT
+    usecase "Sell Individual Ticket" as SIT
+    usecase "Receive Ticket Payment" as PT
+    usecase "CU Infrastructure Report" as CIR
+    usecase "Register For VIP" as RFV
+    usecase "Update VIP Info" as UVI
+    usecase "Retrieve Lost Card" as RLC
+    usecase "Extend VIP" as PV
+    usecase "Manage Account Staff" as MAS
+    usecase "Manage Account VIP" as MAV
+    usecase "CRUD Game" as CG
+    usecase "CRUD Event" as CE
+    usecase "RUD Infrastructure Report" as RIR
+    usecase "Search Infrastructure Report" as SIR
+    usecase "View Statistics" as VS
+}
+
+STD --|> ST
+SVT --|> ST
+
+NC -- BET
+
+' Staff -- Login
+' Staff -- Logout
+' Staff -- ST
+' Staff -- SIT
+' Staff -- PT
+' Staff -- CIR
+' Staff -- RFV
+' Staff -- UVI
+' Staff -- RLC
+' Staff -- PV
+
+Admin -- Login
+Admin -- Logout
+Admin -- MAS
+Admin -- MAV
+Admin -- CG
+Admin -- CE
+Admin -- RIR
+Admin -- SIR
+Admin -- VS
+
+
+Login -- Staff
+Logout -- Staff
+ST -- Staff
+SIT -- Staff
+PT -- Staff
+CIR -- Staff
+RFV -- Staff
+UVI -- Staff
+RLC -- Staff
+PV -- Staff
+
+' Login -- Admin
+' Logout -- Admin
+' MAS -- Admin
+' MAV -- Admin
+' CG -- Admin
+' CE -- Admin
+' RIR -- Admin
+' SIR -- Admin
+' VS -- Admin
+
+VIP -- Login
+VIP -- Logout
+VIP -- EVP
+
+@enduml

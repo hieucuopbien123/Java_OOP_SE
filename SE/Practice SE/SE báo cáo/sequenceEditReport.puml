@@ -1,0 +1,32 @@
+@startuml
+
+actor Admin as A
+participant "Search Interface" as SI
+participant "Report Management Interface" as RMI
+participant "Report Dialog" as RD
+control "Report Controller" as RC
+database Database as D
+
+A -> SI: Search Report
+RMI -> RC: FETCH from server
+RC -> D: Query for report
+D --> RC
+RC --> RMI: Query successully
+RMI -> A: Show reports
+
+A -> RMI: Update state
+RMI -> RD: Input new state
+RD -> RC: PATCH to server
+RC -> D: Update report state
+D --> RC
+RC --> RMI: Update successully
+RMI -> A: Show reports
+
+A -> RMI: Delete report
+RMI -> RC: POST to server
+RC -> D: Delete report
+D --> RC
+RC --> RMI: Delete successully
+RMI -> A: Show notification
+
+@enduml

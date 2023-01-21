@@ -1,0 +1,83 @@
+ITSS Software Development
+ITSS là IT Skill Standard là tiêu chuẩn đánh giá năng lực IT của mỗi cá nhân
+
+
+
+# Basic
+JUnit là testing framework for Java
+
+Software lifecycle là vòng đời phần mềm. Khi phần mềm k còn được sử dụng vì xuất hiện nhu cầu mới, phần mới ra đời thay thế thì vòng đời của 1 phần mềm mới kết thúc
+
+-> Phân biệt application và system. Có nhiều cách hiểu: 
+App có thể nói về chi tiết sự tương tác của người dùng với ứng dụng còn system là về công nghệ hệ thống bên trong
+App có thể nói về 1 part trong cả 2 system lớn
+App có thể nói về các phần mềm(app software) tương tác bởi end user. Còn system chỉ các phần mềm hệ thống(system software) tương tác trực tiếp với phần cứng, nó cần thông qua 1 app system để tương tác với người dùng cuôi
+
+-> Về testing: 
+automation test và manual test là cách dùng test, có thể làm thủ công or cho nó chạy tự động
+
+Có 4 loại test: unit test -> integration test -> system test (đi từ nhỏ đến lớn, giả định cái trước đúng, dựa vào đó để test cái sau)
+-> Cuối cùng là acceptance test được thực hiện bởi end user. 
+
+UC Model: Output là SRS -> UC diagram, UC specification, supplementary specification
+ |
+ v
+UC Analysis: UC Behavior Analysis, UC Structure Analysis => là Sequence và communication diagram, interaction diagram, analysis class digram
+ |
+ v
+UC Design(Detail design): Gồm Design Model và DB Design, Interface design -> DB Design có: ER Model diagram, DB Diagram; Design model có: class diagram, design class
+ |
+ v
+Construction: Code + Unit test
+
+Bước analysis có: boundary class, control class, entity class
+Chuyển sang bước design thành: class, package, subsystem
+=> Many to many mapping
+
+Bước analysis cũng cần xử lý chuyển từ: A ---send message---> B thành: A --- quan hệ aggregation/composiiton/... --> B
+
+
+
+# Communication Diagram
+Vẽ sequence diagram trước và dựa vào vẽ communication diagram
+
+-> Trong Astah ta cần vẽ theo thứ tự:
+Vẽ class diagram khởi tạo từng class để có kéo thả -> Vẽ sequence -> Vẽ communication diagram
+
+Boundary là cái mà kiểu dấu hiệu để use case được gọi thực hiện. VD hiển thị payment screen để người dùng place order sẽ gọi là boundary class PaymentScreen. Nó cũng wrap các đối tượng. Nó cũng là thứ class tương tác với
+
+Xét usecase PayOrder có boundary: PaymentScreen, Interbank Boundary 
+Entity class ở đây là CreditCard, PaymentTransaction vì usecase này tương tác chỉnh sửa 2 thông tin này, Order k là entity class vì nó k sửa trực tiếp thông tin của order.
+
+-> Để làm sequence: ta liệt kê các action ra tạo ra entity boundary controller cho từng action
+VD action confirmPayOrder truyền từ customer tới paymentForm là khởi tạo boundary chẳng han.
+VD 1 đối tượng mới xuất hiện như invoice, cart,.. ta đều phải tạo ra entity cho nó sinh ra từ <<create>>. Các class này là đối tượng dù tương tác rất ít, kiểu: user enter info of cart, ta phải tạo ra 1 object cart
+
+Hành động nối từ user là do user gây ra. Hành động nối từ A đến B có thể là do A request B thực hiện nó
+
+
+
+# Class diagram
+Góc nhìn từ ngoài vào class gọi là operation
+Góc nhìn từ trong implement class gọi là behabiour or operation. Operation k quan tâm tới implementation mà chỉ là tên hàm để cung ra
+class B{ void b(){A a = new A(); a.m(9);}} => class A send message to class B via object a
+
+
+
+# System Design
+Là thiết kế phần lõi system bên trong rằng ứng dụng chạy gì. Các system lại có các subsystem bên trong. Mỗi subsystem có 1 sequence diagram.
+
+Phân biệt package và subsystem: package k có tính đóng gói mà ta dùng trực tiếp các thành phần trong package; còn subsystem ta kb bên trong là cái gì mà chỉ giao tiếp thông qua interface mà thôi. Nên khi update subsystem, bên ngoài vẫn dùng ok với interface cung ra k đổi. 
+
+Khi tìm subsystem thì phải tìm cả interface của subsystem đó, tìm mọi operation trong nó. Các phần trước đều là phía client, còn đây là hệ thống bên trong. Khi design 1 subsystem phải đảm bảo nó độc lập để dù có đổi thì người dùng k cần sửa gì cả
+Phải có 1 bước convert data từ client sang thứ subsystem hiểu và lúc nhận về cũng phải convert
+
+Tạo subsystem trong astah: New -> Module Subsystem -> vẽ các biểu đồ trong subsystem bth
+
+
+
+# TDD:
+Red phase: viết test dựa vào input output
+Green phase: viết code minimal thỏa mãn test
+Refactor phase: refactor code, remove dup
+

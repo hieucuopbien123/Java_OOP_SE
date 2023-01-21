@@ -1,0 +1,30 @@
+@startuml
+
+actor Admin as A
+participant "Event Management Interface" as EMI
+participant "Input Event Info" as IEI
+control "Event Controller" as EC
+database Database as D
+
+A -> EMI: Create event
+EMI -> IEI: Input event info
+IEI -> EC: POST info to server
+EC -> D: Add new event to database
+D --> EC
+EC --> EMI: Successfully create event
+EMI -> A: Show new event
+opt Edit event
+    A -> EMI: Edit event
+    EMI -> IEI: Input new event info
+    IEI -> EC: PATCH info to server
+    EC -> D: Update event in database
+end
+A -> EMI: Start event
+EMI -> IEI: Input time info
+IEI -> EC: PATCH new state of event
+EC -> D: Update event to running state
+D --> EC
+EC --> EMI
+EMI -> A: Show running event
+
+@enduml

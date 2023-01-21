@@ -1,0 +1,31 @@
+@startuml
+
+node Client{
+    component "Web Browser" as WB
+}
+
+cloud Firebase{
+    file ".html"
+    file ".js"
+}
+
+node "NodeJS Server"{
+    component "Express Server" as ES
+    component "Mongoose Driver" as MD
+}
+
+cloud "Cluster MongoDB" as CM{
+    database MongoDB
+}
+
+cloud Heroku{
+    node "Server API" as SA
+}
+
+Firebase <..> WB
+WB <..> SA
+ES ..> SA
+CM <..> MD
+
+
+@enduml

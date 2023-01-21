@@ -1,0 +1,16 @@
+@startuml
+
+skinparam componentStyle uml1
+
+interface GET
+
+[Statistics_Controller] -left- GET
+
+[Statistics_View] .right.> GET
+
+note top of GET
+    only admin can
+    view statistics data
+end note
+
+@enduml

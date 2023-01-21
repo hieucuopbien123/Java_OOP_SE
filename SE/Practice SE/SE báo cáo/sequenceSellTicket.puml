@@ -1,0 +1,35 @@
+@startuml
+
+actor Staff as S
+participant "Sell Ticket Interface" as STI
+participant "Input Ticket Info" as ITI
+control "Ticket Controller" as TC
+database Database as D
+
+S -> STI: Sell ticket
+STI -> ITI: Input ticket info
+
+opt Event Discount Voucher
+    STI-> ITI: Input event voucher
+else VIP Ticket
+    STI-> ITI: Input VIP info
+    opt VIP Discount Voucher
+        STI-> ITI: Input voucher info
+    end
+end
+ITI -> TC: POST to server
+TC -> D: GET Info
+D --> TC
+TC -> TC: Validate input info
+
+alt Right info
+    TC -> D: Add new ticket
+    D --> TC
+    TC --> STI: Successfully sell ticket
+    STI -> S: Show sold ticket
+else Wrong Info
+    TC --> STI: Error when selling ticket
+    STI -> S: Show notification
+end
+
+@enduml

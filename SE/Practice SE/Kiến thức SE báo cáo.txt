@@ -1,0 +1,25 @@
+-A phải login mới làm được mọi thứ thì usecase diagram sẽ như nào, liệu mọi cái có include login hay không 
+-Nhân viên mua vé cho khách thì cần cả khách và nhân viên thực hiện nhưng chỉ nhân viên được tương tác với hệ thống thì usecase vẽ như nào -> vẽ riêng 1 người tương tác đúng với hệ thống thôi, dù khách cần thiết để bán vé vì phải biết bán vé cho ai chứ nhưng lại kp người tương tác với hệ thông. Nếu đưa cho khách tự nhập tên cơ thì cả 2 tương tác nhưng mỗi staff làm hết thì chỉ staff tương tác thôi.
+-usecase "Sell Ticket" as ST
+    usecase "Sell Ticket Discount" as STD
+    usecase "Sell VIP Ticket" as SVT
+    usecase "Sell Individual Ticket" as SIT
+đây là 4 usecase t làm tách rời ra và k có quan hệ gì cả
+vì mình k làm hướng đối tượng nên nghĩ như v, nhưng thực tế có cần viết kế thừa ở đây hay k?? Hay nói cách khác khi ta làm 1 project kp hướng đối tượng thì có nên chuyển về hướng đối tượng ở 1 số case k => ta làm là có
+- Khi vẽ usecase có bắt buộc phải vẽ theo hệ thống của ta hay k hay ta tự chế ra các thứ => buộc phải vẽ theo hệ thống của ta. VD staff bán vé và register for VIP chứ customer k mua vé thì ta phải viết đúng như v. 
+- Các thứ căn bản như view website có cần làm thành 1 usecase k -> bỏ đi
+
+
+=> ta làm là k include login mà coi nó độc lập
+
+=> tên usecase nên nói rõ vai trò VD staff là sell chứ kp buy ticket, staff register for VIP member chứ kp là register VIP
+
+
+Tránh hiểu nhầm mục đích của <<include>> relationship là để làm cái này buộc phải làm cái kia nhưng là làm trong 1 khoảng không gian độc lập. VD người ta logout thì để logout thì phải login từ trước. nhưng đm logout đâu có include login đâu mà vẫn là 2 tính năng độc lập. Cx như bán vé thì phải login nhưng vẫn là 2 use độc lập k có quan hệ gì với nhau
+
+
+
+
+
+
+

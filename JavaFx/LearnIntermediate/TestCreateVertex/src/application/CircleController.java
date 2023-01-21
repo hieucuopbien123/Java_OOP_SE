@@ -32,7 +32,7 @@ public class CircleController implements Initializable {
 		}
 		System.out.println("New circle created");
 	}
-	
+
 	//k set text trong controller đc vì nó null chưa tồn tại, nếu ta dùng new thì cx k đc vì sau constructor, nó mới khởi tạo lại là null
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

@@ -1,0 +1,24 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Normal Customer" as NC
+actor "VIP" as VIP
+
+VIP --|> NC
+
+rectangle TinkerbellGardenVIP {
+    usecase "Book Event Ticket" as BET
+    usecase "Login" as Login
+    usecase "Exchange VIP Point" as EVP
+    usecase "Logout" as Logout
+}
+
+NC -- BET
+
+VIP -- Login
+VIP -- Logout
+VIP -- EVP
+
+@enduml

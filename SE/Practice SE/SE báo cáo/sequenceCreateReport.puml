@@ -1,0 +1,25 @@
+@startuml
+
+actor Staff as S
+participant "Report Interface" as RI
+participant "Input Report Interface" as IRI
+control "Report Controller" as RC
+database Database as D
+
+S -> RI: Create Report
+RI -> IRI: Input report info
+IRI -> RC: POST to server
+RC -> D: Add new report to database
+
+D --> RC
+RC --> IRI: Add successfully
+IRI -> S: Show added reports
+
+opt Edit added reports
+S -> RI: Edit report
+RI -> IRI: Input report info
+IRI -> RC: POST to server
+RC -> D: Update report info
+end
+
+@enduml

@@ -1,0 +1,18 @@
+@startuml
+
+actor User as U
+participant "Event Booking Interface" as EBI
+participant "Input Email Info" as IMI
+control "Event Controller" as EC
+participant "Nodemailer Service" as NS
+database Database as D
+
+U -> EBI: Book Ticket
+EBI -> IMI: Input email and name
+IMI -> EC: POST to server
+EC -> NS: Send email notification
+EC -> D: Add discount voucher
+EC --> EBI: Adding successfully
+EBI -> U: Show notification
+
+@enduml

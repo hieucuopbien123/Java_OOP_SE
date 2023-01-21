@@ -1,0 +1,26 @@
+Pay Order:
+AIMS display payment screen -> C provide credit card info and confirm -> AIMS check credit card
+ -> Card wrong thì notify error, valid thì notify valid
+-> Ask interbank to pay order -> interbank xử lý paymentTransaction 
+ -> Thiếu balance -> notifyError
+-> AIMS save payment trans
+
+
+Place Order:
+Customer view cart -> request placeorder -> AIMS check quantity 
+ -> Not satisfy, customer update cart
+ -> Choose to place rush order
+-> AIMS display delivery form -> C submit delivery forms 
+ -> left blank or invalid -> C update again
+ Rush Order: (-> AIMS check C place rush order -> check media and shipping address
+   -> Not satisfy, C update info
+ -> display screen or rush order -> allow C update rush order info -> check input valid
+   -> Not valid -> C must update
+ -> change formula to calculate shipping fee)
+-> Cal shipping fee -> display invoice -> C confirm invoice -> AIMS save invoice and proceed to the order payment -> save trans -> make cart empty -> display successful order notification
+
+
+
+
+
+

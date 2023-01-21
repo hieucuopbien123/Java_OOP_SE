@@ -23,7 +23,7 @@ public class Main extends Application {
 	public void start(Stage stage) throws Exception {
 		Group root = new Group();
 //		Parent root = FXMLLoader.load(getClass().getResource("/Main.fxml"));
-		//File Main.fxml k ở trong dự án nên phải thêm / ở đầu. Nếu copy vào trong package application thì có thể bỏ / đi
+		// File Main.fxml k ở trong dự án nên phải thêm / ở đầu. Nếu copy vào trong package application thì có thể bỏ / đi
 		Scene scene = new Scene(root,600,600,Color.LIGHTSKYBLUE);
 //		Scene scene = new Scene(root);//k để kích thước thì nó sẽ hiện kích thước min phải hiện hết scene
 

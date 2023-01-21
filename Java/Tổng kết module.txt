@@ -154,7 +154,7 @@ Overriding method of child class sẽ k thể throw exception mới mà chỉ th
 
 
 
-#Collection Framework trong java:
+# Collection Framework trong java:
 Framework là 1 tập hợp các thư viện đóng gói để hỗ trợ phát triển ứng dụng dựa trên framework đó và nó cũng cung cấp các nguyên tắc cấu trúc của ứng dụng mà ta phải tuân theo. Vd Framework Spring của JS để lập trình web với Java. Để sử dụng phải tuân theo các quy chuẩn của nó.
 Collections khăc phục nhược điểm mảng. K cần khai báo trước số lượng phần tử fix cứng. Nó là 1 tập hợp các class lưu danh sách và có khả năng tự co dãn khi danh sách thay đổi
 Collection Framework là 1 tập hợp các class và interface hỗ trợ thao tác trên các đối tượng. Collection Framework cung: interface, class triển khai interface, algs.
@@ -326,18 +326,18 @@ import javax.swing.*; là bản mới
 
 
 
-# Thread:
-Dùng join, start cơ bản với Thread và Runnable
+# Thread
+Dùng join, start cơ bản với Thread và Runnable. Dùng join thì tiến trình gọi nó sẽ bị block, các tiến trình khác kp tiến trình gọi nó thực tế vẫn thực hiện song song mà
 Dùng synchronized và Thread. Custom Runnable class
 Dùng ThreadPool và ArrayBlockingQueue. Custom Thread class
 Dùng ExecutorService
 Share var giữa các Thread
 wait và notify với Thread
 Trong thực tế với mục đích xử lý bất đồng bộ, họ thg tạo ra Threadpool để quản lý nhiều Thread và dùng các class Runnable tạo các hàm xử lý phức tạp chứ ít khi tạo mỗi 1 Thread không. 
-=> VD: Có 10 task rất nặng cần thực hiện bất đồng bộ, ta cho nó thành các biến Runnable, dùng ExecutorService để quản lý thread và cho nó chạy các task đó. Các task có thể share các global variable với nhau mà k sợ conflict, giả sử có 1 biến runnable mà dùng trong nhiều thread thì dùng thêm synchronized với các hàm mà k muốn nhiều thread cùng thực hiện(tách phần update ra hàm riêng mà dùng synchronized cho tối ưu), dùng wait + notify chặn khi cần 1 runnable chỉ chạy khi 1 runnable khác làm gì để thỏa mãn điều kiện.
+=> VD: Có 10 task rất nặng cần thực hiện bất đồng bộ, ta cho nó thành các biến Runnable, dùng ExecutorService để quản lý thread và cho nó chạy các task đó. Các task có thể share các global variable với nhau mà k sợ conflict, giả sử có 1 biến runnable mà dùng trong nhiều thread thì dùng thêm synchronized với các hàm mà k muốn nhiều thread cùng thực hiện(tách phần update ra hàm riêng mà dùng synchronized cho tối ưu), dùng wait + notify chặn khi cần 1 runnable chỉ chạy khi 1 runnable khác làm gì xong để thỏa mãn điều kiện.
 
 1 chương trình đa luồng khi có >=2 luồng(thread) chạy song song nhau. Thread là đơn vị nhỏ nhất của tiến trình(process). Các luồng được quản lý bởi máy ảo JVM. 1 luồng gồm 4 phần: định dạng, bộ đếm chương trình, 1 tập thanh ghi và ngăn xếp -> xàm lol quá
-Bản chất: cũng là thực hiện task1, sang task2 làm, làm task1, làm task2,... chuyển qua lại liên tục và độ trễ nhỏ tính bằng nano giây. Đó là độ trễ để nhảy đang làm từ luồng này nhảy sang luồng khác
+Bản chất: cũng là thực hiện task1, sang task2 làm, làm task1, làm task2,... chuyển qua lại liên tục và độ trễ nhỏ tính bằng nano giây. Đó là độ trễ để nhảy đang làm từ luồng này nhảy sang luồng khác khi luồng kia đang k cần thực hiện ngay trong khoảnh khắc đó kiểu đang làm dở thì bị trống trong 1 lát chẳng hạn vì 1 luồng k thực hiện hết mọi nano s đâu, luôn có kẽ hở
 Có 2 cách tạo đa luồng trong java: kế thừa lớp Thread; implements từ 1 interface có tên là Runnable.
 => nếu tạo luồng bằng cách kế thừa lớp Thread thì k thể kế thừa thêm 1 lớp nào khác vì Java éo hỗ trợ đa kế thừa như C++. Còn nếu tạo luồng bằng cách implements Interface Runnable thì ok hơn vì có thể kế thừa thêm 1 lớp khác
 
@@ -345,8 +345,8 @@ Giả sử ta tạo 1 CT tải tệp tin từ internet nhưng người dùng l�
 Kể tử Java 5, ThreadPool được xây dựng sẵn trong gói java.util.concurrent vì v ta k phải tạo 1 ThreadPool mà sử dụng lớp có sẵn của gói này => Executor
 
 Java dùng 1 lớp riêng CountDownLatch để đếm bởi vì việc đếm k hề dễ vì các luồng xử lý song song. VD 2 luồng dùng chung 1 biến count. luồng 1 giảm count đi 1 liên tục, luồng 2 cũng thế nhưng nếu luồng 1 đang định giảm chưa xong thì luồng 2 tác động tới nó đổi giá trị -> kết quả sẽ k theo ý muốn khi 2 hàm tác động vào biến cùng 1 lúc
-Nếu dùng join từng thread 1 ngay sau khi start thread đó thì thành đồng bộ mẹ nó rồi nói làm gì
-Để làm được chỉ cần dùng synchronized or CountDownLatch có sẵn là xong
+Nếu dùng join từng thread 1 ngay sau khi start thread đó thì thành đồng bộ mẹ nó rồi nói làm gì => k đâu nhé
+Để làm được chỉ cần dùng synchronized khi update or CountDownLatch có sẵn là xong
 
 
 

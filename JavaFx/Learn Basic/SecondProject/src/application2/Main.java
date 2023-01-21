@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-//bản switch scene k dùng fxml nhanh hơn nhưng k tốt khi dự án lớn cần MVC
+// Bản switch scene k dùng fxml nhanh hơn nhưng k tốt khi dự án lớn cần MVC
 public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);

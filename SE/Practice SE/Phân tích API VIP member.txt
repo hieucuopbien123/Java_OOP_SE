@@ -1,0 +1,83 @@
+Đăng ký VIP: Người dùng đến quầy yêu cầu staff cho đăng ký VIP
+Input: tên, email, số điện thoại 
+Output: gửi email chứa QR code kèm 5 chữ số (chỉ để demo vì thực tế sẽ bảo khách quay lại lấy thẻ vật lý có 5 chữ số và QR code)
+=> Lúc này điểm tích được của VIP đang là 0 và hạn sử dụng là 365 ngày -> lưu mốc ngày kết thúc chứ đừng lưu kiểu duration
+=> OK
+
+Update VIP: chỉ staff thực hiện được
+TH1: Người dùng mất thẻ
+Input: cung đúng 3 trường name, email, sđt
+Output: QR và 5 ký tự lại gửi về mail(thực tế sẽ làm lại thẻ)
+TH2: Người dùng muốn update thông tin
+Input: cung QR or 5 ký tự
+Output: uuid -> QR thì 1 request, 5 ký tự thì truyền trực tiếp
+Input: lại cung uuid + thông tin mới(3 trường name, email, sđt)
+Ouput: thông tin được update thành công
+=> OK
+=> 5 ký tự k là bí mật nhưng chỉ dùng được với staff và admin thì tránh được lỗi bảo mật người ngoài.
+
+Xóa VIP: Chỉ admin được xóa
+Input: GET method bth
+Output: trả ra 1 list thông tin của VIP member
+Input: DELETE truyền vào 5 chữ số của VIP(k truyền QR)
+Output: VIP đó bị xóa. Có thể gửi mail cho VIP báo là account k còn khả dụng trước khi xóa nếu muốn
+=> OK
+
+Gia hạn VIP bắt buộc: chỉ staff được gia hạn
+Input: cung vào QR or 5 ký tự
+Output: update VIP tăng thêm thời gian 365 ngày nữa
+=> OK
+
+VIP có thể login: dùng trong ứng dụng cũ tương tự lần này là người dùng login
+Input: 3 trường name, email, sđt -> mật khẩu coi là số điện thoại đi
+Output: trả lại bearer token, role, tất cả thông tin của VIP như còn bnh ngày là hết hạn VIP. Nếu hết hạn sử dụng VIP thì tk này vẫn còn hiệu lực nhé. => t nghĩ cái uuid làm bearer được đấy.
+=> OK
+
+Gia hạn VIP optional: VIP sau khi login có thể tự gia hạn cho tk của mình trên trang web. Front end show ra 2 option là VNPay và Paypal
+-> người dùng ấn vào 1 trong 2 loại sẽ thanh toán fix giá chứ k tùy chọn mà gửi đâu
+-> thành công thì báo thành công và trả về thông tin tk VIP sau khi đã được cập nhập giá
+-> thất bại thì báo là chưa thanh toán và quay về trang ban đầu
+=> t cx chưa hiểu front end input output là gì ô tự xem xem
+=> NOT OK: từ từ chưa làm vội
+
+VIP mua vé: VIP đến quầy để mua vé.
+Input: cung QR code hoặc 5 chữ số 
+Output: trả lại uuid + lượng điểm tích được
+Input: lại cung uuid + số lượng vé + loại vé + 1 mã phiếu giảm giá(k truyền nx -> truyền lúc get price) -> cộng 1 lượng điểm lúc mua chứ kp lúc thanh toán
+Output: trả lại id như bth. Nhưng lần này vé này tự động có hệ số giảm giá 1 lượng VIP. 
+Nếu phiếu giảm giá k có thì k cần tính, nếu có phiếu giảm giá thì check phiếu hợp lệ(chưa quá 1 tuần) thì cộng thêm phần trăm giảm giá vào. Sau khi giảm xong thì vé sẽ k còn hợp lệ.
+Nếu lượng điểm ta truyền vào là 0 thì tức là 0 dùng điểm giảm giá. Nếu truyền vào 1 lượng điểm > 0 thì cung thực hiện giảm giá. Mỗi 1 vé mua như thế cũng cộng thêm điểm tích cho VIP member.
+-> Cần phải xử lý max giảm giá 5 vé VIP trong 1 ngày, tức mua 6 vé thì vé thứ 6 trở đi k tính. Còn phiếu giảm giá ô có thể xử lý chia đều phần trăm giảm giá cho các vé nhưng t nghĩ là cái phiếu thì cộng dồn chỉ giảm cho 1 vé thôi cho đỡ rối. Còn giảm giá bởi điểm thì nên xử lý như sau: nếu người dùng chỉ mua 1 vé: vé đó sẽ vừa giảm VIP, giảm phiếu giảm giá, giảm nhờ điểm; nếu người dùng mua > 1 vé: 5 vé được giảm giá VIP, vé đầu được giảm giá bởi phiếu giảm giá, vé 2 được giảm giá bởi điểm, từ vé 3 thì chỉ còn được giảm giá bởi VIP. Nên làm như v vì 1 vé được giảm giá 3 loại khác nhau thì hơi kỳ
+=> OK
+
+Case khác: Nếu VIP có phiếu giảm giá xong lại còn đặt trước event để giảm giá bởi sự kiện nữa thì tham số truyền vào có thể có thêm mã số vé giảm giá bởi sự kiện. Khi đó max bao nhiêu vé được giảm bởi sự kiện trong đó ô cũng phải tính nữa. Chắc t sẽ truyền thêm 1 trường nx
+=> OK
+
+VIP đổi quà:
+VIP login vào tk của mình và muốn đổi điểm lấy quà nếu đủ 1 lượng điểm
+Input: cung vào bearer token của VIP + số điểm muốn đổi
+Output: gửi mail cho user chứa thông tin về mã số giảm giá 5 ký tự
+=> Mã giảm giá này sẽ được giảm 1 lượng phần trăm vào vé mà ban đầu t ghi lúc VIP mua vé ngay bên trên ấy. Hạn dùng là 7 ngày. Lượng điểm dùng càng lớn thì giảm càng nhiều nhưng kbh chạm mốc 100%. T cx sẽ check ở front end
+=> OK
+
+Bản beta sửa: lúc get price là dùng luôn mã giảm giá truyền vào lúc getprice -> thế thì lấy tổng giá tự tính hay là lấy từ server???
+VIP có password riêng, lúc register thì gửi pass qua mail. dùng password đăng nhập thành công sẽ trả lại thông tin của VIP account lưu vào redux nếu đúng mk thành công
+
+
+VIP có thể xem thông tin của mình sau khi login, k được sửa
+=> OK
+
+Password của VIP được gửi qua mail khi đăng ký
+
+Sửa:
+Các trường required thì thêm required. Thông báo tình trạng event cho customer
+Staff có thể chỉnh sửa thông tin chính mình nx
+
+Nếu ta đã làm k chia app kiểu này thì nên chấp nhận fetch lại mõi khi vào trang nếu dữ liệu k quá lâu
+
+
+Đăng nhập thì khả năng vẫn để như bth lấy bearer như bth k đổi gì hết -> khi vào trang vip. Nếu chưa có account đăng nhập thì rỗng, nếu có account đăng nhập thì query VIP nếu k query được thì cx trống. Nếu query được VIP thì lấy thông tin vip đó in ra như bth.
+Đã đăng nhập được thì ok rồi, ta k cần lo bảo mật gì nx.
+=> để xử lý được cái trên, ta chỉ cần check sau khi đăng nhập thì check role nhận được nếu đăng nhập thành công mà role k là admin và staff thì query VIP account. Trong page account chỉ cần check luôn mà k cần lo gì hơn
+=> Đăng nhập ta giữ nguyên, nhưng tk VIP chỉ được VIP lấy
+

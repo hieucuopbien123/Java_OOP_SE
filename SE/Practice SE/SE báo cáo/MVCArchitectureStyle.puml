@@ -1,0 +1,22 @@
+@startuml
+
+' thừa
+
+rectangle View_Web_Browser {
+
+}
+
+rectangle Controller_NodeJS_Server {
+    
+}
+
+rectangle Model_MongoDB {
+    
+}
+
+View_Web_Browser -->> Controller_NodeJS_Server
+View_Web_Browser <<-- Controller_NodeJS_Server
+Model_MongoDB <<-- Controller_NodeJS_Server
+Model_MongoDB -->> Controller_NodeJS_Server
+
+@enduml

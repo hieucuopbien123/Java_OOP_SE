@@ -1,0 +1,22 @@
+@startuml
+
+skinparam componentStyle uml1
+
+interface HTTP
+
+[Report_Controller] -left- HTTP
+
+[Report_Slice] .right.> HTTP
+
+note top of HTTP
+    only admin can 
+    delete report
+end note
+
+note bottom of HTTP
+    only staff can 
+    create report
+end note
+
+
+@enduml

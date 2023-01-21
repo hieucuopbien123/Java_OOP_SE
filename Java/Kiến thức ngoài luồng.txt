@@ -100,6 +100,9 @@ Swing: code java thuần nhưng linh hoạt hơn
 JavaFX: Khi cần develop rich internet app, có sẵn nh components rất mạnh
 
 
+-> Spring Boot là open source java-based framework dùng để tạo micro service. Có thể dùng nó để ta ra 1 ứng dụng spring. Tuân thủ MVC chuẩn. 
+
+
 -> Other:
 Trong java phải đặt tên class trùng tên file để biên dịch ra file cùng tên
 
@@ -119,3 +122,4 @@ Netbeans là IDE mạnh của Java dùng cho ứng dụng web, di động, deskt
 => bỏ. Chỉ cần biết có thể thao tác với Database SQL bằng Java thông qua driver, cũng như trong Qt ta thao tác với Microsoft SQL được ấy
 
 Theo kiểu truyền thống người ta chỉ xử lý lỗi bằng if else, về sau cho try catch ra đời để tiện hơn và code rõ ràng hơn. Và áp dụng OOP để gói các loại error vào thành 1 đối tượng class riêng. Mọi class về các loại exception đều kế thừa từ class Exception và Exception kế thừa từ class Throwable.
+

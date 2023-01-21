@@ -1,0 +1,29 @@
+@startuml
+
+actor Staff as S
+participant "Payment Making Interface" as PMI
+participant "Paypal Controller" as PC
+control "Ticket Controller" as TC
+database Database as D
+
+S -> PMI: Input ticket info
+PMI -> TC: Get price
+TC -> D: GET price info
+D --> TC
+TC --> PMI: Price Info
+PMI -> S: Show tickets price
+
+alt Pay By Cash
+    S -> PMI: Pay By Cash
+    PMI -> TC: POST to server
+else Pay By Paypal
+    S -> PMI: Scan QR code
+    PMI -> PC: Pay by Paypal
+    PC -> TC: POST to server
+end
+TC -> D: Update paid ticket
+D --> TC
+TC --> PMI: Pay successfully
+PMI -> S: Display paid ticket
+
+@enduml

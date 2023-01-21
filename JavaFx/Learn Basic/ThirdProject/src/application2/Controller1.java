@@ -38,5 +38,4 @@ public class Controller1 {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
 }

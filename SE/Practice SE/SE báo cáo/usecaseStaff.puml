@@ -1,0 +1,39 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Staff" as Staff
+
+rectangle TinkerbellGardenStaff {
+    usecase "Login" as Login
+    usecase "Sell Ticket" as ST
+    usecase "Sell Ticket Discount" as STD
+    usecase "Sell VIP Ticket" as SVT
+    usecase "Sell Individual Ticket" as SIT
+    usecase "Receive Ticket Payment" as PT
+    usecase "CU Infrastructure Report" as CIR
+    usecase "Register For VIP" as RFV
+    usecase "Update VIP Info" as UVI
+    usecase "Retrieve Lost Card" as RLC
+    usecase "Extend VIP" as PV
+    usecase "Logout" as Logout
+}
+
+STD --|> ST
+SVT --|> ST
+
+Login -- Staff
+Logout -- Staff
+ST -- Staff
+' SVT -- Staff
+' STD -- Staff
+SIT -- Staff
+PT -- Staff
+CIR -- Staff
+RFV -- Staff
+UVI -- Staff
+RLC -- Staff
+PV -- Staff
+
+@enduml
