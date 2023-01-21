@@ -1,0 +1,49 @@
+@startuml
+
+skinparam componentStyle uml1
+
+interface HTTP
+interface HTTP as H2
+interface POST_CREATE
+interface POST_EXCHANGE_POINT
+
+
+package Server {
+    [VIP_Account]
+    [Normal_Account]
+    [VIP_Voucher]
+}
+
+package client {
+    [VIP_Slice] 
+    [List_Account_Slice]
+}
+
+[Normal_Account] -- HTTP
+[VIP_Account]-- H2
+[VIP_Voucher] -- POST_CREATE
+[VIP_Voucher] -- POST_EXCHANGE_POINT
+
+[List_Account_Slice] .up.> HTTP
+[VIP_Slice] .up.> H2
+[VIP_Slice] .up.> POST_CREATE
+[VIP_Slice] .up.> POST_EXCHANGE_POINT
+
+note left of HTTP
+    only admin can 
+    manage staff 
+    account
+end note
+
+note top of [VIP_Account]
+    only staff can register
+    and update VIP account info
+end note
+
+note top of [VIP_Voucher]
+    only VIP can 
+    exchange their points 
+    to discount voucher
+end note
+
+@enduml

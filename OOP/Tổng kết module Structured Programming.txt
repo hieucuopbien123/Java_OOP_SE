@@ -1,0 +1,14 @@
+Structured Programming:
+
+
+# Basic:
+-> Gồm 3 phase
+--> Top down: chia thành từng phần nhỏ là các subtask of prob
+Gồm: input/output, các subtask
+--> Modular: chia thành từng module độc lập nhau với các chương trình large và complex
+--> Structured code: aim to build organized code, VD các quy tắc kiểu dùng if else thay thế goto
+
+-> Validation: Do the right thing. VD: nhập input phải đúng format
+Verification: Do the thing right. VD: nhập input đúng rồi nhưng phải đúng tk mk trên database
+
+

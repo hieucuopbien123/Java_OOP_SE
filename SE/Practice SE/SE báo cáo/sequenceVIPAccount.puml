@@ -1,0 +1,24 @@
+@startuml
+
+actor "VIP Customer" as VC
+participant "Login Dialog" as LD
+participant "VIP Page" as VP
+participant "VIP Controller" as VCO
+database Database as D
+
+VC -> LD: Input phone and password
+LD -> VCO: POST to server
+VCO -> D: Fetch VIP account
+D --> VCO
+VCO -> VCO: Validate VIP account
+VCO -> VP: Valid VIP account
+VP -> VC: Unlock page for user
+VC -> VP: Exchange point to voucher
+VP -> VCO: POST to server
+VCO -> D: Add new voucher
+D --> VCO
+VCO -> VP: Exchange successfully
+VP -> VC: Show discount voucher
+
+
+@enduml

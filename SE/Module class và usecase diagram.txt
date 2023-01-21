@@ -36,6 +36,8 @@ m...n: có tối thiểu là m và tối đa là n
 Association là quan hệ cơ sở, các quan hệ như aggregation, composition là các loại đặc biệt của association. Các quan hệ bth là biểu diễn đủ các quan hệ trong code rồi. Association là quan hệ kiểu 2 class có chung tính chất, có liên quan gì tới nhau nhưng thg dùng khi quan hệ này k rõ ràng. Như cách ta dùng view nối với controller v or VD Car dùng Driver thì Car __ Driver
 VD Bank A có nhiều nhân viên 1,2,3 thì nối 3 đường association A với 1,2,3
 
+A dùng B liên tục, kiểu 1 thành phần B trong A. Khác với dependency thì B chỉ là biến tạm của A
+
 -> Aggregation: has-a
 Aggregation thì class này chứa member instance class khác. Tuân thủ đúng nguyên tắc thuộc tính thì nó là quan hệ kiểu A has-some Bs, B is-a-part-of A
 VD: Car 1<>___2 Door
@@ -46,6 +48,8 @@ Có lúc quan hệ trong hàm main có 1 biến cũng coi là aggregation như t
 
 -> Dependency:
 A ---> B thì A phụ thuộc vào B. VD Person có method hasRead nhận vào 1 params Book xác định thuộc tính của Person đã đọc cuốn sách này hay chưa thì Person --> Book hay Person phụ thuộc vào Book. Cái thuộc tính Person đã đọc sách này hay chưa phụ thuộc vào quyển sách truyền vào là sách nào.
+
+A dùng B trong 1 biến hàm, dùng B như biến temp trong hàm, dùng B như biến pubilc static đều đc 
 
 -> Inheritance/Generalization: is-a
 Kế thừa thì quan hệ "là 1 dạng của" VD: hv là 1 dạng của hcn
@@ -58,6 +62,8 @@ Quan hệ này trong class diagram có thể biểu diễn dưới dạng icon t
 -> Composition:
 B chứa A a = new A(); nên vòng đời của a phụ thuộc vào biến class B
 B chứa A a; và trong constructor gán this.a = ... để khởi tạo cho a thì vẫn là composition: B <o>____ A 
+
+=> Thực tế, nếu gán a = null hay 1 giá trị khác thì có thể coi a xóa mà b k đổi. Cách implement chuẩn hơn là gán nó là biến final
 
 -> Delegation:
 Thực tế nó chính là aggregation đó
@@ -101,14 +107,16 @@ submitted it.
 6. Incomplete submission
 Exceptions lead to failure of the use case
 2. Authentication failure 
-=> 2 cái flow 1 cái mô tả actions của usecase thành công, 1 cái mô tả khi có lỗi.
+=> 2 cái flow 1 cái mô tả actions của usecase thành công, 1 cái mô tả khi có lỗi. 
+Alternative flow ở mức trung bình, k mô tả cái quá nhỏ nhưng vẫn đủ chi tiết mức action. Nó không giải quyết if else mà chỉ nếu là luồng chính thì đi, k thì đi 1 hướng khác
 
+=> Ngoài ra còn có subflow cũng chỉ là flow bình thường được tách ra vói mục đích có thể tái sử dụng nhiều nơi nếu trùng.
 
 -> Scenerio: 
 Là total interaction của user với system
 
--> Use case:
-Chuỗi các hành động của software mà có thể show ra kết quả cho actor nhìn thấy được. Tức software phải làm 1 động từ gì (thực tế là 1 chuỗi hành động) và truyền đạt được kết quả cho actor thì mới gọi là 1 use case. Use case phải dễ hiểu.
+-> Use case:usecase thì phải:
+Chuỗi các hành động của software mà có thể show ra kết quả cho actor nhìn thấy được. Tức software phải làm 1 động từ gì, thực hiện bởi phần mềm (thực tế là 1 chuỗi hành động - flow of actions) và truyền đạt được kết quả cho actor thì mới gọi là 1 use case. Use case phải dễ hiểu.
 Mỗi UseCase phải là 1 thứ hệ thống show được cho người dùng or người dùng phải hành động gì đó để tương tác với hệ thống chứ các hành động k nhìn thấy or show được kết quả thì k là 1 usecase
 Là verb nhưng thg nhầm với actions vì actions nó chi tiết hơn 1 use-case. Usecase mô tả hành động lớn của actor or system và thể hiện mục đích cuối cùng của chuỗi actions. Diagram k bh vẽ action nên rất ngắn gọn. VD: CRUD là 1 use case có 4 action, thêm search riêng 1 usecase nx
 
@@ -126,6 +134,7 @@ Nguyên tắc theo như cô nói thì UseCase nào cũng gán với 1 actor ch�
 
 -> Relationship:
 --> Association: Nối actor và usecase bằng đường liền để thể hiện sự tương tác. Dấu mũi tên có thể có hoặc không để biểu diễn cái nào chủ động tác động vào cái nào. Đối tượng nào tạo ra interaction đầu tiên vào đối tương nào.
+Mũi tên thể hiện cái nào bắt đầu trước, nhưng nếu k có thì tức là bên nào bắt đầu cũng được. Nhưng nếu tất cả đều k vẽ mũi tên tức ta k cần quan tâm.
 
 --> Trong usecase diagram cũng có các kiểu quan hệ đừng nhầm với class diagram:
 Association: Ac ____ UC  => Ac can interact with UC
@@ -136,9 +145,10 @@ Giữa 2 UC cũng có thể có generalization quan hệ vẽ như kế thừa c
 Nếu usecase1 kế thừa usecase2 thì đây là 1 số TH hiếm hoi khi 1 usecase k nối đến actor nào. Tức là ở đây nếu actor X có thể thực hiện usecase2 thì chỉ cần vẽ association nó với usecase2 còn usecase1 k cần vẽ. Khi usecase1 kế thừa usecase2 thì mọi actor tương tác được với usecase2, đều mặc định là cx tương tác được với usecase1. Nếu usecase1 đặc biệt cần thêm actor khác tương tác thì nối actor khác đó với usecase1 trực tiếp là được
 
 Extension: UC1 <--<<extend>>-- UC2  => UC2 cung 1 optional hoặc alternative behavior có thể làm. UC1 là cơ sở để thực hiện UC2
-Extension point: phân cách với tên bằng đường gạch liền trong usecase chỉ ra UC này rơi vào TH nào thì mới có option chạy vào extended behavior nào. Extension point có thể vẽ 1 ô chữ nhật nét đứt ở giữa chứa ĐK rơi vào <<extend>> đó. Lưu ý là extend k mang ý nghĩa bao gồm
+Extension point: phân cách với tên bằng đường gạch liền trong usecase chỉ ra UC này rơi vào TH nào thì mới có option chạy vào extended behavior nào. Extension point có thể vẽ 1 ô chữ nhật nét đứt ở giữa chứa ĐK rơi vào <<extend>> đó. Lưu ý là extend k mang ý nghĩa bao gồm.
+VD: PlaceOrder có 5 bước: 12345. Bước số 3 có thể chọn 1 option khác là usecase PlaceRushOrder có 3 bước: xyz nếu PlaceRushOrder là extend của PlaceOrder thì nó sẽ kiểu 123xyz45, làm xen giữa r quay lại làm tiếp case ban đầu ý.
 
-Inclusion: UC1 <--<<include>>-- UC2  => Để làm UC2 buộc phải làm xong UC1. Nh UC có thể cùng include 1 UC.
+Inclusion: UC1 <--<<include>>-- UC2  => Để làm UC2 buộc phải làm xong UC1. Nh UC có thể cùng include 1 UC. Include thường dùng kiểu khi usecase phức tạp quá ta phải tách ra nhưng từng usecase con vẫn đủ lớn để là 1 chuỗi hành động. Case thành công được trong basic flow.
 
 -> Lỗi hiểu relationship:
 VD: Chú ý A kế thừa B, B nối với login r thì A k cần nối login nữa
@@ -178,4 +188,9 @@ usecase are derived from the clients's request. usecase xđ chức năng và hà
 Chú ý: vẽ usecase diagram cho cả bài or vẽ usecase diagram cho 1 usecase. Nếu chỉ vẽ cho 1 TH usecase thì k cần vẽ quan hệ actor với các usecase khác, chỉ vẽ nối cái gì với nó
 
 VD: Staff có thể manage report nhưng chỉ sau khi login để xác nhận đó là staff thì mới được manage report nhưng ta k cần vẽ manage report <<include>> login vì bản thân staff có thể manage được report chứ k cần 1 bước login trước đó để chứng minh được đó là staff, vì bản thân ta vẽ từ actor staff thì đó đã là staff rồi. Ta vẫn coi login và manage report là 2 usecase rời nhau k có qh gì và vai trò staff làm được 2 cái đó.
+
+-> Use case specification:
+Bảng mô tả usecase. Ngoài ra còn có supplementary specification mô tả các usecase nhỏ mà k được include vào usecase chính.
+
+
 

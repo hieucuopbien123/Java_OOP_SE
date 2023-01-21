@@ -1,0 +1,30 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Admin" as Admin
+
+rectangle TinkerbellGarden {
+    usecase "Login" as Login
+    usecase "Manage Account Staff" as MAS
+    usecase "Manage Account VIP" as MAV
+    usecase "CRUD Game" as CG
+    usecase "CRUD Event" as CE
+    usecase "RUD Infrastructure Report" as RIR
+    usecase "Search Infrastructure Report" as SIR
+    usecase "View Statistics" as VS
+    usecase "Logout" as Logout
+}
+
+Login -- Admin
+Logout -- Admin
+MAS -- Admin
+MAV -- Admin
+CG -- Admin
+CE -- Admin
+RIR -- Admin
+SIR -- Admin
+VS -- Admin
+
+@enduml

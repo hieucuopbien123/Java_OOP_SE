@@ -1,0 +1,25 @@
+ITSS:
+
+
+
+# Basic
+Interaction diagram = communication diagram + sequence diagram
+SRS = Usecase specification + Activity diagram + Usecase outline
+
+-> Software life cycle process: vòng đời của 1 phần mềm là thời gian phần mềm bắt đầu được sử dụng cho đến khi không còn ai dùng nó nữa hay nó được thay thế bởi phần mềm mới có chức năng mới.
+
+ISO bao gồm rất nhiều loại standard khác nhau.
+
+-> Phân biệt về application và system: có nhiều cách hiểu tùy TH
+- System software là phần mềm hệ thống, tương tác vói các phần cứng; application software là phần mềm sử dụng bởi end user, phạm vi lớn hơn phần mềm hệ thống.
+- System còn chỉ thứ bao ngoài là 1 hệ thống lớn; còn application là nhánh, 1 phần nhỏ cấu thành system
+- System là các phần hệ thống lớn nói về các công nghệ như database, backend, frontend dùng gì; Program thì nói kiểu người dùng có các chức năng gì tương tác như thế nào.
+
+Requirement -> ERD:
+Conceptual Modeling: đưa ra về mặt ý tưởng
+Logical Modeling: RDBMS, HDBMS,... tùy loại chọn và vẽ các model ra
+Physical Modeling: cài trên máy tính với database server cụ thể, xây từng bảng
+
+-> TDD: Test driven developments
+
+

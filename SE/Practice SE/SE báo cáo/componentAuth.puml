@@ -1,0 +1,18 @@
+@startuml
+
+skinparam componentStyle uml1
+
+interface GET
+interface POST
+
+GET - [Authentication]
+[Authentication] - POST
+[Auth_Slice] ..> GET
+[Auth_Slice] ..> POST
+
+note left of GET
+    only for VIP, 
+    Staff and Admin
+end note
+
+@enduml

@@ -1,0 +1,10 @@
+Chỉ xét các dự án React, k xét html css thuần:
+- Ta có thể dùng template React có sẵn => rất khó vì phải hiểu hết code của người khác. Cách tốt hơn là tìm các component đẹp có sẵn trên github or các trang web nhưng khó kiếm
+- Ta có thể design đẹp xong code theo => design càng đẹp thì code càng khó thậm chí k tạo ra được, design đẹp cũng rất khó, có các template design có sẵn
+- Ta có thể tìm các component đẹp có sẵn trong các thư viện có sẵn như material ui, bootstrap và search các component làm sẵn đẹp của nó => ok nhưng k thể như ý hoàn toàn
+- Để có các component cực kỳ ảo diệu, có thể tự tạo ra các component từ code html/css thuần nhưng sẽ rất nặng về code css trong dự án và có thể bị ảnh hưởng nếu dùng css reset 
+- Tích hợp WebGL HTML5 vào dự án animation mạnh như là game => khó
+- Dùng các template html/css thuần có sẵn, cái này có rất nhiều, có thể dùng hỗ trợ bước design và React vẫn phải code thuần lại.
+
+
+

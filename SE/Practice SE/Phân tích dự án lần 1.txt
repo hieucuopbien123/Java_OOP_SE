@@ -1,0 +1,38 @@
+Chủ đề 5: winform or mobile. đặt vé online, loại vé khác nhau, xử lý chơi quá giờ, hoạt động tính phí khác, quản lý người chơi, tình trạng hỏng hóc, hoạt động dịp lễ, giảm giá, thành viên VIP
+
+Break đề: 
+Ứng dụng số hóa các hoạt động của khu vui chơi. 1 trang web mà phụ huynh và admin(nhân viên) có thể vào. 
+1) Phụ huynh đến khu vui chơi và mua vé đề vào -> nhân viên mở app và hỏi: Phụ huynh chọn 2 option mua vé chơi theo lượt(2 tiếng) hay mua vé chơi trong cả ngày. Nếu chọn mua theo lượt thì mua mấy lượt * số bé, phụ huynh sẽ được vào miễn phí. Nhân viên sẽ mark cho ông này vào lúc mấy giờ(k lưu thông tin người này vào user của website vì họ chưa từng đăng ký nên nếu lưu lại và sau này họ đăng ký sẽ thắc mắc chưa đk mà lại thành đã đk sẽ gây rối cho họ). Trước khi phụ huynh và bé ra về lại phải gặp nhân viên. Nhân viên check bé này mua vé cả ngày thì ra về luôn, mua vé theo lượt thì check nếu chưa quá hạn giờ thì ra về luôn, nếu quá hạn giờ quá 1 khoảng >30p sẽ yêu cầu trả thêm tiền lũy tiến 50k/30p
+2) Khi vào khu vui chơi có thể chơi thỏa thích các trò ở đây, ta k cần xử lý gì cả. Khi tham gia các hoạt động tính phí khác, khách sẽ phải mua lẻ tại quầy tức lại phải gặp nhân viên. Nhân viên sẽ mở app lên ở phần "các hoạt động khác" ở đây sẽ hiện ra giá từng hoạt động và nhân viên sẽ ấn vào dấu cộng để xác nhận có thêm 1 khách chơi trò này và thông tin của khách đó(chỉ để phục vụ thống kê). Tiền hay thanh toán thì thủ công app kp làm. Kb có phải làm giao diện hiện giá cái này không
+3) Admin có thể ấn vào mục "thống kê", app sẽ hiện ra có bao nhiêu và những ai vào khu vui chơi. Mỗi trò chơi lẻ trong khác trong khu vui chơi có bao nhiêu người và những ai. Để đảm bảo tính duy nhất thì mỗi khách ta chỉ lấy thông tin của phụ huynh là tên(để xưng hô), email(để thông báo về sau) và số CMND(để xác định duy nhất)
+4) Admin đăng nhập vào sẽ lại hiện ra 1 danh mục "Quản lý trò chơi" sẽ hiện ra 1 list các trò chơi trong khu vui chơi. Ấn vào từng trò sẽ xem được cơ sở vật chất và tính trạng hỏng hóc thiết bị của trò chơi đó(vẫn chưa rõ là thông tin về tình trạng hỏng hóc lấy từ đâu và ai là người cung cấp)
+5) Môi khi có dịp lễ, admin có thể đăng nhập và update giá của tạm thời của các trò chơi trong khu vui chơi(tách phần edit giá và phần mua vé ra 1 tab riêng tránh loạn cho nhân viên). Sau khi edit giá xong thì admin chỉ cần ấn 1 nút là hệ thống tự động gửi mail cho tất cả customer hiện tại đang có trong hệ thống, và gửi trả lại admin thông báo "gửi mail thành công". Phụ huynh vào web sẽ đăng ký rồi đăng nhập vào hệ thống sẽ hiện ra 1 list các trò chơi kèm giá của chúng, giá mà khách nhìn thấy sẽ là giá mà nhân viên đã update giảm giá do dịp lễ (hệ thống cũng phải hiện cái banner tri ân khuyến mãi gì đấy chứ đừng trả có gì cả). Hệ thống cũng hiện thông báo đồng hồ đếm ngược thời gian giảm giá vé 20% đk sớm. Phụ huynh có thể ấn vào đặt vé cho mỗi hoạt động. Sau khi ấn đặt vé và xác nhận số lượng vé thì hệ thống sẽ thông báo ok và gửi mail cho customer, phụ huynh vào mail xác nhận thì hệ thống sẽ lưu thông tin vào database rằng "Người này với email như này đặt vé bao nhiêu và giá bao nhiêu". Vào ngày khuyến mãi người đó đến khu vui chơi để mua vé thì nhân viên sẽ lấy thông tin của người đó và hệ thống tự check nếu người đó đặt vé trước rồi thì hiển thị giá ưu đãi họ được nhận ra và thanh toán tiếp với mức giá đó như bth. Sau đó hệ thống xóa họ khỏi bảng giá ưu đãi. Kết thúc dịp lễ số người còn lại trong bảng giá ưu đãi sẽ bị xóa hết.
+Tức là khách đến khu vui chơi mua vé từng ngày chỉ lưu phục vụ thống kê. Khác đăng nhập vào web sẽ lưu bảng user login, khách mua vé ưu đãi sẽ lưu bảng giá ưu đãi => sai, khách đến khu vui chơi hàng ngày cũng nên lưu lại để phục vụ về sau. Có thể lưu ra bảng riêng or yêu cầu đăng nhập bằng hình thức gì đó khác. Id cũng có thể k cần chứng minh thư mà dùng số điện thoại hay cái số gì khác vì mặc định nó cũng là duy nhất mà
+6) Mỗi khi khách đến khu vui chơi muốn đk thành viên vip. Nhân viên mở app điền thông tin khách hàng là thành viên VIP. database hiển nhiên lưu riêng ra 1 bảng thành viên VIP rồi. Với thành viên VIP thì khi mua vé, nhân viên điền vào sẽ thấy hiển thị giá ưu đãi cho thành viên VIP ngay. Sau 1 năm, thành viên VIP tự bị xóa khỏi bảng. 
+Mọi người đến chơi sẽ được lưu lại trong hệ thống kèm thông tin về tích điểm. Mỗi khi mua vé nếu người đó có trong hệ thống sẽ hiện ra thông tin về điểm số đã tích được và phiếu tham gia chương trình đặc biệt. Khi đó nhân viên hỏi customer có muốn dùng tích điểm hay dùng phiếu tham gia Ct đặc biệt thì gửi cho họ và tự update trên hệ thống. Cái này phải có popup xác nhận cho nhân viên k ấn nhầm xóa điểm của khách là vỡ mồm.
+
+
+Yêu cầu nộp(tách rời với mô hình Agile):
+Milestone2: presentation k cần làm kỹ phải nêu lên milestone này có cái gì ok, provisional design, bản mẫu có thể dùng được cho user mô tả đáp ứng yêu cầu nào của requirement, (biểu đồ tiến độ, chia task,..), survey là cái éo gì làm cá nhân nữa
+Milestone3: presentation k cần làm kỹ, demo sản phẩm tiếp tiến độ làm đến đâu r, design, các thứ khác như milestone 2
+Milestone4: short report, survey làm cá nhân, sản phẩm cuối, presentation mô tả completed system final chắc là cần kỹ, và các thứ khác như milestone 2
+=> sản phẩm cuối: system design, presentaion, UI design, test example, source and binary code, git
+
+Phương pháp Agile được áp dụng:
+Các kiến thức cơ bản về Agile mặc định là đã biết nhưng có những lưu ý: 
+Client tham gia cùng liên tục để nhận feedback
+Sản phẩm có as soon as possible
+Khi client đổi yêu cầu, product owner ghi lại backlog và meeting để thêm vào đợt sprint sau tính năng gì
+Mỗi sprint fixed length 2-4 tuần chứ k dao động
+Mỗi sprint phải có đủ: plan, implement, design, retrospect review lại, biểu đồ CPM(k buộc có), tested đầy đủ sẵn sàng cho production, incorporated phần code đó với larger codebase. Bước review ta phải xem cái gì chưa xong và cần làm
+Bước lấy các chức năng vào sprint phải xem ưu tiên chức năng nào mới làm
+Chú ý bước đầu tiên của Agile sau khi thu được thông tin từ chủ dự án là tạo sprint backlog rồi mới tạo meeting. Sprint Backlog sẽ chứa như airtable. meeting sẽ review lại sprint backlog, review sprint goal và chốt công việc thực sự cần làm trong backlog
+Nếu 1 sprint chưa xong thì sprint sau phải có plan meeting nêu ra obstacle của sprint trước và daily meeting cũng phải lo điều này
+Bước thu thập thông tin người dùng phải tạo product backlog gồm các epics, user stories, tasks.
+Mỗi sprint đều phải có bản thiết kế
+Nói là v chứ bước sprint backlog nên để trong bước meeting
+Agile ở mỗi bước kp viết docs 
+
+Quy trình Agile:
+Xong bước feasibility study cả team thống nhất -> Gặp client để quản lý tạo ra các product backlog -> nhà quản lý tạo meeting phân tích các thứ, chọn ra các priority và lọc cái phù hợp vào sprint hiện tại, break down các sprint và phân cho từng người và dùng các phần mềm quản lý tiến độ tại đây nếu thích -> hàng ngày đều có meeting để check trạng thái, obstacle, giải pháp và update vào sprint backlog -> sau khi test hoàn chỉnh thì gửi sp cho client rồi mới thực hiện review -> lặp lại các sprint cho đến khi hài lòng
+Bất cứ khi nào nhu cầu đổi thì daily meeting và sprint meeting sẽ xử lý và thêm vào sprint sau. Chỉ có scope là đc sửa.

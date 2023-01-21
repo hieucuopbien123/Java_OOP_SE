@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="422.0" prefWidth="839.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="90.0" fitWidth="94.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../assets/package.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="115.0" layoutY="42.0" text="INVOICE" textFill="#055983">
+         <font>
+            <Font name="Comic Sans MS Bold" size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="122.0" text="Name">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="115.0" layoutY="122.0" text="Full name" />
+      <Label layoutX="31.0" layoutY="161.0" text="Phone">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="115.0" layoutY="161.0" text="0132456789" />
+      <Label layoutX="31.0" layoutY="201.0" text="City">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="115.0" layoutY="201.0" text="Hanoi" />
+      <Label layoutX="31.0" layoutY="239.0" text="Address">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="115.0" layoutY="239.0" text="Address" />
+      <Label layoutX="427.0" layoutY="122.0" text="Subtotal">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Label layoutX="553.0" layoutY="122.0" text="100,000">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Label layoutX="646.0" layoutY="122.0" text="VND">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Label layoutX="427.0" layoutY="158.0" text="Shipping Fees">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Label layoutX="553.0" layoutY="158.0" text="50,000">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Label layoutX="646.0" layoutY="158.0" text="VND">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Label layoutX="427.0" layoutY="193.0" text="Total">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Label layoutX="553.0" layoutY="193.0" text="150,000" textFill="RED">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font></Label>
+      <Label layoutX="646.0" layoutY="193.0" text="VND">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Button layoutX="319.0" layoutY="351.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="196.0" style="-fx-background-color: red;" text="Confirm Order" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font></Button>
+      <Label layoutX="27.0" layoutY="280.0" text="Shipping instructions">
+         <font>
+            <Font name="System Bold Italic" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="166.0" layoutY="280.0" text="Shipping instructions" />
+   </children>
+</AnchorPane>
