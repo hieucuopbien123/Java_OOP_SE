@@ -11,4 +11,33 @@ Gồm: input/output, các subtask
 -> Validation: Do the right thing. VD: nhập input phải đúng format
 Verification: Do the thing right. VD: nhập input đúng rồi nhưng phải đúng tk mk trên database
 
+Concern nó là kiểu từng phần xử lý của 1 object khác nhau. VD ta viết 1 hàm cực kỳ dài, trong đó có logging, authentication, access database, tạo transaction db mới, xử lý chuyển tiền, rollback or commit
+=> mỗi cái này là 1 concern và mỗi concern là do 1 class xử lý (nếu OOP chia)
+VD: tạo DB và roll back or commit để update db thì 1 class xử lý điều đó vì chung 1 concern. 1 class xử lý logging, 1 class xử lý authentication, 1 class xử lý giao dịch. 
+=> Phải biết chia các phần nào relate như v thì việc chia class mới hiệu quả
+
+Chia nhỏ thì lưu ý 1 function đứng đơn lẻ có thể hiểu được chức năng làm gì chỉ dựa vào tên và params, nó phải độc lập với các hàm khác được chia ra. 
+Chia nhỏ kp chỉ để tái sử dụng mà còn có lợi cho test và kiểm lỗi, lỗi của 1 module nào sẽ chỉ cần đọc đúng hàm đó là được, nếu muốn thay module đó thành 1 module khác, chỉ cần đổi tên là xong chứ k cần sửa code chính. Do đó có thể chia ra nếu 1 phần của function là thực hiện độc lập hoặc có khả năng phải sửa đổi trong tương lai
+
+
+
+# Clean code
+Constant configuration: luôn đổi hằng số thành 1 symbolic constants để ở file config riêng
+
+Khi nào cần refactor code: trước khi ta thêm tính năng mới thì cần refactor lại đảm bảo tính tái sử dụng và dễ viết cho tính năng mới đó
+Khi refactor, nên tìm dùng các tool hỗ trợ sẵn tránh sai
+
+Code smell: code tách ra or viết trước vì đoán sẽ đổi trong tương lai or tái sử dụng => k nên làm v trừ khi chắc chắn 100% vì sẽ làm code base rối lên
+
+Nên dùng scope biến và access modifier của class sát nhất với TH dùng nó, k khai báo thừa
+
+Khi nào dùng recursion, thực tế performance của iterative tốt hơn recursion. Đôi khi dùng nó nếu muốn code dễ hiểu hơn với các phần implement phức tạp thôi.
+
+
+
+# Other
+-> Heisenbug là một thuật ngữ trong lập trình máy tính để chỉ một lỗi hoặc hành vi không thể tái hiện được đúng như mong đợi. Thuật ngữ này được đặt theo tên của nguyên lý không xác định Heisenberg trong vật lý, nghĩa là việc đo lường sẽ ảnh hưởng đến hành vi của hệ thống đang được quan sát.
+
+black art: chỉ những hoạt động tối mật liên quan đến lập trình, hacking, an ninh mạng. Debug cũng là 1 black art dù nó theo nghĩa tốt
+
 

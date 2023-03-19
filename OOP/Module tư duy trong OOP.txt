@@ -117,3 +117,4 @@ Tức là ở trong class Step có PseudoStep làm 1 biến private và ta muố
 Giải quyết vấn đề này theo cách tốt nhất mà ta biết thì phải tạo customgraph và implement thuộc tính e và getCustomGraph. Nhớ chú ý thỏa mãn tính chất method phải là 1 hành động của object. 
 Hoặc nếu class ngắn thì có thể: để getter cho biến private đó + vẫn viết các hàm mà có sự thay đổi theo ý ta trong class A. Chấp nhận vc người khác có thể dùng getter để từ đó set giá trị linh tinh vì rảnh lắm mới làm v.
 
+

@@ -28,6 +28,61 @@ Client có hàng loạt các strategy dependency tạo ra trong hàm, Client tru
 
 Trong dự án ta dùng k đúng vai trò của context nên bỏ nó đi vẫn được. Context ở đây tên của nó k đúng là context mà phải là 1 object gì đó trong đời sống. VD: Order aggregation đến PayStrategy. Khi đó Context ở đây chính là order, Order nó sẽ làm nhiều vc hơn là chỉ forward đúng 1 hàm của PayStrategy vì nó là 1 object thực tiễn là lưu thông tin và các hàm thao tác với order nên có thể có totalCost, getTotalCost,... Chứ dùng Context với gọi như trong Graph kia là sai.
 
+VD: Game street fighter có 3 nhân vật khác nhau, mỗi nhân vật có vài thuộc tính cùng giá trị(khi đổi nhân vật trong funtime) nhưng cũng có vài thuộc tính và phương thức khác nhau. Làm sao để thay đổi nhân vật khác lúc run time mà các tính chất chung vẫn giữ nguyên
+Cách làm thiếu strategy pattern: Lớp fighter là lớp cơ sở của 3 lớp nhân vật: A, B, C chứa các thuộc tính chung. Nó là abstract class và A, B, C implement các hàm của nó nếu có chung.
+Khi dùng Fighter f = new A(); Trong run time ta lại dùng là f = new B(); để đổi nhân vật thì mọi thuộc tính chung của A mà ta muốn move sang B sẽ mất.
+=> Do đó nếu dùng thêm 1 thuộc tính nữa trong fighter là biến class Strategy lưu các thuộc tính cùng tên nhưng khác nhau ở mỗi lớp thì khi đổi nhân vật, ban đầu là f.strategy = new AStrategy(); thành f.strategy = new BStrategy(); là ok
+Có thể cụ thể đén mức mỗi method riêng vì nhiều nhân vật có thể có cùng 1 kiểu đá, 1 vài số khác lại cùng 1 kiểu đá khác thì chơi kiểu KickFastStrategy(); KickSlowStrategy(); PunchStrategy1(); PunchLongStrategy2();
+Nếu k tách riêng class cho tưng action thì có thể sẽ phải AKickFastStrategy, AKickSlowStrategy => có m * n class còn chia ra thì là m + n class
+Thuộc về behavior nên thg dung cho kiểu hành vi thay đổi, ở đây nhưng đối tượng k đổi
+
+VD: 
+public interface AttackStrategy {
+   void attack();
+}
+
+public class SwordAttack implements AttackStrategy {
+   @Override
+   public void attack() {
+      System.out.println("Attacking with sword!");
+   }
+}
+public class BowAttack implements AttackStrategy {
+   @Override
+   public void attack() {
+      System.out.println("Attacking with bow and arrows!");
+   }
+}
+public class MagicAttack implements AttackStrategy {
+   @Override
+   public void attack() {
+      System.out.println("Attacking with magic spells!");
+   }
+}
+
+public class Character {
+   private AttackStrategy attackStrategy;
+
+   public void setAttackStrategy(AttackStrategy attackStrategy) {
+      this.attackStrategy = attackStrategy;
+   }
+
+   public void attack() {
+      attackStrategy.attack();
+   }
+}
+
+Character knight = new Character();
+knight.setAttackStrategy(new SwordAttack());
+Character archer = new Character();
+archer.setAttackStrategy(new BowAttack());
+Character wizard = new Character();
+wizard.setAttackStrategy(new MagicAttack());
+
+knight.attack();
+archer.attack();
+wizard.attack();
+
 
 
 # Observer Pattern(Subscriber - Publisher)
@@ -58,7 +113,312 @@ VĐ là có nhiều state thì có hàm khác nhau nhưng cùng kế thừa 1 ab
 
 
 
-#
+# Prototype Pattern
+1 class có 100 trường, ta muốn tạo ra 10 instance của class giống nhau 90 trường, chỉ khác có 10 trường còn lại, bao gồm cả kế thừa loạn xạ. Thay vì khởi tạo thủ công, ta sẽ có nhu cầu chỉ tạo 1 instance và clone ra 9 instance khác, sau đó chỉ sửa các giá trị khác nhau.
+Nhiều TH khác cần clone 
+
+Nếu k dùng design pattern này mà viết clone 1 object thì:
+A a1 = new ...
+A a2 = new A();
+rồi gán từng trường a2 bằng a1 với a2.setData(a1.data);
+=> Cách này thì các thuộc tính của a1 bị expose ra ngoài để a2 set, các cái private ta đâu có biết
+
+Nếu dùng copy constructor cũng được:
+A a2 = new A(a1);
+a2.setOtherData(...);
+nhưng nếu a1 sửa thì logic setOtherData phải đổi, và sửa nhiều chỗ
+
+Prototype Pattern cung 1 cách thức clone tốt nhất:
+Level1: là dùng hàm clone ngay trong A nhận biến kiểu A và gọi các hàm set bên trong sẽ đảm bảo tính đóng gói che dấu tốt
+Level2: 1 lớp sẽ có quan hệ với lớp khác. VD A kế thừa B v thì nó phải clone mọi thứ của lớp cha. Như v là k tốt nên tạo ra clone ở mọi lớp r gọi super(clone()) là được. Còn lớp nào chỉ implement hàm clone các thuộc tính của riêng lớp đó thôi. VD trong các ngôn ngữ có sẵn interface Clonable đẻ mọi class implement đó
+Mẫu này k dùng reflection, reflection làm mất tính che dấu đó.
+
+TH clone recursive thì DP này k xủ lý được. A có B, B có A. Ta gọi clone của A thì nó gọi clone của this.b = a.b.clone() và trong B lại clone A thì k xử lý được.
+
+VD: 
+public interface ClothingItem extends Cloneable {
+   void setColor(String color);
+   void setSize(int size);
+   void setPrice(double price);
+   ClothingItem clone();
+}
+
+public class Shirt implements ClothingItem {
+   private String color;
+   private int size;
+   private double price;
+
+   @Override
+   public void setColor(String color) {
+      this.color = color;
+   }
+
+   @Override
+   public void setSize(int size) {
+      this.size = size;
+   }
+
+   @Override
+   public void setPrice(double price) {
+      this.price = price;
+   }
+
+   @Override
+   public ClothingItem clone() {
+      try {
+         return (Shirt) super.clone();
+      } catch (CloneNotSupportedException e) {
+         return null;
+      }
+   }
+}
+public class Pants implements ClothingItem {
+   private String color;
+   private int size;
+   private double price;
+
+   @Override
+   public void setColor(String color) {
+      this.color = color;
+   }
+
+   @Override
+   public void setSize(int size) {
+      this.size = size;
+   }
+
+   @Override
+   public void setPrice(double price) {
+      this.price = price;
+   }
+
+   @Override
+   public ClothingItem clone() {
+      try {
+         return (Pants) super.clone();
+      } catch (CloneNotSupportedException e) {
+         return null;
+      }
+   }
+}
+
+public class ClothingRegistry {
+   private Map<String, ClothingItem> items = new HashMap<>();
+
+   public ClothingRegistry() {
+      Shirt shirt = new Shirt();
+      shirt.setColor("Red");
+      shirt.setSize(12);
+      shirt.setPrice(29.99);
+      items.put("RedShirt", shirt);
+
+      Pants pants = new Pants();
+      pants.setColor("Blue");
+      pants.setSize(32);
+      pants.setPrice(49.99);
+      items.put("BluePants", pants);
+   }
+
+   public ClothingItem getClone(String itemName) {
+      ClothingItem item = null;
+      try {
+         item = items.get(itemName).clone();
+      } catch (NullPointerException e) {
+         System.out.println("Item " + itemName + " does not exist.");
+      }
+      return item;
+   }
+}
+
+=> Dùng bên ngoài rất tiện, có thể clone ra bao nhiêu tùy ý
+ClothingRegistry registry = new ClothingRegistry();
+
+ClothingItem redShirt = registry.getClone("RedShirt");
+ClothingItem bluePants = registry.getClone("BluePants");
+
+redShirt.setColor("Green");   // original item is not modified
+bluePants.setSize(34);        // original item is not modified
+=> Hàm clone thực chất là shallow copy các trường với instance mới, ta tự implement cũng được
+
+
+
+# Template Pattern 
+Dùng khi nhiều class có nhiều hàm tạo thành 1 quy trình chung là khung xương để hoàn thành công việc. Thì nhét vào abstract class. 
+VD Student có goToSchool, Worker có goToCompany. Ta k tạo riêng mà gom chung là goToWork implement ở từng class r gọi từng cái 1
+Đặt tên hàm ở class cha tổng quát hơn
+
+VD:
+public abstract class MessageSender {
+   public void sendMessage(String recipient, String message) {
+      connect();
+      authenticate();
+      sendMessageImpl(recipient, message);
+      disconnect();
+   }
+
+   protected abstract void sendMessageImpl(String recipient, String message);
+
+   private void connect() {
+      System.out.println("Connecting...");
+   }
+
+   private void disconnect() {
+      System.out.println("Disconnecting...");
+   }
+
+   private void authenticate() {
+      System.out.println("Authenticating...");
+   }
+}
+
+public class EmailMessageSender extends MessageSender {
+   @Override
+   protected void sendMessageImpl(String recipient, String message) {
+      System.out.println("Sending email to " + recipient + ": " + message);
+   }
+}
+public class SmsMessageSender extends MessageSender {
+   @Override
+   protected void sendMessageImpl(String recipient, String message) {
+      System.out.println("Sending SMS to " + recipient + ": " + message);
+   }
+}
+public class PushNotificationMessageSender extends MessageSender {
+   @Override
+   protected void sendMessageImpl(String recipient, String message) {
+      System.out.println("Sending push notification to " + recipient + ": " + message);
+   }
+}
+
+MessageSender emailSender = new EmailMessageSender();
+emailSender.sendMessage("john@example.com", "Hello from Java!");
+MessageSender smsSender = new SmsMessageSender();
+smsSender.sendMessage("+1234567890", "Hello from Java!");
+MessageSender pushNotificationSender = new PushNotificationMessageSender();
+pushNotificationSender.sendMessage("jane@example.com", "Hello from Java!");
+=> Dễ dang tạo ra 1 kiểu send message mới, chỉ cần đổi implementation
+
+
+
+# Chain of Responsibility Pattern
+Behaviral pattern mô tả việc dùng 1 chuỗi handler liên tiếp nhau để xử lý request
+
+VD:
+public interface DiscountHandler {
+   double applyDiscount(Order order);
+   void setNextHandler(DiscountHandler handler);
+}
+
+public class OnlineOrderDiscountHandler implements DiscountHandler {
+   private DiscountHandler nextHandler;
+
+   @Override
+   public double applyDiscount(Order order) {
+      if (order.getType() == OrderType.ONLINE && order.getAmount() > 100) {
+         return order.getAmount() * 0.1; // 10% discount
+      } else {
+         return nextHandler.applyDiscount(order);
+      }
+   }
+
+   @Override
+   public void setNextHandler(DiscountHandler handler) {
+      this.nextHandler = handler;
+   }
+}
+public class PhoneOrderDiscountHandler implements DiscountHandler {
+   private DiscountHandler nextHandler;
+
+   @Override
+   public double applyDiscount(Order order) {
+      if (order.getType() == OrderType.PHONE && order.getAmount() > 50) {
+         return order.getAmount() * 0.05; // 5% discount
+      } else {
+         return nextHandler.applyDiscount(order);
+      }
+   }
+
+   @Override
+   public void setNextHandler(DiscountHandler handler) {
+      this.nextHandler = handler;
+   }
+}
+public class DefaultDiscountHandler implements DiscountHandler {
+   @Override
+   public double applyDiscount(Order order) {
+      return 0; // no discount
+   }
+
+   @Override
+   public void setNextHandler(DiscountHandler handler) {
+      // This is the last handler, so there is no next handler.
+   }
+}
+
+DiscountHandler onlineOrderHandler = new OnlineOrderDiscountHandler();
+DiscountHandler phoneOrderHandler = new PhoneOrderDiscountHandler();
+DiscountHandler defaultHandler = new DefaultDiscountHandler();
+
+onlineOrderHandler.setNextHandler(phoneOrderHandler);
+phoneOrderHandler.setNextHandler(defaultHandler);
+
+// Process orders
+Order onlineOrder = new Order(OrderType.ONLINE, 150);
+double onlineOrderDiscount = onlineOrderHandler.applyDiscount(onlineOrder);
+System.out.println("Online order discount: " + onlineOrderDiscount);
+
+Order phoneOrder = new Order(OrderType.PHONE, 75);
+double phoneOrderDiscount = onlineOrderHandler.applyDiscount(phoneOrder);
+System.out.println("Phone order discount: " + phoneOrderDiscount);
+
+Order inPersonOrder = new Order(OrderType.IN_PERSON, 200);
+double inPersonOrderDiscount = onlineOrderHandler.applyDiscount(inPersonOrder);
+System.out.println("In-person order discount: " + inPersonOrderDiscount);
+
+=> Thêm rules cho order, thêm handler vào chain thoải mái mà k modifier code cũ
+
+
+
+# Facade Pattern
+1 quy trình xảy ra gồm sự tham gia của nhiều subsystem (class) thì nên tạo 1 class chung chứa các subsystem để thực hiện quy trình đó.
+
+VD:
+public interface ComputerFacade {
+   void start();
+   void shutdown();
+}
+public class ComputerFacadeImpl implements ComputerFacade {
+   private CPU cpu;
+   private Memory memory;
+   private HardDrive hardDrive;
+
+   public ComputerFacadeImpl() {
+      this.cpu = new CPU();
+      this.memory = new Memory();
+      this.hardDrive = new HardDrive();
+   }
+
+   @Override
+   public void start() {
+      cpu.freeze();
+      memory.load(BOOT_ADDRESS, hardDrive.read(BOOT_SECTOR, SECTOR_SIZE));
+      cpu.jump(BOOT_ADDRESS);
+      cpu.execute();
+   }
+
+   @Override
+   public void shutdown() {
+      cpu.stop();
+      memory.clear();
+      hardDrive.flush();
+   }
+}
+ComputerFacade computer = new ComputerFacadeImpl();
+computer.start();
+// Do some work...
+computer.shutdown();
+
+=> Luồng chính chạy quy trình nhiều lần với ComputerFacade được. Sửa quy trình thì chỉ sửa trong class đó thôi. Luồng chính k cần có biến CPU, Memory gì cả. Ẩn được sự phức tạp trên luồng chính, đưa nó vào duy nhất class ComputerFacade
 
 
 
@@ -70,4 +430,5 @@ Nhóm Structural: Tập trung vào bài toán liên kết quan hệ giữa các 
   Adaper, Bridge, Composite, Decorator, Facade, FlyWeight, Proxy
 Nhóm Behavioral: Tập trung vào bài toán các object giao tiếp với nhau
   Chain of Responsibility, Command, Interpreter, Iterator, Mediator, Memento, Observer, State, Strategy, Template Method, Visitor
+
 

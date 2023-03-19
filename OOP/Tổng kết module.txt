@@ -89,6 +89,97 @@ Vd dùng wildcard: public void draw(List<? extends Shape> shape) { } thì cách 
 
 
 
+# Convert condition thành polymorphism
+Customer customer = findCustomer(...); 
+... 
+   if (customer == null) { 
+	name = “occupant”  
+   } else { 
+	name = customer.getName()
+   }  
+if (customer == null) { 
+...
+=> Thực tế nên dùng:
+public class NullCustomer extends Customer {
+
+   public String getName() {
+	return “occupant”
+}
+------------------------------------------------------------
+Customer c = findCustomer()
+name = c.getName()
+
+=> Nhưng thực ra là như nhau vì hàm findCustomer sẽ phải check nếu null thì return ra NullCustomer. Điểm lợi hơn chắc là hàm findCustomer nó bị ẩn đi thì dùng if else tốt hơn. Như v sẽ dùng được cho nhiều trường khác cũng gán khi null chứ k chỉ name
+=> PP này gọi là thay đổi condition bằng polymorphism => 1 kỹ thuật trong OOP, thực tế số lượng if else vẫn v nhưng nó ẩn các cái đó vào trong class or chia vào các hàm. Mục đích của nó là làm code dễ hiểu hơn và dễ thay đổi trong tương lai. VD 1 behavior mới xuất hiện hay 1 thuộc tính mới thì sửa dễ hơn. Thông qua việc đóng gói điều kiện vào trong các class, logic đổi sẽ chỉ đổi trong các class đó mà k ảnh hưởng tới các class k làm tính năng đó.
+
+VD khác: 
+if (itemType == "book") {
+    if (onSale) {
+        price = bookPrice * 0.8;
+    } else {
+        price = bookPrice;
+    }
+} else if (itemType == "DVD") {
+    if (onSale) {
+        price = dvdPrice * 0.7;
+    } else {
+        price = dvdPrice;
+    }
+} else if (itemType == "software") {
+    if (onSale) {
+        price = softwarePrice * 0.9;
+    } else {
+        price = softwarePrice;
+    }
+}
+=> Giả sử thêm điều kiện khác ngoài onSale thì lại viết tiếp if else vào còn gì
+
+Fix:
+public interface PriceCalculator {
+    double calculatePrice(double basePrice, boolean onSale);
+}
+public class BookPriceCalculator implements PriceCalculator {
+    public double calculatePrice(double basePrice, boolean onSale) {
+        if (onSale) {
+            return basePrice * 0.8;
+        } else {
+            return basePrice;
+        }
+    }
+}
+public class DVDPriceCalculator implements PriceCalculator {
+    public double calculatePrice(double basePrice, boolean onSale) {
+        if (onSale) {
+            return basePrice * 0.7;
+        } else {
+            return basePrice;
+        }
+    }
+}
+public class SoftwarePriceCalculator implements PriceCalculator {
+    public double calculatePrice(double basePrice, boolean onSale) {
+        if (onSale) {
+            return basePrice * 0.9;
+        } else {
+            return basePrice;
+        }
+    }
+}
+
+Sử dụng:
+PriceCalculator calculator;
+if (itemType == "book") {
+    calculator = new BookPriceCalculator();
+} else if (itemType == "DVD") {
+    calculator = new DVDPriceCalculator();
+} else if (itemType == "software") {
+    calculator = new SoftwarePriceCalculator();
+}
+price = calculator.calculatePrice(basePrice, onSale);
+=> Code dễ hiêu hơn
+
+
+
 # Abstract Class:
 --> Chỉ được đơn kế thừa. Có thể khai báo thêm các hàm có body và các hàm k có body. Có constructor ok vì dù k được khởi tạo instance nhưng các class khác có thể kế thừa thì cần dùng super để gán giá trị cho các biến. Có thể khởi tạo biến đủ loại static, final, biến bình thường.
 Nên khai báo các hàm là abstract trong nhiều TH và dùng 1 class General implements(k bắt buộc) nó để các class khác kế thừa chứ k implement trực tiếp trong abstract class vì dùng abstract method còn có chức năng là: ép buộc dev khi dùng class đó biết rằng method này bắt buộc phải có của đối tượng này, nếu k họ có thể miss method đó.
@@ -172,6 +263,18 @@ Như v client sẽ có 1 list<CompareStudent>. Mỗi lần cần dùng đến s�
 
 VD2: Falcuty getOffice(), Staff getDept(), Secretary getTypesOfSpeed() cùng kế thừa Employee. Client có list Employee chạy printEmployees chạy for if else type gì thì gọi hàm tương ứng. Mỗi khi thêm 1 class vai trò mới như Director sẽ lại sửa hàm thêm 1 cái if else nữa và lại 1 hàm riêng. Bh ta cần sửa lại để mỗi khi thêm 1 vai trò mới thì chỉ cần thêm 1 class với các hàm theo chuẩn là xong
 => class Employee abstract có hàm printEmployee, các class kia đều phải implements hàm này, bên trong lại gọi tới hàm tương ứng getOffice hay getDept tùy class. Bên trong Client gọi đúng printEmployee là xong. Nếu ta cần kiểu if là staff thì làm gì, if các cái khác thì làm gì ta vẫn có thể làm tương tự. Nhưng nếu muốn kiểu check nếu là Staff thì in ra chẳng hạn, còn k thì k in thì buộc phải if else sẽ là tốt nhất vẫn hơn là Falcuty với Secretary ép tạo ra 1 hàm trống k in. K ép các class implements interface nó k muốn(tạo hàm nó k cần). Thâm chí tách ra Falcuty và Secretary 1 abstract riêng, còn Staff là class riêng
+
+-> SOLID yêu cầu: open for extension, close for modification tức là khi thêm 1 tính năng mới thì logic các phần code cũ không bị thay đổi, chỉ cần add class mới, còn nếu sửa 1 tính năng cũ phần code cũ bị thay đổi trong 1 phạm vi hẹp. VD chỉ đổi trong 1 class rất gọn
+Nhưng phải hiểu cho đúng, thêm 1 tính năng mới là gì?
+VD ta có xe đạp thường và xe đạp thường đôi, xe đạp điện. Bh ta thêm xe đạp điện đôi. Về lý thuyết ta có thể thêm bất cứ 1 loại bike gì nhưng việc thêm 1 loại bike mới mà k thay đổi code cũ là 1 điều k thể. Vì bản chất khi ta lấy xe đạp từ database về xong mỗi kiểu bike có 1 kiểu hiển thị khác nhau. Ta k có cách nào k dùng if else mà lại hiển thị bike khác nhau được cả. Do đó thực tế, việc ta thêm 1 bike mới là ta đang đổi tính năng cũ chứ kp thuộc loại thêm tính năng mới. Thực tế việc thêm tính năng mới là đang thêm 1 tính năng kiểu độc lập không liên quan gì tới tính năng cũ chứ vẫn liên quan thì kiểu gì chả đổi logic nên nó chỉ gọi là sửa tính năng cũ thôi. Trong qtr code, ta luôn cố code sao cho mỗi tính năng ít bị phụ thuộc nhất có thể, để khi 1 tính năng mới thêm vào, nó ít gây ra sự thay đổi với các tính năng đã có hơn. Chứ k thể nào code theo kiểu luôn luôn độc lập dù là thêm bất cứ cái gì(k tính reflection vì code rất phúc tạp)
+
+Phân tích nếu case trên xảy ra thì: 
+Dù biết k thể cản if else, ta vẫn nên chia nhỏ liên tục vì nó sẽ giảm thiểu hơn việc đổi code khi tính năng đổi logic. Ta phải chia ra 1 bike chung và các loại bike kia kế thừa BaseBike. Màn hình hiển thị cũng chia ra mỗi bike 1 màn hình và class màn hình cũng cho kế thừa nhau. 
+Lúc này có 2 cách:
+1) Lấy từ bảng bike về tất cả, chạy vòng loop check if else loại bike nào thì gán vào màn hình bike item nào và main chứa list các màn hình đó
+2) Lấy từng bảng một từng loại bike và với từng loại ta có thể gán trực tiếp vào màn hình mà k cần if else
+=> 2 cách chọn cách nào cũng được. Cách 1 dù chỉ lấy 1 request từ database nhưng phải check if else duyệt từng bike 1 lần. Cách 2 phải lấy 3 request từ database với từng loại bike
+Nếu ngay từ đầu k tách bảng ra mà làm 1 bảng bike chung và 1 bảng màn hình chung. Bike nào thiếu trường thì lưu là rỗng còn màn hình hiển thị thì dùng if else sẽ rất khó mở rộng và mem bị giới hạn
 
 -> Liskov substitution principle(LSP):
 Class con có thể thay thế cho class cha ở mọi nơi mà k gây lỗi. 

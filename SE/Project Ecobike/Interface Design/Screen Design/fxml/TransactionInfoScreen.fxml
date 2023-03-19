@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#29ff2121" height="768.0" stroke="#00000004" strokeType="INSIDE" width="1366.0" />
+      <Label layoutX="266.0" layoutY="38.0" text="CART INFORAMTION" textFill="#065e16">
+         <font>
+            <Font name="Segoe UI" size="32.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="70.0" fitWidth="200.0" layoutX="40.0" layoutY="22.0">
+         <image>
+            <Image url="@images/Logo-01.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="599.0" layoutY="654.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="169.0" text="Confirm">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Text fill="#065e16" layoutX="360.0" layoutY="427.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expiration Date:">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="360.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Card Holder Name:  ">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="358.0" layoutY="480.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Security Code:">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="359.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Card Number:">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <TextField layoutX="657.0" layoutY="289.0" prefHeight="40.0" prefWidth="430.0" />
+      <TextField layoutX="657.0" layoutY="344.0" prefHeight="40.0" prefWidth="430.0" />
+      <TextField layoutX="657.0" layoutY="397.0" prefHeight="40.0" prefWidth="430.0" />
+      <TextField layoutX="657.0" layoutY="450.0" prefHeight="40.0" prefWidth="430.0" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#29ff2121" height="768.0" stroke="#00000004" strokeType="INSIDE" width="1366.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2cff2121" height="626.0" layoutX="834.0" layoutY="122.0" stroke="#065e16" strokeType="INSIDE" width="500.0" />
+      <Button layoutX="1011.0" layoutY="637.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="169.0" text="Return bike">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2cff2121" height="626.0" layoutX="40.0" layoutY="123.0" stroke="#065e16" strokeType="INSIDE" width="743.0" />
+      <Text fill="#065e16" layoutX="409.0" layoutY="575.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance: 700 m">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="410.0" layoutY="483.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Docks available: 16">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="409.0" layoutY="436.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total of Docks: 30">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="407.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Address: ">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="409.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bach Khoa Dock">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Text>
+      <ImageView fitHeight="172.0" fitWidth="251.0" layoutX="970.0" layoutY="123.0">
+         <image>
+            <Image url="@images/bike.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="266.0" layoutY="38.0" text="DOCK INFORMATION" textFill="#065e16">
+         <font>
+            <Font name="Segoe UI" size="32.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="196.0" fitWidth="295.0" layoutX="76.0" layoutY="337.0">
+         <image>
+            <Image url="@images/dock.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="70.0" fitWidth="200.0" layoutX="40.0" layoutY="22.0">
+         <image>
+            <Image url="@images/Logo-01.png" />
+         </image>
+      </ImageView>
+      <ScrollBar layoutX="40.0" layoutY="730.0" prefHeight="18.0" prefWidth="743.0" />
+      <Text fill="#065e16" layoutX="895.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bike 001">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="895.0" layoutY="417.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Battery: 60%">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="895.0" layoutY="482.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type: Electric bike">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="409.0" layoutY="622.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time to Dock: 15 minutes">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="407.0" layoutY="395.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Area: 30 m^2">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="410.0" layoutY="527.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bike available: 10">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

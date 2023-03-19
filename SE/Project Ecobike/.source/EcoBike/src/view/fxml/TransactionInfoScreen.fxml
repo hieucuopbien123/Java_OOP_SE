@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="790.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#29ff2121" height="790.0" stroke="#00000004" strokeType="INSIDE" width="1366.0" />
+      <Label layoutX="266.0" layoutY="38.0" text="Payment Information" textFill="#065e16">
+         <font>
+            <Font name="Segoe UI Bold" size="40.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="logo" fitHeight="70.0" fitWidth="200.0" layoutX="40.0" layoutY="22.0">
+         <image>
+            <Image url="@../../../assets/Logo-01.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="confirmbutton" layoutX="601.0" layoutY="664.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="164.0" style="-fx-background-radius: 15px;" text="Confirm">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Text fill="#065e16" layoutX="360.0" layoutY="427.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Issuing Bank">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="360.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Card Holder Name:  ">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="358.0" layoutY="538.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Security Code:">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="359.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Card Number:">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <TextField fx:id="cardholdername" layoutX="657.0" layoutY="289.0" prefHeight="40.0" prefWidth="430.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="cardnum" layoutX="657.0" layoutY="344.0" prefHeight="40.0" prefWidth="430.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="issuingbank" layoutX="657.0" layoutY="397.0" prefHeight="40.0" prefWidth="430.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <TextField fx:id="securitycode" layoutX="657.0" layoutY="508.0" prefHeight="40.0" prefWidth="430.0">
+         <font>
+            <Font size="18.0" />
+         </font></TextField>
+      <RadioButton disable="true" layoutX="358.0" layoutY="204.0" mnemonicParsing="false" selected="true" text="Pay by credit card">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </RadioButton>
+      <HBox alignment="CENTER" layoutX="358.0" layoutY="563.0" prefHeight="40.0" prefWidth="746.0">
+         <children>
+            <Text fx:id="message" fill="#e42626" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="718.34375">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Text>
+         </children>
+      </HBox>
+      <Text fill="#065e16" layoutX="360.0" layoutY="480.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CVV Code">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <TextField fx:id="cvvCode" layoutX="659.0" layoutY="450.0" prefHeight="40.0" prefWidth="430.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextField>
+   </children>
+</AnchorPane>

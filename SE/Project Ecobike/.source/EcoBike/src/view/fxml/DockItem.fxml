@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1270.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f1fcf0" height="200.0" stroke="#00000004" strokeType="INSIDE" style="-fx-arc-height: 20px; -fx-arc-width: 20px; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 20, 0, 0, 0); -fx-stroke-width: 0;" width="1270.0" />
+      <Button fx:id="viewbikebutton" layoutX="963.0" layoutY="74.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="215.0" style="-fx-background-radius: 15px;" text="View bikes">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="imageDock" fitHeight="218.0" fitWidth="281.0" layoutX="22.0" layoutY="6.0" preserveRatio="true">
+         <image>
+            <Image url="@../../../assets/dock2.jpg" />
+         </image>
+      </ImageView>
+      <Text fx:id="addressText" fill="#065e16" layoutX="376.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance: 2 km">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Text>
+      <Text id="dockname" fx:id="dockname" fill="#065e16" layoutX="367.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dai La Dock">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font>
+      </Text>
+      <Text fx:id="distanceText" fill="#065e16" layoutX="376.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance: 2 km">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Text fx:id="BikeInfo" fill="#065e16" layoutX="376.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Distance: 2 km">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <Button fx:id="returnbikebutton" layoutX="963.0" layoutY="74.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="215.0" style="-fx-background-radius: 15px;" text="Return bike here">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

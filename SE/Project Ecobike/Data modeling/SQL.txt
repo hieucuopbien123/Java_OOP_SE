@@ -1,0 +1,55 @@
+Create table Bike(
+  id int primary key,
+  dock_id int NOT NULL FOREIGN KEY REFERENCES Dock(dock_id),
+  bike_name varchar(256),
+  bike_code varchar(10),
+  license_plate varchar(32),
+  status varchar(10),
+  image varchar(256)
+)
+
+Create table Dock (
+  dock_id int primary key,
+  name varchar(256),
+  address varchar(256) NOT NULL,
+  area float,
+  number_of_bike int,
+  number_of_empty_spot int
+)
+
+Create table eBike (
+  id int primary key,
+  battery int NOT NULL,
+  max_rental_time float,
+  FOREIGN KEY id REFERENCES Bike(id)
+)
+
+Create table Invoice (
+  bike_id int NOT NULL FOREIGN KEY REFERENCES Bike(id), 
+  tx_id int NOT NULL FOREIGN KEY REFERENCES Transaction(tx_id),
+  issued_time Datetime NOT NULL,
+)
+
+Create table Transaction (
+  tx_id int primary key,
+  tx_date Datetime,
+  tx_description varchar(256),
+  tx_amount float NOT NULL,
+  rent_id int NOT NULL FOREIGN KEY REFERENCES Rental(rent_id),
+  card_number int NOT NULL FOREIGN KEY REFERENCES Card(card_number)
+)
+
+Create table Rental (
+  rent_id int primary key,
+  start_time Datetime NOT NULL,
+  end_time Datetime NOT NULL
+)
+
+Create table Card (
+  card_number int primary key,
+  cardholder_name varchar(256) NOT NULL,
+  expiration_date Datetime,
+  issuing_bank varchar(256) NOT NULL, 
+  security_code varchar(256)
+)
+

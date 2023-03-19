@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="583.0" prefWidth="1010.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#29ff2121" height="583.0" layoutX="-12.0" stroke="#00000004" strokeType="INSIDE" width="1018.0" />
+      <Label layoutX="266.0" layoutY="38.0" text="Transaction status" textFill="#065e16">
+         <font>
+            <Font name="Segoe UI" size="32.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="70.0" fitWidth="200.0" layoutX="40.0" layoutY="22.0">
+         <image>
+            <Image url="@Logo-01.png" />
+         </image>
+      </ImageView>
+      <Text fill="RED" layoutX="358.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Transaction Fail!">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Text>
+      <Button layoutX="443.0" layoutY="439.0" mnemonicParsing="false" text="GO BACK">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Text layoutX="348.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Message: Not enough Balance">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="266.0" layoutY="37.0" text="DEPOSIT INFORMATION" textFill="#065e16">
+         <font>
+            <Font name="Segoe UI" size="32.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#29ff2121" height="768.0" layoutY="-1.0" stroke="#00000004" strokeType="INSIDE" width="1366.0" />
+      <Text fill="#065e16" layoutX="472.0" layoutY="318.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer Name:       Hieu ">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="471.0" layoutY="368.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bike Rented:              Bike 001">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="472.0" layoutY="421.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bike Type:                  Electric bike">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="471.0" layoutY="469.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deposit:                     300,000 VND">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Button layoutX="430.0" layoutY="657.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="169.0" text="Confirm">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button layoutX="683.0" layoutY="657.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="326.0" text="Change Cart Info">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="70.0" fitWidth="200.0" layoutX="39.0" layoutY="21.0">
+         <image>
+            <Image url="@images/Logo-01.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

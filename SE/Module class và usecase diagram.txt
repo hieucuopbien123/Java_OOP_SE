@@ -25,7 +25,7 @@ Dependency: A ---> B thì class A có 1 hàm kiểu public void test(B b) { }. A
 Aggregation: A <>_____ B thì class A có biến kiểu private List<B> bs or có 1 biến B tùy vào loại quan hệ 1-many hay many to many. Giá trị được gán thông qua setter, hàm add. 
 Composition: A <o>___ B thì class A có biến kiểu private B b = new B(); Nó khác với cái trên là vòng đời của biến B nó phụ thuộc vào biến A vì khi A xóa thì B cũng bị xóa.
 
--> Multiplicity trong class diagram thể hiện quan hệ về số lượng giữa các đối tượng được tạo từ các class trong class diagram:
+-> Multiplicity trong class diagram thể hiện quan hệ về số lượng giữa các đối tượng được tạo từ các class trong class diagram. Số lượng instance 1 class relate to another class:
 0...1: 0 or 1
 n: buộc có n
 0...* : 0 hoặc nhiều
@@ -50,6 +50,8 @@ Có lúc quan hệ trong hàm main có 1 biến cũng coi là aggregation như t
 A ---> B thì A phụ thuộc vào B. VD Person có method hasRead nhận vào 1 params Book xác định thuộc tính của Person đã đọc cuốn sách này hay chưa thì Person --> Book hay Person phụ thuộc vào Book. Cái thuộc tính Person đã đọc sách này hay chưa phụ thuộc vào quyển sách truyền vào là sách nào.
 
 A dùng B trong 1 biến hàm, dùng B như biến temp trong hàm, dùng B như biến pubilc static đều đc 
+
+Association là phụ thuộc về mặt structural còn dependency là phụ thuộc non structural. Nếu kqtr có thể k ghi
 
 -> Inheritance/Generalization: is-a
 Kế thừa thì quan hệ "là 1 dạng của" VD: hv là 1 dạng của hcn

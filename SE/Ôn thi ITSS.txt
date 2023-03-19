@@ -1,0 +1,117 @@
+1-1) Software development process: 
+Software life cycle bắt đầu từ 1 ý tưởng mà có thể xử lý phần nào đó bởi software và kết thúc là khi software k còn được sử dụng nữa
+
+Software Implementation Process là international standard gồm:
+1. Software Requirements Analysis Process
+2. Software Architecture Design Process
+3. Software Detailed Design Process
+4. Software Construction Process
+5. Software Integration Process
+6. Software Qualification Testing Process
+
+UML
+
+1-2) Version Control
+Lock - Modify - Unlock: Muốn modify, phải lock lại. Chỉ 1 người được chỉnh sửa trong 1 lúc nên họ phải làm lần lượt vì k có merge
+Copy - Modify - Merge
+
+2) Hiểu cách vẽ usecase diagram
+Viết usecase specification:
+Basic flow:
+Alternative flow: odd case, error handling, regular variants
+
+Scenario là 1 instance của usecase. VD usecase 10 nhánh event khác nhau, 1 scenario là 1 TH cụ thể sẽ đi vào 1 hướng nào đó
+
+Subflow: khi bị chung nhiều thì gom vào 1 subflow. Vd alternative flow và basic flow có vài chỗ đều gọi đến 1 subflow "Select Courses" chẳng hạn
+
+Hiểu cách vẽ Activity Diagram
+
+Precondition là state của system trước khi usecase start  X  Postcondition
+
+Ngoài usecase specification, còn 1 loại nữa là Glossary: 1 bản docs giải thích nghĩa các từ khóa được dùng trong project vì 1 dự án sẽ có nhiều chỗ dùng từ ngữ đặc trưng mà người ngoài vào đọc k hiểu
+
+Ngoài ra còn có supplementary sepecification: bản docs chứa các functional requirement và nonfunctional requirement mà usecase diagram k có. VD có thể có các tiêu chuẩn về response time performance hay các general requirement chung áp dụng với mọi usecase
+
+3-1) Architecture design
+
+Analysis class: 
+Boundary class: actor - <boundary> - control tức nó nằm ở trung gian, gắn với 1 actor trong 1 usecase vì actor k tương tác trực tiếp mà thông qua nó. VD: user interface class chứa các thứ mà user có thể gọi
+Entity class: control - entity là class mà control gọi để làm model lưu giữ data
+Control class: thực hiện behavior
+
+Interaction Diagram còn có: sequence, communication diagram, timing diagram, interaction overview diagram
+
+Convert từ communication diagram sang class diagram:
+VD: :client _____x________> :Supplier
+Thì class client _____ class supplier có hàm x()
+
+3-2) Architectural pattern:
+Có nhiều mô hình như MVC, microservice
+
+4) Identify Design Elements:
+Cái analysis classes phải được chuyển đổi thành dạng chi tiết hơn là IDE có rõ các phương thức kèm visibility, có quan hệ rõ ràng giữa các class chứ ban đầu chỉ là các đường association
+Class và package
+
+5) Transition diagram: chuyển màn hình, pop up dependent, pop up independent, chuyển sang dependent screen
+Screen specification
+
+Việc chia hệ thông lớn thành nhiều subsystem. VD 1 classA có nhiều hàm con làm các chức năng khác nhau trong cùng 1 module. Ta cho mỗi hàm vào 1 class riêng và 1 cụm class đó biến thành 1 subsystem cung ra 1 interface cho các system khác gọi
+
+Sequence diagram có input gate và output gate
+
+6) Functionally related classes: khi đổi 1 class mà gây ra sự thay đổi trên class khác; 2 class có tương tác or truyền message phức tạp
+
+1 class optional và 1 class mandatory k nên ở chung package
+
+Để đảm bảo coupling, package ở lower level k phụ thuộc vào package ở higher level và cx k được skip layer
+
+Sequence diagram: A ___x()____> B thì B có x()
+
+Có State Pattern là 1 design pattern giúp quản lý khi 1 class có nhiều state chuyển qua lại
+
+7) 
+Single Responsibility Principle (SRP)
+Separation of Concerns
+Dependency Injection
+Facade Pattern
+
+Open/Closed Principle (OCP)
+Inheritance
+Strategy Pattern
+Dependency Inversion Principle
+
+Liskov Substitution Principle (LSP)
+Interface Segregation Principle
+Composition
+
+Interface Segregation Principle (ISP)
+Interface Segregation Principle
+Dependency Inversion Principle
+
+Dependency Inversion Principle (DIP)
+Dependency Injection
+Inversion of Control
+
+
+
+The SOLID principles are a set of guidelines for writing clean and maintainable code. Here are some object-oriented techniques/principles that can be used to improve the design so that it will not violate the SOLID principles:
+
+Single Responsibility Principle (SRP): To ensure that a class has only one responsibility, you can use the following techniques:
+Separation of Concerns: This involves breaking down a large problem into smaller, manageable parts, each of which has its own responsibility.
+Dependency Injection: This allows you to separate the responsibilities of a class and inject dependencies from outside the class.
+Facade Pattern: This involves creating a facade or a wrapper around a complex system to provide a simplified interface.
+Open/Closed Principle (OCP): To ensure that a class is open for extension but closed for modification, you can use the following techniques:
+Inheritance: This allows you to create subclasses that inherit properties and methods from the parent class and add new functionality without modifying the parent class.
+Strategy Pattern: This involves defining a family of algorithms, encapsulating each one, and making them interchangeable. This allows you to add new algorithms without modifying the existing ones.
+Dependency Inversion Principle: This involves decoupling the code by introducing an abstraction layer between the high-level and low-level modules.
+Liskov Substitution Principle (LSP): To ensure that subtypes can be substituted for their base types, you can use the following techniques:
+Interface Segregation Principle: This involves creating interfaces that are specific to the needs of the client, rather than creating a single interface for all clients.
+Composition: This involves composing objects from smaller objects to avoid inheritance and ensure that the objects are interchangeable.
+Interface Segregation Principle (ISP): To ensure that clients only depend on the interfaces they use, you can use the following techniques:
+Interface Segregation Principle: This involves creating interfaces that are specific to the needs of the client, rather than creating a single interface for all clients.
+Dependency Inversion Principle: This involves decoupling the code by introducing an abstraction layer between the high-level and low-level modules.
+Dependency Inversion Principle (DIP): To ensure that high-level modules are not dependent on low-level modules, you can use the following techniques:
+Dependency Injection: This allows you to inject dependencies from outside the class, rather than creating them inside the class.
+Inversion of Control: This involves handing over control of the flow of the program to a framework or container, which manages the dependencies and creates the objects.
+
+

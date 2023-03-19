@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="790.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#29ff2121" height="790.0" stroke="#00000004" strokeType="INSIDE" width="1366.0" />
+      <Label layoutX="266.0" layoutY="38.0" text="BIKE INFORAMTION" textFill="#065e16">
+         <font>
+            <Font name="Segoe UI Bold" size="40.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2cff2121" height="626.0" layoutX="46.0" layoutY="122.0" stroke="#065e16" strokeType="INSIDE" width="879.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2cff2121" height="626.0" layoutX="966.0" layoutY="122.0" stroke="#065e16" strokeType="INSIDE" width="368.0" />
+      <Text fx:id="bikecode" fill="#065e16" layoutX="470.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bike 001">
+         <font>
+            <Font name="System Bold" size="40.0" />
+         </font>
+      </Text>
+      <Text fx:id="biketype" fill="#065e16" layoutX="473.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="License plate:">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fx:id="statusText" fill="#065e16" layoutX="476.0" layoutY="375.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status: Available">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fill="#065e16" layoutX="63.0" layoutY="594.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rental time: ">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fx:id="price" fill="#065e16" layoutX="485.0" layoutY="586.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Estimated cost: ">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fx:id="depositedamount" fill="#065e16" layoutX="487.0" layoutY="633.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Deposited amount: 100,000 VND">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Button fx:id="returnbikebutton" layoutX="1068.0" layoutY="436.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="165.0" style="-fx-background-radius: 15px;" text="Return bike">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="logo" fitHeight="70.0" fitWidth="200.0" layoutX="40.0" layoutY="22.0">
+         <image>
+            <Image url="@../../../assets/Logo-01.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bikeimage" fitHeight="302.0" fitWidth="391.0" layoutX="63.0" layoutY="236.0" preserveRatio="true">
+         <image>
+            <Image url="@../../../assets/singlenorm.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="licenseplate" fill="#065e16" layoutX="472.0" layoutY="278.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type: Electric bike">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fx:id="customername" fill="#065e16" layoutX="476.0" layoutY="426.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Customer: ">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Text fx:id="cardnum" fill="#065e16" layoutX="476.0" layoutY="474.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Card number: ">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfeefc" height="53.0" layoutX="224.0" layoutY="559.0" stroke="BLACK" strokeType="INSIDE" width="176.0" />
+      <Text fx:id="rentaltime" fill="#065e16" layoutX="261.0" layoutY="596.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00:00:00">
+         <font>
+            <Font size="28.0" />
+         </font>
+      </Text>
+      <Button fx:id="pausebutton" layoutX="1068.0" layoutY="356.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="165.0" style="-fx-background-radius: 15px;" text="Paused time">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

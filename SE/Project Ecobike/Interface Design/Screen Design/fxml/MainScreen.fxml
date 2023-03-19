@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#29ff2121" height="132.0" stroke="#00000004" strokeType="INSIDE" width="1366.0" />
+      <ImageView fitHeight="70.0" fitWidth="200.0" layoutX="36.0" layoutY="21.0">
+         <image>
+            <Image url="@images/Logo-01.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="637.0" fitWidth="1366.0" layoutY="132.0">
+         <image>
+            <Image url="@images/Map-01.png" />
+         </image>
+      </ImageView>
+      <TextField layoutX="370.0" layoutY="48.0" prefHeight="36.0" prefWidth="627.0" />
+      <Button layoutX="1045.0" layoutY="44.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="108.0" text="Search" />
+   </children>
+</AnchorPane>
