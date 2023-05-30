@@ -1,0 +1,165 @@
+State pattern
+
+Vấn đề: kiến trúc chuẩn để chuyển qua lại giữa các screen. Splash screen hiện ra 1 lúc r tự chuyển. Ấn nút để chuyển đổi sang screen bất kỳ hoặc việc đổi được thực hiện ở bất cứ đâu. Tiến hoặc lùi qua lại với các screen trước đó. Có thể tùy chọn khi mở 1 screen mới thì tạo mới và ẩn screen thì xóa luôn hoặc hiện hay ẩn thì k xóa mà tái sử dụng, có thể kết hợp cả 2 loại. Tùy biến việc nhảy cóc screen sang 1 screen đã từng hiện trước đó 2 bước và hiển thị 1 loại data khác. Mỗi screen gắn với 1 state và state đổi thì screen cũng tự đổi theo.
+
+
+
+# Liquity Frontend
+Trong web như react thì việc chuyển màn hình có thể thực hiện ở bất cứ đâu nhờ cơ chế global hook.
+
+Nhưng ở cùng 1 page mà chuyển đổi qua lại ẩn hiện các component, họ dùng biến trạng thái và chuyển trạng thái rất mượt.
+Đầu tiên phủ từng page 1 cái provider lưu state view. Component page chỉ cần switch view là cái gì thì hiển thị cái gì. Bên trong Provider cung 1 hàm switchView. 
+Hàm switch view: Tạo 1 object ánh xạ (view hiện tại)[action] = (view mới) thì chuyển page nào chỉ cần dispatch action rồi bên trong tự đổi view thành view nào dựa vào cái object kia là được.
+
+
+
+# Ecobike JavaFx
+VD đang ở màn hình A, muốn chuyển sang màn hình B, r quay lại màn hình A khi ấn nút
+=> Ta tạo ra màn hình A và show -> ta tạo ra màn hình B truyền A vào làm aggregation và show B -> xong ấn nút thì gọi A show ra vì A là 1 thuộc tính của B rồi
+=> Với dự án Ecobike nhỏ, ta tùy ý tạo và gán aggregation loạn xạ như v. Nhưng nó chả tuân theo 1 nguyên tắc nào cả, hiệu quả nhưng rất rối. Càng nhiều màn hình về sau sẽ càng nhiều biến aggregation
+
+
+
+# State Pattern
+Thuộc nhóm hành vi khi 1 object thay đổi trạng thái tùy thuộc vào điều kiện nào. Vd ta có 1 object perform nhiều behavior khác nhau tùy vào state hiện tại của nó bị tác động bởi các thứ khác. VD đèn giao thông
+
+-> VD: máy bán hàng có 3 trạng thái: 1 là chưa có tiền, 2 là đã nhận tiền, 3 là đã bán xong
+Xác định các điều kiện tùy TT: chưa có tiền sẽ k trả hàng, đã nhận tiền thì có thể trả hàng, đã bán xong thì k thể trả hàng nữa
+
+Tạo interface: 
+public interface VendingMachineState {
+    void insertMoney(int amount);
+    void dispense();
+}
+
+Tạo 3 class trạng thái implements interface và thực hiện chuyển trạng thái tùy đk. VD:
+public class NoMoneyState implements VendingMachineState {
+    private VendingMachine vendingMachine; 
+    public NoMoneyState(VendingMachine vendingMachine) {
+        this.vendingMachine = vendingMachine;
+    }
+    public void insertMoney(int amount) {
+        vendingMachine.setMoneyAmount(amount);
+        vendingMachine.setState(vendingMachine.getHasMoneyState());
+    }
+    public void dispense() {
+        System.out.println("Please insert money first.");
+    }
+}
+public class HasMoneyState implements VendingMachineState {
+    private VendingMachine vendingMachine;
+    public HasMoneyState(VendingMachine vendingMachine) {
+        this.vendingMachine = vendingMachine;
+    }
+    public void insertMoney(int amount) {
+        vendingMachine.setMoneyAmount(vendingMachine.getMoneyAmount() + amount);
+    }
+    public void dispense() {
+        vendingMachine.setMoneyAmount(vendingMachine.getMoneyAmount() - vendingMachine.getSnackPrice());
+        if (vendingMachine.getMoneyAmount() > 0) {
+            vendingMachine.setState(vendingMachine.getHasMoneyState());
+        } else {
+            vendingMachine.setState(vendingMachine.getNoMoneyState());
+        }
+        System.out.println("Dispensing snack...");
+    }
+}
+
+public class SoldState implements VendingMachineState {
+    private VendingMachine vendingMachine;
+    public SoldState(VendingMachine vendingMachine) {
+        this.vendingMachine = vendingMachine;
+    }
+    public void insertMoney(int amount) {
+        System.out.println("Please wait, we're already giving you a snack.");
+    }
+    public void dispense() {
+        System.out.println("Error: vending machine is already dispensing a snack.");
+    }
+}
+
+Ở đây ta tái sử dụng state chỉ khởi tạo 1 lần. Thay vì setState(new ...) ta tạo sẵn trong class gốc và cho getter lấy ra để setState như trên
+public class VendingMachine {
+    private VendingMachineState noMoneyState;
+    private VendingMachineState hasMoneyState;
+    private VendingMachineState soldState;
+    
+    private VendingMachineState state;
+    
+    private int moneyAmount;
+    private int snackPrice = 100;
+    
+    public VendingMachine() {
+        noMoneyState = new NoMoneyState(this);
+        hasMoneyState = new HasMoneyState(this);
+        soldState = new SoldState(this);
+        
+        state = noMoneyState;
+    }
+    
+    public void insertMoney(int amount) {
+        state.insertMoney(amount);
+    }
+    
+    public void dispense() {
+        state.dispense();
+    }
+    
+    public void setState(VendingMachineState state) {
+        this.state = state;
+    }
+    public VendingMachineState getState() {
+        return state;
+    }
+    public VendingMachineState getNoMoneyState() {
+    	return noMoneyState;
+    }
+    public VendingMachineState getHasMoneyState() {
+        return hasMoneyState;
+    }
+    public VendingMachineState getSoldState() {
+        return soldState;
+    }
+    public int getMoneyAmount() {
+    	return moneyAmount;
+    }
+    public void setMoneyAmount(int moneyAmount) {
+        this.moneyAmount = moneyAmount;
+    }
+    public int getSnackPrice() {
+        return snackPrice;
+    }
+}
+
+Class Main dùng ez:
+public static void main(String[] args) {
+    VendingMachine vendingMachine = new VendingMachine();
+    vendingMachine.insertMoney(50);
+    vendingMachine.insertMoney(25);
+    vendingMachine.insertMoney(10);
+
+    vendingMachine.dispense();
+
+    vendingMachine.insertMoney(100);
+    vendingMachine.dispense();
+}
+=> VD này thể hiện rõ ràng mỗi state có 1 class riêng và việc xử lý từng state hay chuyển đổi qua lại giữa các state được làm độc lập ở từng class state mà logic xử lý k nằm trong VendingMachine.
+
+
+
+# ChatApp Qt
+Dùng state pattern để chuyển đổi giữa các màn hình. Chẳng hạn có 3 màn hình: login, logup, chat
+
+Làm chuẩn state pattern giống vending machine:
+1 class MainLogic chứa 3 class màn hình. Logic từng màn hình xử lý trong từng class màn hình. Để chuyển màn, ta lại truyền cả biến MainLogic vào v từng màn hình và gọi hàm chuyển màn của MainLogic là được.
+Tùy vào vc màn hình chỉ có 1 instance hay tạo r xóa liên tục mà ta tạo aggregation hay new thôi. 
+
+Vc này nó không giống với Vending Machine vì mỗi class state làm 2 việc đơn giản là dispense và insertMoney. Ở đây mỗi màn hình có 1 lượng logic xử lý khổng lồ với hàng đống hàm. Khi đó class MainLogic thực sự lại k làm gì cả mà chỉ có chuyển state nên ta nên đặt cho nó là class ScreenManager.
+
+=> Khá giống Strategy pattern khi mà class chung của strategy set(new) với cái nào nó dùng vì 1 thứ chỉ có 1 strategy thì ở đây class chung có thể có hàng loạt biến state cũng được vì tính tái sử dụng cần hơn. Nhưng chung quy lại cách chia class ở các example đều chuẩn SOLID
+
+
+=> Chốt lại: Khi 1 hành động có nhiều trạng thái khác nhau. Ta nên tạo từng class riêng cho từng trạng thái (kế thừa 1 class BaseState), rồi class gốc là X chứa tất cả các trạng thái đó sẽ có hàm setState(state){this.state=state;} để chuyển state. Từng class state sẽ xử lý mọi thứ liên quan tới state đó và nhận vào constructor biến X để gọi X.setState() khi cần chuyển state.
+Tùy vào state tồn tại mãi hay mỗi lần muốn tạo mới mà dùng kiểu trên or gọi new liên tục.
+
+

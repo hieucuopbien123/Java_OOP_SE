@@ -1,7 +1,7 @@
 Design pattern:
 
 
-#Singleton Pattern:
+# Singleton Pattern:
 Singleton Pattern đảm bảo 1 lớp chỉ có 1 instance duy nhất, hạn chế việc khởi tạo 1 class. Cung cấp 1 điểm truy cập toàn cục cho lớp. Chính singleton pattern cũng được sử dụng trong các pattern khác như Abstract Factory, Builder,.. hay các lớp java như java.lang.Runtime,..
 Triển khai: dùng private constructor của class để đảm bảo class khác k thể truy cập vào constructor và tạo instance mới; tạo 1 biến private static để đảm bảo duy nhất dùng trong class đó thôi; Để các class khác truy cập vào global instance này thì cần 1 public static method trả về giá trị của instance. Bản thân nó có rất nhiều cách triển khai
 -> Eager initialization
@@ -126,7 +126,7 @@ rồi gán từng trường a2 bằng a1 với a2.setData(a1.data);
 Nếu dùng copy constructor cũng được:
 A a2 = new A(a1);
 a2.setOtherData(...);
-nhưng nếu a1 sửa thì logic setOtherData phải đổi, và sửa nhiều chỗ
+nhưng nếu a1 sửa thì logic setOtherData phải đổi, và sửa nhiều chỗ => hiển nhiên mà
 
 Prototype Pattern cung 1 cách thức clone tốt nhất:
 Level1: là dùng hàm clone ngay trong A nhận biến kiểu A và gọi các hàm set bên trong sẽ đảm bảo tính đóng gói che dấu tốt
@@ -166,7 +166,7 @@ public class Shirt implements ClothingItem {
    @Override
    public ClothingItem clone() {
       try {
-         return (Shirt) super.clone();
+         return (Shirt) super.clone(); // nếu k có sẵn hàm clone thì phải làm thủ công
       } catch (CloneNotSupportedException e) {
          return null;
       }
@@ -231,6 +231,7 @@ public class ClothingRegistry {
 }
 
 => Dùng bên ngoài rất tiện, có thể clone ra bao nhiêu tùy ý
+=> Cái clone registry tự nghĩ ra chứ k thuộc pattern này, ta đang phân tách single responsibility cho nó
 ClothingRegistry registry = new ClothingRegistry();
 
 ClothingItem redShirt = registry.getClone("RedShirt");
@@ -419,6 +420,10 @@ computer.start();
 computer.shutdown();
 
 => Luồng chính chạy quy trình nhiều lần với ComputerFacade được. Sửa quy trình thì chỉ sửa trong class đó thôi. Luồng chính k cần có biến CPU, Memory gì cả. Ẩn được sự phức tạp trên luồng chính, đưa nó vào duy nhất class ComputerFacade
+
+
+
+# SOLID
 
 
 

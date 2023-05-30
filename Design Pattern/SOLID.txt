@@ -1,0 +1,120 @@
+SOLID:
+
+
+
+# Làm sao đạt được SRP
+Class chỉ có 1 lý do để đổi, 1 class chỉ làm 1 nv. Cơ chế để tùy biến mà vẫn đạt SRP
+
+=> Khi ta tạo ra nhiều class làm từng nhiệm vụ, phải có 1 class gom chung lại. Như vậy chẳng phải class gom đó sẽ làm nhiều hơn 1 việc => sai. VD:
+public interface Notification {
+    void sendNotification();
+}
+
+public class EmailNotification implements Notification {
+    @Override
+    public void sendNotification() {
+        // Send email notification
+    }
+}
+
+public class SmsNotification implements Notification {
+    @Override
+    public void sendNotification() {
+        // Send SMS notification
+    }
+}
+
+public class PushNotification implements Notification {
+    @Override
+    public void sendNotification() {
+        // Send push notification
+    }
+}
+
+public class NotificationManager {
+    private List<Notification> notifications;
+
+    public NotificationManager(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public void sendNotifications() {
+        for (Notification notification : notifications) {
+            notification.sendNotification();
+        }
+    }
+}
+=> NotificationManager k vẫn tuân thủ SRP. Điều quan trọng khi ta gom các class lại là phải tuân thủ tính chất thứ 2 là OCP
+
+=> Nếu NotificationManager lại làm thêm 1 task gì đó nữa cùng cấp với sendnotification thì lại phá vỡ SRP? = sai
+Thực tế ta sẽ k viết nó vào NotificationManager mà lại tạo class mới là được:
+public class NotificationManager {
+    private List<Notification> notifications;
+
+    public NotificationManager(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    public void sendNotifications() {
+        for (Notification notification : notifications) {
+            notification.sendNotification();
+        }
+    }
+}
+
+public class NotificationPreferenceManager {
+    public void updateNotificationPreferences(User user, NotificationType type, boolean enabled) {
+        // update user notification preferences
+    }
+
+    public boolean isNotificationEnabled(User user, NotificationType type) {
+        // check if user has enabled notifications of the given type
+        return true;
+    }
+}
+
+=> Nếu 2 tính năng NotificationPreferenceManager NotificationManager cần gom lại thì lại tạo class combine nó:
+public class NotificationService {
+    private NotificationManager notificationManager;
+    private NotificationPreferenceManager preferenceManager;
+
+    public NotificationService(NotificationManager notificationManager, NotificationPreferenceManager preferenceManager) {
+        this.notificationManager = notificationManager;
+        this.preferenceManager = preferenceManager;
+    }
+
+    public void sendNotifications(User user) {
+        if (preferenceManager.isNotificationEnabled(user, NotificationType.EMAIL)) {
+            notificationManager.sendEmailNotification(user.getEmail());
+        }
+
+        if (preferenceManager.isNotificationEnabled(user, NotificationType.SMS)) {
+            notificationManager.sendSmsNotification(user.getPhoneNumber());
+        }
+
+        // etc.
+    }
+
+    public void updateNotificationPreferences(User user, NotificationType type, boolean enabled) {
+        preferenceManager.updateNotificationPreferences(user, type, enabled);
+    }
+}
+
+=> Class này lại vi phạm SRP ? => sai vì OCP thỏa mãn, 2 tính năng liên quan chặt tới nhau nên vẫn đúng SRP => Nếu 2 tính năng mà hoàn toàn xa lạ thì sẽ kbh được combine chung 1 class, cứ như thế tính SRP kbh bị phá vỡ. Như kiểu: A B C D E F hoàn toàn xa lạ
+AB => G
+CD => H
+EF => I
+
+GH => K
+I => I
+
+combine dần vào các class khi đó G H lại có quan hệ chặt chẽ với nhau thì gom dược. Cuối cùng quy hết về 1 mối
+Đến cuối cùng, k thiếu các kỹ thuật giúp đảm bảo SR. Vd: DI
+Trong Startup của C#, ta có thể thêm vô số service vào ứng dụng và dùng ở bất kỳ controller nào mà k vi phạm SRP dù các services lạ hoắc, chả liên quan gì tới nhau
+Trong các class controller đó, ta add được nhiều service lạc loài vào và có thể nói nó làm SRP là đều serve các url của controller đó 
+
+
+
+
+
+
