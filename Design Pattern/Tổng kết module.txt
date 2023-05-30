@@ -378,6 +378,8 @@ System.out.println("In-person order discount: " + inPersonOrderDiscount);
 
 => Thêm rules cho order, thêm handler vào chain thoải mái mà k modifier code cũ
 
+-> ref tới Chain of Responsibility Pattern
+
 
 
 # Facade Pattern
