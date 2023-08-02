@@ -350,6 +350,65 @@ Nếu dùng join từng thread 1 ngay sau khi start thread đó thì thành đ�
 
 
 
+# Project EcoBike
+-> Bảo mật dứng dụng desktop:
+Bảo mật: Khác với ứng dụng web, ứng dụng desktop an toàn hơn vì mọi thứ bị đóng và k thể thay đổi các biến hay thuộc tính của ứng dụng bằng các tool debug bình thường. Nhưng chắc nó vẫn bắt được các API fetch đi và về thôi. Cái API đó thì server phải làm mới là bảo mật và có các PP bảo mật riêng của server. Client được fetch API thoải mái
+
+Còn về connect database trực tiếp từ client. Khi làm web, đầu tiên ta tạo 1 server tương tác với database ở tk admin thì có mọi quyền. Sau đó ta config chỉ cho tương tác với database bằng tk admin, các tk khác k được truy cập. tk admin được dùng ở 1 server để bảo mật và mọi client truy cập vào server đó đều kb được. Server sẽ có các biện pháp bảo mật chặt chẽ với từng kiểu request đến từ client. 
+Còn ứng dụng desktop lại cho client tương tác trực tiếp với database remote (ở đây demo là local nhưng thực tế ứng dụng người dùng cài vào r tương tác là remote) nhưng điều này là hoàn toàn bth và là bảo mật:
+Thứ nhất: dù là client side nhưng desktop app vẫn có cơ chế login như bth để đảm bảo 1 người k làm ảnh hưởng data của người khác
+Thứ 2: TK mà client sử dụng để tương tác với database luôn bị hạn chế nhiều so với admin, họ k thể phá hỏng database được
+Thứ 3: Ta tưởng người dùng bắt được các lệnh tương tác database thì sẽ biết được địa chỉ database đó như request http rồi thay đổi tham số hay gửi hẳn request để phá database => thực tế code các ứng dụng desktop khi đóng gói lại nó thành dạng object code là code level thấp để hệ điều hành chạy. Vc tìm được các api nó dùng đã là khó, chưa kể khi connect với database ta còn chưa hiểu cơ chế fetch API nó bắn ra có như REST hay không nữa. Nch là rất khó để làm được. Nguy hiểm duy nhất là SQL Injection phải chống ngay từ phía client.
+Thứ 4: Cơ chế khác với REST API vì tab network có gì thì gửi lại kèm mọi tham số y hệt. Nhưng database thì đầu tiên phải establish connection qua driver rồi mới tương tác được rất phức tạp. Do code đã sang mã máy nên hacker còn chả có tk, mk để mà connect
+Ta chỉ sợ bị hack khi user thấy được các lệnh gọi tới database, từ đó tạo 1 con bot khác gọi các lệnh tương tự với tham số tùy ý làm ảnh hưởng tới database nhưng điều này là k thể
+
+-> Cấu trúc thư mục dự án JavaFx chuẩn OOP:
+Về JavaFx: Khi học làm 1 kiểu app, ta phải đạt đến mức custom được tùy ý, phải hiểu chức năng chính của app đó. VD ở đây ta phải hiểu được cách code để có thể navigate từ 1 page đến bất cứ page nào và có thể thiết kế mọi thứ trong 1 page. Bất cứ khi nào làm app cx phải hiểu điều này
+Về OOP: 
+- Navigate từ page này sang page khác, ta truyền this từ cha sang con để có gì gọi ngược lại trang cũ bằng cách dùng biến vừa truyền đó. Tức mọi page đều chứa biến lưu 1 page có thể navigate ngược về. Để làm được phải dùng 1 BaseScreen chung lưu mọi thứ chung của các page để truyền nó vào các page khác, khi cần gọi thì cast sang chuẩn.
+- Để có biến global tạo 1 class toàn static variable là xong, giống trong game có common ấy. Do 1 page lưu biến các page nó có thể navigate tới nên nó có thể thay đổi giá trị của page khác bằng cách dùng các biến đó gọi hàm ez.
+- Để query database hay fetch API, ta tạo ra model entity chứa thực thể thực sự và nó chứa các hàm đi kèm để gọi query liên quan tới nó. Khi cần query cứ new rồi gọi hàm lấy data ra mà thôi. Lợi dụng GC. Mọi entity đều có class riêng, entity nào k có query thì class chỉ cần có thuộc tính getter setter cũng được
+- Tương tự fetch API ta dùng như 1 module tách riêng hoàn toàn. 1 class nhận các input và thực hiện query API. Thằng nào muốn call api thì khởi tạo new truyền vào input rồi gọi các hàm API là xong. Đoạn code API tách ra hàm riêng như hướng thủ tục thì ở đây cho class riêng là xong
+- Các class exception, view, config có file riêng. 
+
+-> Connect DB: 
+Ta từng connect mongodb vào nodejs và nó tiện hơn rất nhiều SQL
+
+Connect SQL vào nodejs, Java hay C# hay Qt(C++) đều chỉ có 1 cơ chế chung, các bước chuẩn là:
+Cài SSMS chứa cả SQL Server (cài bản express ở phiên bản nào cũng được) -> Khi cài xong sẽ hiển thị popup SSMS như bth -> K tắt installer đi mà chờ cài xong thì bấm conncet now -> Vào computer management của SQL Server và bật cả 3 dịch vụ lên -> riêng TCP/IP chuột phải vào kéo xuống cuối điền 1433 -> Vào services chạy các dịch vụ SQL cần thiết -> Vào SMSS tạo 1 tk và properties grant cho tk đó và set mk -> right click và server và set permission cho phép đăng nhập bằng tk mk -> right click server để restart (phải run as admin mới được) -> bật lại các dịch vụ nếu nó bị tắt đi
+-> Trong các ngôn ngữ ta dùng 1 cái db driver(C# ẩn bước này) -> khởi tạo connection thông qua 1 connection string hoặc 1 object tối thiểu chứa: Địa chỉ DB, tên DB, tk, mk, trusted security(đôi khi cần)
+
+-> Fetch API:
+Khi tìm hiểu 1 ngôn ngữ ở 1 mảng mới, cần làm chủ tất cả các thứ sau:
+
+Trong 1 ứng dụng bth phía frontend tối thiểu cần:
+Fetch được API từ 1 server RESTful API: đủ các lệnh GET POST DELETE UPDATE; đủ các phương thức post data như kèm file, image, text, và kết hợp; đủ các phương thức như body, formdata, query params; dùng phương thức xác thực Bear Token;
+Fetch được API bằng GraphQL, fetch bằng GraphQL kèm tham số
+Kết nối được socket từ client tới server đảm bảo sự tối ưu.
+1 số ứng dụng frontend yêu cầu phải kết nối tương tác được với database
+1 số ứng dụng frontend như ứng dụng web3 yêu cầu phải tương tác vói smart contract các thứ phức tạp hơn, lại chia thành nhiều loại: connect ví, call getter, multicall getter, call setter, nhiều kiểu sign message
+1 số ứng dụng yêu cầu frontend chủ động connect bên thứ 3 như firebase, các nền tảng khác để cung các tính năng như xác thực, verify,...
+=> Có nhiều kỹ thuật frontend khác k liên quan như: debounce, throttle, cache, optimization, short polling, long pooling,...
+
+Trong 1 ứng dụng bth phía backend tối thiểu cần:
+Dựng được server xử lý và trả data cho frontend client đầy đủ, gồm cả xác thực
+Dùng được socket liên kết realtime cho các client 
+Phải tương tác được với database đủ tính năng
+Phải crawl data từ nguồn khác, phải subscribe event từ nguồn khác để bắt được sự thay đổi
+Kết nối với các bên thứ 3 cung các dịch vụ như cloudinary
+Tự cung được các dịch vụ như server ảnh
+=> Tùy bài toán đặt ra mà phải xử lý rất nhiều thứ lạ như: mã hóa, atomic transaction, cache redis, tối ưu hóa tốc độ, chống các lỗi bảo mật như sql injection,... 
+Các vai trò khác cũng ảnh hưởng tới backend như database design sao cho atomic, hay devops dựng các load balancer
+
+=> Trong các ngôn ngữ lập trình web hay là ứng dụng đều có các tính năng trên, chỉ là cách code khác nhau, dùng các công cụ khác nhau thôi
+
+-> MVC:
+Với cấu trúc dự án có giao diện desktop như này thì nó thg kiểu 1 file giao diện gắn với 1 file controller làm các thứ trong giao diện đó. Model là những class riêng và trong controller có model để thực hiện các hàm query từ instance của model. 
+Trong React cũng tương tự nhưng file giao diện chính là controller luôn và nó kp hương đối tượng nên k có model
+=> Đây là flow cơ bản mà ai cũng phải biết. Sau đó tùy bài toán mà áp dụng thêm các design pattern phù hợp
+
+
+
 # Other:
 -> Native keyword:
 Từ khóa native chỉ dùng cho method định nghĩa 1 hàm được triển khai bằng ngôn ngữ khác như C++. Nó có thể dùng để tăng hiệu suất hệ thông, giúp chương trình giao tiếp ở mức máy, bộ nhớ or sử dụng các mã nguồn có sẵn nhưng k đc viết bằng java. VD: public native int intMethod(int i);
@@ -377,4 +436,15 @@ Casting Wrapper class, equals và ==, tham chiếu hay giá trị
 Collection, thao tác string, thao tác file, ngày giờ
 Class, interface, abstract class, static
 Thread, lập trình GUI
+
+-> Tomcat là một máy chủ ứng dụng web mã nguồn mở được phát triển bởi Apache Software Foundation. Nó được viết bằng Java và cung cấp một môi trường thực thi cho các ứng dụng web Java. Tomcat là một phần của bộ công cụ Java EE và được sử dụng rộng rãi trong các ứng dụng web Java.
+
+Khi tải và cài đặt Tomcat sẽ có một máy chủ web đang chạy trên máy tính có thể sử dụng để triển khai các ứng dụng web Java trên nó.
+
+Tomcat cung cấp một số tính năng quan trọng, bao gồm:
+Hỗ trợ các giao thức HTTP và HTTPS
+Hỗ trợ các ứng dụng web Java Servlet và JavaServer Pages (JSP)
+Hỗ trợ các phiên bản khác nhau của Java EE
+Hỗ trợ các công cụ quản lý và giám sát ứng dụng web
+
 
